@@ -1,4 +1,6 @@
-import _ from 'lodash';
+import GameView from "./game-view.js";
 
-const canvas = document.getElementById('canvas');
-const ctx = 
+document.addEventListener("DOMContentLoaded", () => {
+  const canvas = document.getElementById('game-canvas');
+  new GameView(canvas);
+});
