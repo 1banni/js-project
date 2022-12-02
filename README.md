@@ -9,13 +9,14 @@ The user’s perspective will be a fixed aerial view of the map. While appearing
 This game will include the following features:
 - Drive around the map in go carts with WASD or other keys
 - Launch projectiles at opponent(s)
-- Perks located in random locations on the map; 
+- Perks located in random locations on the map;
 - Collision detection (projectiles colliding with go carts)
 
 Other functionality
 - This project will include instructions and a README.
 - Navigate the game menu, select settings, and start game
 - See meters or graphics that represent players' remaining health/lives
+- Player's ability to make sharp turns will vary with speed
 
 ## WireFrame
 ![Screenshot](Homepage.png)
@@ -29,6 +30,8 @@ Other functionality
 - Monday: Resume work on collision detection/response. Create projectiles class - have them spawn on the map and be added to a player's inventory upon contact. allow player to shoot and let projectiles bounce wall to wall, expiring after a certain time.
 
 - Tuesday: Create all view objects that aren't the game canvas (loading screen, navigation menu, game option selection, (optional) sound button and music)
+
+- Wednesday: Build perks in (similar to projectiles). Finish any gaiting items, and  tweak/improve functionality where appropriate.
 
 - Thursday: Deploy to GitHub pages. Convert proposal README to production README if time allows.
 
