@@ -9,7 +9,7 @@ The user’s perspective will be a fixed aerial view of the map. While appearing
 This game will include the following features:
 - Drive around the map in go carts with WASD or other keys
 - Launch projectiles at opponent(s)
-- Perks located in random locations on the map;
+- Players drive over randomly appearing projectiles to acquire
 - Collision detection (projectiles colliding with go carts)
 
 Other functionality
@@ -27,7 +27,7 @@ Other functionality
 
 - Weekend: Implement keyup/keydown events to make players' cars move. Work on finding/creating graphics for animating the game. Construct game map class. Begin collision detection & response.
 
-- Monday: Resume work on collision detection/response. Create projectiles class - have them spawn on the map and be added to a player's inventory upon contact. allow player to shoot and let projectiles bounce wall to wall, expiring after a certain time.
+- Monday: Resume work on collision detection/response. Create projectiles class - have them spawn on the map and be added to a player's inventory upon contact. allow player to shoot and let projectiles bounce wall to wall, expiring after a certain time. Have projectiles (1) damage player and (2) disappear upon contact with players
 
 - Tuesday: Create all view objects that aren't the game canvas (loading screen, navigation menu, game option selection, (optional) sound button and music)
 

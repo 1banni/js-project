@@ -1,11 +1,12 @@
+/** @type {HTMLCanvasElement} */
+
 const CON = {
   MAX_HEALTH: 100,
   MAX_SPEED: 5,
-  RADIUS: 10,
+  RADIUS: 15,
   MAX_NOS: 40,
   // TURN_RADIUS: 3;
 }
-
 
 
 export default class Player {
@@ -19,24 +20,12 @@ export default class Player {
     this.direction = 0;
   }
 
-
+  // PROOF: Potential Bug - Think about how you're passing context around
   draw(ctx) {
     ctx.fillStyle = this.color;
     ctx.beginPath();
-    // ctx.clearRect(0, 0, DIM_X, DIM_Y);
-    // ctx.fillStyle = '#339933';
-    // ctx.fillRect(0, 0, DIM_X, DIM_Y);
-
-    /********** PROOF: TEST CODE **********/
-    console.log(this);
-    console.log(this.pos);
-    console.log(this.pos[0]);
-    console.log(this.pos[1]);
-    /********** PROOF: TEST CODE **********/
-
     ctx.arc(this.pos[0], this.pos[1], this.radius,
             0, 2 * Math.PI, false);
-
     ctx.fill();
   }
 }
