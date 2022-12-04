@@ -70,5 +70,19 @@ export default class CourseMap {
     // TBU (PROOF)
   }
 
+  static inbounds(pos, width, height) {
+    if (pos[0] < 50 + this.radius) {
+      pos[0] = 50 + this.radius;
+    } else if (pos[0] > 1150 - this.radius) {
+      pos[0] = 1150 - this.radius;
+    }
+
+    if (pos[1] < 50 + this.radius) {
+      pos[1] = 50 + this.radius;
+    } else if (pos[1] > 750 - this.radius) {
+      pos[1] = 750 - this.radius;
+    }
+    return pos;
+  }
 
 }

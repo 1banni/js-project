@@ -1,107 +1,70 @@
 /** @type {HTMLCanvasElement} */
-import CourseMap from "./fixed/course-map.js";
-import Player from "./mobile/player.js";
-import ProjectileController from "./mobile/projectile-controller.js";
+import CourseMap from './still/course-map.js'
+import Player from './moving/player.js';
+import ProjectileController from './moving/projectile-controller.js';
 
-// Pixel Sizing
+
+// PROOF - MOVE THESE CONSTANTS WHERE THEY BELONG /scripts/game-parameters/pos-and-dim.js
+// Pixels
 const DIM_X = 1200;
 const DIM_Y = 800;
 const startPosCushion = 100;
 
-// Initial Object/ComponentPositions
-const startPos = [[startPosCushion,startPosCushion],
-                  [DIM_X - startPosCushion,DIM_Y - startPosCushion],
-                  [DIM_X - startPosCushion,startPosCushion],
-                  [startPosCushion,DIM_Y - startPosCushion],
-];
-let startPosIdx = 0;
-
-// Coloring
-const playerColors = ['#0d00ff', '#aeff00', 'blue', 'purple'];
-let colorIdx = 0;
-
 // Gameplay
+let playerIdx = 0;
 const numPlayers = 2;
 
-export default class Game {
+// Colors
+const playerColors = ['#0d00ff', '#aeff00', 'blue', 'purple'];
 
+// Positions
+const startPos = [[startPosCushion,startPosCushion], // top left
+                  [DIM_X - startPosCushion,DIM_Y - startPosCushion], // // bottom right
+                  [DIM_X - startPosCushion,startPosCushion], // top right
+                  [startPosCushion,DIM_Y - startPosCushion], // bottom left
+];
+
+// Starting Directions (Angles)
+// clockwise ->
+const startDir = [0, 180, 90, 270];
+
+// Game Constants
+export default class Game {
   constructor (canvas) {
     this.ctx = canvas.getContext('2d');
     this.map = new CourseMap(canvas);
     this.projectileController = new ProjectileController(canvas);
     this.players = Array.from(Array(numPlayers), () => {
       // console.log('startPos',startPos[startPosIdx])
-      return new Player(startPos[startPosIdx++],
-                        playerColors[colorIdx++],
+      return new Player(playerIdx,
+                        startPos[playerIdx],
+                        startDir[playerIdx],
+                        playerColors[playerIdx++],
                         this.projectileController);
     });
-
     // this.obstacles = Array.from(Array(numObstacles), () => new Obstacle());
     // this.perks = Array.from(Array(numPerks), () => new Perk());
+
     this.draw(this.ctx);
     this.animate();
-
-    this.pressedKeys = {};
-
-    document.addEventListener('keydown', (e) => this.keyPressed(e.key));
-    document.addEventListener('keyup', (e) => this.keyReleased(e.key));
-
-  }
-
-
-  draw(ctx) {
-    ctx.clearRect(0, 0, DIM_X, DIM_Y);
-    this.map.draw(ctx); // Draw Course Map
-    this.projectileController.draw(ctx);
-    this.players.forEach(player => player.draw(ctx));// Draw Players
-  }
-
-
-
-
-  animate () {
-    // this.moveObjects();
-    this.update();
-
-    this.draw(this.ctx);
-    requestAnimationFrame(this.animate.bind(this));
-  }
-
-  keyPressed(key) {
-    this.pressedKeys[key] = true;
-  }
-
-  keyReleased(key) {
-    // if (this.pressedKeys[key]) this.pressedKeys[key] = false;
-    delete this.pressedKeys[key];
   }
 
   update() {
-    let playerDirection = [[0, 0], [0, 0]];
-    let playerBlasters = [false, false];
-    // console.log(this.pressedKeys);
-    if (this.pressedKeys) {
-      // Player 1 Key Register
-      if (this.pressedKeys.w) playerDirection[0][1] -= 1;
-      if (this.pressedKeys.a) playerDirection[0][0] -= 1;
-      if (this.pressedKeys.s) playerDirection[0][1] += 1;
-      if (this.pressedKeys.d) playerDirection[0][0] += 1;
-      if (this.pressedKeys.d) playerDirection[0][0] += 1;
-      if (this.pressedKeys[' ']) playerBlasters[0] += true;
-
-      // Player 2 Key Register
-      if (this.pressedKeys.ArrowUp) playerDirection[1][1] -= 1;
-      if (this.pressedKeys.ArrowLeft) playerDirection[1][0] -= 1;
-      if (this.pressedKeys.ArrowDown) playerDirection[1][1] += 1;
-      if (this.pressedKeys.ArrowRight) playerDirection[1][0] += 1;
-      if (this.pressedKeys[0]) playerBlasters[0] += true;
-    }
-
-    this.players.forEach((player, idx) => {
-      player.setVelocity(playerDirection[idx]);
-      if (playerBlasters[idx]) player.fireBlasters();
-      player.update();
-    });
+    this.players.forEach((player) => player.update());
+    // proof - may need to iterate through projectiles here
   }
 
+  draw(ctx) {
+    ctx.clearRect(0, 0, DIM_X, DIM_Y);
+    // Draw map -> projectiles -< players (order sensitive)
+    this.map.draw(ctx);
+    this.projectileController.draw(ctx);
+    this.players.forEach(player => player.draw(ctx));
+  }
+
+  animate () {
+    this.update();
+    this.draw(this.ctx);
+    requestAnimationFrame(this.animate.bind(this));
+  }
 }

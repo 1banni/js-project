@@ -1,9 +1,9 @@
 
 Today
 [COMPLETE] Get Canvas, players, and map object to appear on the screen
-[IN PROGRESS] Implement Key Up Key Down
-- add projectiles class that lets player shoot bullets (upwards only for now)
-[IN PROGRESS] Start work on Util class for position calcs and such
+[ALMOST - MOTION ISN'T CONSISTANT] Implement Key Up Key Down
+[COMPLETE] add projectiles class that lets player shoot bullets (upwards only for now)
+[COMPLETE] Start work on Util class for position calcs and such
 [NEXT] Get players to stop when they hit the screen edge or another object
 
 Saturday

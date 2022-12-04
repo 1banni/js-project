@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   // Disable default browser response to all keys
+  // PROOF - UPDATE TO ONLY DISABLE CERTAIN KEYS (USER SHOULD BE ABLE TO CTRL TAB)
   document.onkeydown = KD;
   function KD(e) {
     // if (e.key === ' ' || e.key === ArrowLeft || e.key === ArrowRight ||
