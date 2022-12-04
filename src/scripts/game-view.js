@@ -1,9 +1,9 @@
 import Game from "./game.js";
 
 export default class GameView {
-  constructor (canvas) {
+  constructor (canvas, game) {
     this.ctx = canvas.getContext("2d");
-    this.game = new Game(canvas);
+    this.game = game;
 
     // this.dimensions = {width: canvas.width, height: canvas.height};
     // this.registerEvents();
@@ -13,3 +13,4 @@ export default class GameView {
 }
 
 
+// module.expoerts = GameView;

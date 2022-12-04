@@ -1,10 +1,10 @@
 
 Today
-- Get Canvas, players, and map object to appear on the screen
-- Implement Key Up Key Down
+[COMPLETE] Get Canvas, players, and map object to appear on the screen
+[IN PROGRESS] Implement Key Up Key Down
 - add projectiles class that lets player shoot bullets (upwards only for now)
-- Start work on Util class for position calcs and such
-- Get players to stop when they hit the screen edge or another object
+[IN PROGRESS] Start work on Util class for position calcs and such
+[NEXT] Get players to stop when they hit the screen edge or another object
 
 Saturday
 - Finish collision detection/response if possible
