@@ -2,15 +2,16 @@
 
 const CON = {
   WALL_PADDING: 50,
-  PLATFORM_WIDTH: 50,
-  PLATFORM_HEIGHT: 50,
+  PLATFORM_WIDTH: 300,
+  PLATFORM_HEIGHT: 200,
 }
 
 const LOC = {
   PLATFORMS: [
-    [775, 175],
-    [175, 175],
-    [175, 450],
+    [200, 150],
+    [200, 450],
+    [700, 150],
+    [700, 450],
     // [200, 500],
   ],
 }
@@ -51,18 +52,18 @@ export default class CourseMap {
   }
 
   drawPlatforms (ctx) {
-    // ctx.fillStyle = COLOR.PLATFORMS;
-    // ctx.strokeStyle = '#ffffff';
-    // ctx.strokeWidth = 5;
-    // LOC.PLATFORMS.forEach( loc => {
-    //   // console.log('loc[0]', loc[0]);
-    //   // console.log('loc[1]', loc[1]);
-    //   // console.log('endx', loc[0] + CON.PLATFORM_WIDTH);
-    //   // console.log('endy', loc[1] + CON.PLATFORM_HEIGHT);
-    //   ctx.fillRect(loc[0], loc[1], loc[0] + 50, loc[1] + 50);
-    //               //  loc[0] + CON.PLATFORM_WIDTH,
-    //               //  loc[1] + CON.PLATFORM_HEIGHT)
-    // });
+    ctx.fillStyle = COLOR.PLATFORMS;
+    ctx.strokeStyle = '#ffffff';
+    ctx.strokeWidth = 5;
+    LOC.PLATFORMS.forEach( loc => {
+      // console.log('loc[0]', loc[0]);
+      // console.log('loc[1]', loc[1]);
+      // console.log('endx', loc[0] + CON.PLATFORM_WIDTH);
+      // console.log('endy', loc[1] + CON.PLATFORM_HEIGHT);
+      ctx.fillRect(loc[0], loc[1],
+                   CON.PLATFORM_WIDTH,
+                   CON.PLATFORM_HEIGHT);
+    });
   }
 
   drawBridges (ctx) {
