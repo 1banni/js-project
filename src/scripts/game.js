@@ -1,6 +1,7 @@
 /** @type {HTMLCanvasElement} */
-import Player from "./player.js";
-import CourseMap from "./course-map.js";
+import CourseMap from "./fixed/course-map.js";
+import Player from "./mobile/player.js";
+import ProjectileController from "./mobile/projectile-controller.js";
 
 // Pixel Sizing
 const DIM_X = 1200;
@@ -27,10 +28,14 @@ export default class Game {
   constructor (canvas) {
     this.ctx = canvas.getContext('2d');
     this.map = new CourseMap(canvas);
+    this.projectileController = new ProjectileController(canvas);
     this.players = Array.from(Array(numPlayers), () => {
       // console.log('startPos',startPos[startPosIdx])
-      return new Player(startPos[startPosIdx++], playerColors[colorIdx++])
+      return new Player(startPos[startPosIdx++],
+                        playerColors[colorIdx++],
+                        this.projectileController);
     });
+
     // this.obstacles = Array.from(Array(numObstacles), () => new Obstacle());
     // this.perks = Array.from(Array(numPerks), () => new Perk());
     this.draw(this.ctx);
@@ -46,9 +51,8 @@ export default class Game {
 
   draw(ctx) {
     ctx.clearRect(0, 0, DIM_X, DIM_Y);
-
     this.map.draw(ctx); // Draw Course Map
-    // console.log((this.players));
+    this.projectileController.draw(ctx);
     this.players.forEach(player => player.draw(ctx));// Draw Players
   }
 
@@ -75,7 +79,7 @@ export default class Game {
   update() {
     let playerDirection = [[0, 0], [0, 0]];
     let playerBlasters = [false, false];
-    console.log(this.pressedKeys);
+    // console.log(this.pressedKeys);
     if (this.pressedKeys) {
       // Player 1 Key Register
       if (this.pressedKeys.w) playerDirection[0][1] -= 1;

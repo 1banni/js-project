@@ -2,29 +2,31 @@
 
 import Motion from "./motion.js";
 import Projectile from "./projectile.js";
-import { Util } from "./util";
+import { Util } from "../fixed/util";
 
 
 const CON = {
   MAX_HEALTH: 100,
-  MAX_SPEED: 10, // PROOF this isn't hitting cause setVelo isn't complete
+  MAX_SPEED: 4, // PROOF this isn't hitting cause setVelo isn't complete
   RADIUS: 20,
   // MAX_NOS: 40,
   // TURN_RADIUS: 3;
 }
 
+
+
 export default class Player extends Motion {
-  constructor(pos, color) {
+  constructor(pos, color, projectileController) {
     let options = {
       pos: pos,
       color: color,
       radius: CON.RADIUS,
       vel: [0,0],
       max_speed: CON.MAX_SPEED,
-      // dir: 0,
     }
     super(options);
 
+    this.projectileController = projectileController;
     this.health = CON.MAX_HEALTH;
     this.nitrous = CON.MAX_NOS;
 
@@ -48,14 +50,15 @@ export default class Player extends Motion {
 
   }
 
-  fireBlasters() {
+  fireBlasters() { // PROOF equiv to shoot
     console.log('shoot');
     const speed = 5;
-    const delay = 7;
+    const delay = 25;
     const damage = 1;
-    const bulletX = this.x + CON.RADIUS;
-    const bulletY = this.y + CON.RADIUS;
-    this.projectile.shoot(bulletX, bulletY, speed, damage, delay)
+    const projX = this.pos[0] + CON.RADIUS;
+    const projY = this.pos[1];// + CON.RADIUS;
+    console.log('projX', projX, 'projY', projY);
+    this.projectileController.shoot(projX, projY, speed, damage, delay)
 
     // let dir = Util.dir(this.vel);
     // let proj = new Projectile(this.pos, dir);

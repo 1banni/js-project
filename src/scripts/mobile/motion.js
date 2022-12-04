@@ -1,4 +1,4 @@
-import {Util} from "./util.js"
+import {Util} from "../fixed/util.js"
 
 // PROOF: DELETE THIS LINE AND ITS DEPENDENTS
 let logCount = 0
@@ -48,8 +48,9 @@ export default class Motion {
   }
 
   setVelocity(dir) {
-    
-    this.vel = dir;
+    dir = Util.dir(dir);
+
+    this.vel = Util.scale(dir, this.max_speed);
 
 
     // Normalize direction vector then scale by player's max_speedd

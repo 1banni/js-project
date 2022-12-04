@@ -22,21 +22,21 @@ export const Util = {
   dir (vector) {
     let norm = Util.norm(vector);
     let oneOverNorm = (norm === 0 ? 1 : norm);
-    console.log('norm', norm);
+    // console.log('norm', norm);
     return Util.scale(vector, oneOverNorm);
   },
   // Scales vector with magnitude
   // PROOF FIX ME
   scale (vector, magnitude) {
-    console.log('vector', typeof vector[0] );
+    // console.log('vector', typeof vector[0] );
     let res = [];
     vector.forEach(el => {
-      console.log(el);
-      console.log(magnitude);
+      // console.log(el);
+      // console.log(magnitude);
       res.push(el * magnitude);
     });
     // let res = vector.map((el) => el * magnitude);
-    console.log('res', res);
+    // console.log('res', res);
     return res;
     // return _.map(vector, (num) => num * magnitude);
   },
