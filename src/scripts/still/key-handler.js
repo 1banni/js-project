@@ -60,7 +60,7 @@ export class KeyHandler {
   }
 
   keyReleased(e) {
-    e.stopPropagation();
+    // e.stopPropagation();
 
     // Player 1
     if (e.key === 'w') this.actions[0].throttle = false;

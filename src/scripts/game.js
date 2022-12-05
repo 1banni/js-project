@@ -35,9 +35,8 @@ export default class Game {
     this.map = new CourseMap(canvas);
     this.projectileController = new ProjectileController(canvas);
     this.players = Array.from(Array(numPlayers), () => {
-      // console.log('startPos',startPos[startPosIdx])
       return new Player(playerIdx,
-                        startPos[playerIdx],
+                        startPos[playerIdx], // PROOF - MOVE THIS LOGIC TO THE PLAYERS FILE
                         startDir[playerIdx],
                         playerColors[playerIdx++],
                         this.projectileController);

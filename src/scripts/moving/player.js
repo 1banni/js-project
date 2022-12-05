@@ -64,10 +64,12 @@ export default class Player {
     ctx.arc(this.x, this.y, this.radius,
       0, 2 * Math.PI, false);
     ctx.fill();
+    ctx.closePath();
 
     let vector = Util.scale(Util.directionFrom(this.angle), PC.RADIUS);
     ctx.strokeStyle = '#FFFFFF';
-    ctx.lineWidth = 7;
+    ctx.fillStyle = this.color;
+    ctx.lineWidth = 4;
     ctx.beginPath();
     ctx.moveTo(this.x, this.y);
     // ctx.lineTo(400, 400);
@@ -91,42 +93,43 @@ export default class Player {
   update () {
     let pressedKeys = this.keyHandler.activeActions()[this.idx];
     // PROOF TEST CODE
-    console.log('pressedKeys');
-    Util.infreqLog(pressedKeys);
+    // console.log('pressedKeys');
+    // Util.infreqLog(pressedKeys);
     // END TEST COD
 
-    let avgArr = Array.from(11, () => this.speed);
-    avgArr.push(0);
-
     if (pressedKeys.throttle) {
-      console.log('updating throttle');
+      // console.log('updating throttle');
       this.speed = Math.min(this.max_speed, this.speed + PC.ACCELERATION);
     } else if (this.speed > 0) {
-      this.speed = avgArr.reduce((acc, el) => acc + el) / 12;
+      this.speed = Math.floor(this.speed * 49 / 50 * 10) / 10;
     }
     if (pressedKeys.brake) {
       this.speed = Math.max(-this.max_speed / 0.25, this.speed - PC.ACCELERATION * 3);
     } else if (this.speed < 0) {
-      this.speed = avgArr.reduce((acc, el) => acc + el) / 12;
+      this.speed = Math.floor(this.speed * 49 / 50 * 10) / 10;
     }
     if (pressedKeys.left) this.angle = (this.angle - 1 / PC.TURN_RADIUS) % 360;
     if (pressedKeys.right) this.angle = (this.angle + 1 / PC.TURN_RADIUS) % 360;
     if (pressedKeys.blast) this.fireBlasters();
 
-
-
     // PROOF - ADD CODE TO LET PLAYER COME TO COMPLETE HAULT
 
 
-    let vel = Util.scale(Util.directionFrom(this.angle), this.speed);
-    Util.infreqLog(vel,'vel', -1);
-    Util.infreqLog(this.angle,'this.angle', -1);
-    Util.infreqLog(Util.directionFrom(this.angle, -1),'Util.directionFrom(this.angle)');
-    Util.infreqLog(this.speed,'this.speed');
-    this.x += vel[0];
-    this.y += vel[1];
-    [this.x, this.y] = CourseMap.inbounds([this.x, this.y]);
+    let [velX, velY] = Util.scale(Util.directionFrom(this.angle), this.speed);
+    [this.x, this.y] = CourseMap.inbound(this.x + velX, this.y + velY, this.radius, this.radius);
+
+
+
+    // Util.infreqLog(velX,'vel', -1);
+    // Util.infreqLog(this.angle,'this.angle', -1);
+    // Util.infreqLog(Util.directionFrom(this.angle, -1),'Util.directionFrom(this.angle)');
+    // Util.infreqLog(this.speed,'this.speed');
+    // console.log('pre-inbound');
         // if (playerBlasters[idx]) PC.fireBlasters();
+  }
+
+  handleEdges(width, height) {
+
   }
 
 

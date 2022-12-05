@@ -14,6 +14,8 @@ Saturday
 
 Sunday
 - Polish game map
+- object collision!!! build such that 
+- projectiles
 - Update players class to hold projectiles and aquire projectiles with
 
 Basic

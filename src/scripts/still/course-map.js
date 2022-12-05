@@ -1,5 +1,9 @@
 /** @type {HTMLCanvasElement} */
 
+
+
+
+
 const CON = {
   WALL_PADDING: 50,
   PLATFORM_WIDTH: 300,
@@ -70,19 +74,21 @@ export default class CourseMap {
     // TBU (PROOF)
   }
 
-  static inbounds(pos, width, height) {
-    if (pos[0] < 50 + this.radius) {
-      pos[0] = 50 + this.radius;
-    } else if (pos[0] > 1150 - this.radius) {
-      pos[0] = 1150 - this.radius;
+  static inbound(x, y, width, height) {
+    // console.log('pre-inbound', x, y);
+    if (x < 50 + width) {
+      x = 50 + width;
+    } else if (x > 1150 - width) {
+      x = 1150 - width;
     }
 
-    if (pos[1] < 50 + this.radius) {
-      pos[1] = 50 + this.radius;
-    } else if (pos[1] > 750 - this.radius) {
-      pos[1] = 750 - this.radius;
+    if (y < 50 + height) {
+      y = 50 + height;
+    } else if (y > 750 - height) {
+      y = 750 - height;
     }
-    return pos;
+    // console.log('post-inbound', x, y);
+    return [x, y];
   }
 
 }
