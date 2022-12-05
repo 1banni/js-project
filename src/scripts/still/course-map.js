@@ -18,12 +18,13 @@ const LOC = {
     [700, 450],
     // [200, 500],
   ],
+  PLATFORM_BORDER_WIDTH: 2
 }
 
 const COLOR = {
-  BORDER: '#888888', // light grey
+  BORDER: '#333333', // light grey
   GROUND: '#000000',
-  PLATFORMS: '#888888'
+  PLATFORMS: '#00ee15'
 }
 
 export default class CourseMap {
@@ -56,17 +57,24 @@ export default class CourseMap {
   }
 
   drawPlatforms (ctx) {
-    ctx.fillStyle = COLOR.PLATFORMS;
-    ctx.strokeStyle = '#ffffff';
+    // '#ffffff'
     ctx.strokeWidth = 5;
     LOC.PLATFORMS.forEach( loc => {
       // console.log('loc[0]', loc[0]);
       // console.log('loc[1]', loc[1]);
       // console.log('endx', loc[0] + CON.PLATFORM_WIDTH);
       // console.log('endy', loc[1] + CON.PLATFORM_HEIGHT);
+
+      ctx.fillStyle = COLOR.PLATFORMS;
       ctx.fillRect(loc[0], loc[1],
-                   CON.PLATFORM_WIDTH,
-                   CON.PLATFORM_HEIGHT);
+        CON.PLATFORM_WIDTH,
+        CON.PLATFORM_HEIGHT);
+
+      ctx.fillStyle = COLOR.GROUND;
+      ctx.fillRect(loc[0] + CON.PLATFORM_BORDER_WIDTH, // START X
+                   loc[1] + CON.PLATFORM_BORDER_WIDTH, // START Y
+                   CON.PLATFORM_WIDTH - 10, // END Y
+                   CON.PLATFORM_HEIGHT - 10); // END X
     });
   }
 

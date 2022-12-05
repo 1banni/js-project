@@ -48,12 +48,22 @@ export default class Game {
     this.animate();
   }
 
-  update() {
+  update () {
     this.players.forEach((player) => player.update());
+    this.projectileController.update();
+    this.checkCollisions();
     // proof - may need to iterate through projectiles here
   }
 
-  draw(ctx) {
+  checkCollisions () {
+    this.players.forEach(player => {
+      let collisionCount = this.projectileController.collideWith(player);
+      
+    });
+  }
+
+
+  draw (ctx) {
     ctx.clearRect(0, 0, DIM_X, DIM_Y);
     // Draw map -> projectiles -< players (order sensitive)
     this.map.draw(ctx);
