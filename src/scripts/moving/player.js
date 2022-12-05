@@ -7,6 +7,7 @@ import { Util } from "../still/util";
 // Constants / Parameters
 import { PLAYER_PARAMS, PLAYER_COLORS } from "../game-parameters/player-params.js";
 import { PROJECTILE } from "../game-parameters/projectile-params.js";
+import { DIM_X, DIM_Y } from "../game-parameters/map-params.js";
 
 // Classes
 import CourseMap from "../still/course-map.js";
@@ -29,6 +30,7 @@ export default class Player {
     this.color = color;
     this.projectiles = PLAYER_PARAMS.PROJECTILES;
     this.projectileController = projectileController;
+    this.alive = true;
     this.heart = new Heart(PLAYER_PARAMS.MAX_HEALTH, PLAYER_PARAMS.MAX_HEALTH,
                            this.color, this.idx);
     this.nitrous = PLAYER_PARAMS.MAX_NOS;
@@ -44,11 +46,14 @@ export default class Player {
   damage(points) {
     console.log('in damage player');
     this.heart.damage(points);
-    console.log(this.heart.health);
+    if (this.heart.health <= 0) {
+      this.alive = false;
+      this.x = DIM_X + 100;
+      this.y = DIM_Y + 100;
+    }
   }
 
   drawPlayer(ctx) {
-    ctx.strokeStyle = this.color;
     ctx.fillStyle = this.color;
     ctx.shadowColor = this.color;
     ctx.shadowBlur = 30;
@@ -77,8 +82,10 @@ export default class Player {
   }
 
   draw(ctx) {
-    this.drawPlayer(ctx);
-    this.drawLine(ctx);
+    if (this.alive) {
+      this.drawPlayer(ctx);
+      this.drawLine(ctx);
+    }
     this.drawHeart(ctx);
   }
 
@@ -87,7 +94,7 @@ export default class Player {
   fireBlasters() { // PROOF equiv to shoot
     // console.log('shoot');
     // console.log(this.projectiles);
-    if (this.projectiles > 0) {
+    if (this.alive && this.projectiles > 0) {
       this.projectiles--;
       // let x = this.x + PLAYER_PARAMS.RADIUS; // PROOF - FIX THIS - BASE ON PLAYER DIRECTION
       // let y = this.y + PLAYER_PARAMS.RADIUS;// + PLAYER_PARAMS.RADIUS;
@@ -102,11 +109,13 @@ export default class Player {
   update () {
     this.runKeys();
     let [velX, velY] = Util.scale(Util.directionFrom(this.angle), this.speed);
-    [this.x, this.y] = CourseMap.inbound(this.x + velX, this.y + velY, this.radius, this.radius);
+    if (this.alive) {
+      [this.x, this.y] = CourseMap.inbound(this.x + velX, this.y + velY, this.radius, this.radius);
+    }
   }
 
   runKeys() {
-    let pressedKeys = this.keyHandler.activeActions()[this.idx];
+    let pressedKeys = (this.alive ? this.keyHandler.activeActions()[this.idx] : {});
 
     if (pressedKeys.left) this.angle = (this.angle + 1 / PLAYER_PARAMS.TURN_RADIUS) % 360;
     if (pressedKeys.right) this.angle = (this.angle - 1 / PLAYER_PARAMS.TURN_RADIUS) % 360;

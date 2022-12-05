@@ -3,20 +3,10 @@ import CourseMap from './still/course-map.js'
 import Player from './moving/player.js';
 import ProjectileController from './moving/projectile-controller.js';
 import { PLAYERS_COLOR, NUM_PLAYERS, PLAYERS_START_POS, PLAYERS_START_DIR } from './game-parameters/player-params.js';
-import { DIM_X, DIM_Y } from './game-parameters/pos-and-dim.js'
+import { DIM_X, DIM_Y } from './game-parameters/map-params.js'
+import { Util } from './still/util.js';
 
-
-// PROOF - MOVE THESE CONSTANTS WHERE THEY BELONG /scripts/game-parameters/pos-and-dim.js
-// Pixels
-// Gameplay
 let playerIdx = 0;
-
-
-
-
-
-
-
 
 // Game Constants
 export default class Game {
@@ -24,13 +14,18 @@ export default class Game {
     this.ctx = canvas.getContext('2d');
     this.map = new CourseMap(canvas);
     this.projectileController = new ProjectileController(canvas);
+    console.log('PLAYERS_START_POS', PLAYERS_START_POS);
     this.players = Array.from(Array(NUM_PLAYERS), () => {
+      console.log('playerIdx', playerIdx);
       return new Player(playerIdx,
                         PLAYERS_START_POS[playerIdx], // PROOF - MOVE THIS LOGIC TO THE PLAYERS FILE
                         PLAYERS_START_DIR[playerIdx],
                         PLAYERS_COLOR[playerIdx++],
                         this.projectileController);
     });
+
+    console.log('this.players', this.players);
+
     // this.obstacles = Array.from(Array(numObstacles), () => new Obstacle());
     // this.perks = Array.from(Array(numPerks), () => new Perk());
 
@@ -54,7 +49,10 @@ export default class Game {
     // Draw map -> projectiles -< players (order sensitive)
     this.map.draw(ctx);
     this.projectileController.draw(ctx);
-    this.players.forEach(player => player.draw(ctx));
+    this.players.forEach(player => {
+      Util.infreqLog(player);
+      player.draw(ctx)
+    });
   }
 
   animate () {

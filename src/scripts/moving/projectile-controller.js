@@ -27,9 +27,23 @@ export default class ProjectileController {
   // PROOF - CONSIDER REWRITING THIS. OTHER MAP OBJECTS
   isOutOfBounds(projectile) {
     return projectile.x <= -projectile.width + 50 &&
-           projectile.y <= -projectile.height + 50 &&
-           projectile.x >= 1200 - 50 - projectile.width &&
-           projectile.y >= 1200 - 50 - projectile.height;
+      projectile.y <= -projectile.height + 50 &&
+      projectile.x >= 1200 - 50 - projectile.width &&
+      projectile.y >= 1200 - 50 - projectile.height;
+  }
+
+  collisionType(projectile) {
+    if (!(projectile.x <= -projectile.width + 50 &&
+      projectile.x >= 1200 - 50 - projectile.width
+    )) {
+      return 'horizontal';
+    }
+    else if (!(projectile.y <= -projectile.height + 50 &&
+      projectile.y >= 1200 - 50 - projectile.height)
+    ) {
+      return 'vertical';
+    }
+    return 'unsure - see projectile-coontroller#collisionType(projectile) method'
   }
 
   // PROOF: MODIFY THIS FUNCTION TO FIT YOUR CODE OR REPORT SOURCE https://www.youtube.com/watch?v=i7FzA4NavDs
@@ -65,7 +79,12 @@ export default class ProjectileController {
     this.projectiles.forEach(projectile => {
       if (this.isOutOfBounds(projectile)) {
         // console.log('deleting projectile');
-        this.delete(projectile);
+        // this.delete(projectile);
+        if (this.collisionType(projectile) === 'horizontal') {
+
+        } else {
+          
+        }
       } else {
         // console.log('drawing projectile');
         projectile.draw(ctx);

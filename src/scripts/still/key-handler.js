@@ -19,6 +19,7 @@ export class KeyHandler {
   }
 
   keyPressed(e) {
+    console.log(typeof e.key);
     // Player 1
     if (e.key === 'w') this.actions[0].throttle = true;
     if (e.key === 'a') this.actions[0].left = true;
@@ -31,11 +32,11 @@ export class KeyHandler {
     if (e.key === 'ArrowLeft') this.actions[1].left = true;
     if (e.key === 'ArrowDown') this.actions[1].brake = true;
     if (e.key === 'ArrowRight') this.actions[1].right = true;
-    if (e.key === 0) this.actions[1].blast = true;
+    if (e.key === '0') this.actions[1].blast = true;
   }
 
   keyReleased(e) {
-    // e.stopPropagation();
+    e.stopPropagation();
 
     // Player 1
     if (e.key === 'w') this.actions[0].throttle = false;
@@ -49,7 +50,7 @@ export class KeyHandler {
     if (e.key === 'ArrowLeft') this.actions[1].left = false;
     if (e.key === 'ArrowDown') this.actions[1].brake = false;
     if (e.key === 'ArrowRight') this.actions[1].right = false;
-    if (e.key === 0) this.actions[1].blast = false;
+    if (e.key === '0') this.actions[1].blast = false;
   }
 
   activeActions() {

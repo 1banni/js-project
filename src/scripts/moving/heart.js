@@ -1,4 +1,4 @@
-import { DIM_X, DIM_Y } from "../game-parameters/pos-and-dim";
+import { DIM_X, DIM_Y } from "../game-parameters/map-params";
 import { MAP_BORDER } from "../game-parameters/map-params";
 import { HEART_BAR } from "../game-parameters/heart-params";
 

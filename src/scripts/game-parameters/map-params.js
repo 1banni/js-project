@@ -20,3 +20,7 @@ export const PLATFORMS = [
 ];
 
 export const PLATFORM_BORDER_WIDTH = 4;
+
+
+export const DIM_X = 1200;
+export const DIM_Y = 800;
