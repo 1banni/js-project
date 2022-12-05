@@ -2,31 +2,21 @@
 import CourseMap from './still/course-map.js'
 import Player from './moving/player.js';
 import ProjectileController from './moving/projectile-controller.js';
+import { PLAYERS_COLOR, NUM_PLAYERS, PLAYERS_START_POS, PLAYERS_START_DIR } from './game-parameters/player-params.js';
+import { DIM_X, DIM_Y } from './game-parameters/pos-and-dim.js'
 
 
 // PROOF - MOVE THESE CONSTANTS WHERE THEY BELONG /scripts/game-parameters/pos-and-dim.js
 // Pixels
-const DIM_X = 1200;
-const DIM_Y = 800;
-const startPosCushion = 100;
-
 // Gameplay
 let playerIdx = 0;
-const numPlayers = 2;
 
-// Colors
-const playerColors = ['#0d00ff', '#aeff00', 'blue', 'purple'];
 
-// Positions
-const startPos = [[startPosCushion,startPosCushion], // top left
-                  [DIM_X - startPosCushion,DIM_Y - startPosCushion], // // bottom right
-                  [DIM_X - startPosCushion,startPosCushion], // top right
-                  [startPosCushion,DIM_Y - startPosCushion], // bottom left
-];
 
-// Starting Directions (Angles)
-// clockwise ->
-const startDir = [0, 180, 90, 270];
+
+
+
+
 
 // Game Constants
 export default class Game {
@@ -34,11 +24,11 @@ export default class Game {
     this.ctx = canvas.getContext('2d');
     this.map = new CourseMap(canvas);
     this.projectileController = new ProjectileController(canvas);
-    this.players = Array.from(Array(numPlayers), () => {
+    this.players = Array.from(Array(NUM_PLAYERS), () => {
       return new Player(playerIdx,
-                        startPos[playerIdx], // PROOF - MOVE THIS LOGIC TO THE PLAYERS FILE
-                        startDir[playerIdx],
-                        playerColors[playerIdx++],
+                        PLAYERS_START_POS[playerIdx], // PROOF - MOVE THIS LOGIC TO THE PLAYERS FILE
+                        PLAYERS_START_DIR[playerIdx],
+                        PLAYERS_COLOR[playerIdx++],
                         this.projectileController);
     });
     // this.obstacles = Array.from(Array(numObstacles), () => new Obstacle());
@@ -48,18 +38,14 @@ export default class Game {
     this.animate();
   }
 
-  update () {
+  update () { // Updates Moving Objects
     this.players.forEach((player) => player.update());
     this.projectileController.update();
-    this.checkCollisions();
-    // proof - may need to iterate through projectiles here
   }
 
-  checkCollisions () {
-    this.players.forEach(player => {
-      let collisionCount = this.projectileController.collideWith(player);
-      
-    });
+  checkCollisions () { // Checks each player for collision with projectile.
+    // projectile.collideWith method calls damagePlayer()
+    this.players.forEach( player => this.projectileController.collideWith(player) );
   }
 
 
@@ -73,6 +59,7 @@ export default class Game {
 
   animate () {
     this.update();
+    this.checkCollisions();
     this.draw(this.ctx);
     requestAnimationFrame(this.animate.bind(this));
   }

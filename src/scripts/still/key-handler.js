@@ -1,25 +1,4 @@
-
-
-
-// keyboard input
-// const keyMap = [
-//   {
-//     w: //throttle,
-//     a: left,
-//     s: brake,
-
-//   }
-// ]
-
-
-
-
 export class KeyHandler {
-  // Pass in keyboard input
-  // return object with player and pressedKeys
-
-
-
   constructor() {
     this.actions = [
       { // Player 1
@@ -41,11 +20,7 @@ export class KeyHandler {
 
   keyPressed(e) {
     // Player 1
-    // console.log(e.key === 'w');
-    if (e.key === 'w') {
-      this.actions[0].throttle = true;
-      // console.log(this.actions[0]);
-    }
+    if (e.key === 'w') this.actions[0].throttle = true;
     if (e.key === 'a') this.actions[0].left = true;
     if (e.key === 's') this.actions[0].brake = true;
     if (e.key === 'd') this.actions[0].right = true;

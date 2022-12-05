@@ -7,21 +7,13 @@ export default class Heart {
   // - create an update method (pass in player position and heart #, set heart position relative to player)
   // - Add a draw method: should take ctx as param
   // -
-  // -
-  // -
-  // -
-  // -
-  // -
-  // -
-  // -
-  // -
-  // -
-  // -
-  // -
-  // -
+  constructor(initialHealth, maxHealth) {
+    this.health = initialHealth;
+    this.maxHealth = maxHealth;
+  }
 
-  constructor() {
-
+  damage(points) {
+    this.health = Math.max(0, this.health - points);
   }
 
 }

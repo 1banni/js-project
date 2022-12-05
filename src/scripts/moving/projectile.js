@@ -1,25 +1,18 @@
-import { PLAYER } from "../game-parameters/player-params.js";
+import Particle from "./-moving-object.js";
+import { PLAYER_PARAMS } from "../game-parameters/player-params.js";
 import { PROJECTILE } from "../game-parameters/projectile-params.js";
 import { Util } from "../still/util.js";
 
-export default class Projectile {
+export default class Projectile extends Particle{
   constructor(x, y, angle, speed, damage) {
-    console.log('in constructor');
-    let [incrX, incrY] = Util.scale(Util.directionFrom(angle), PLAYER.RADIUS + PROJECTILE.RADIUS);
-    console.log('x',x);
-    console.log('y',y);
-    console.log('angle',angle);
-    console.log('speed',speed);
-    this.x = x + incrX;
-    this.y = y + incrY;
-    // this.angle = angle;
-    let [dx, dy] = Util.scale(Util.directionFrom(angle), speed);
-    this.dx = dx;
-    this.dy = dy;
-    // this.speed = speed;
-    // this.damage = damage;
-    // this.WIDTH = options.WIDTH;
-    this.radius = PROJECTILE.RADIUS;
+    let [incrX, incrY] = Util.scale(Util.directionFrom(angle), PLAYER_PARAMS.RADIUS + PROJECTILE.RADIUS);
+    let extraCushion = 3;
+    // this.x = x + incrX;
+    // this.y = y + incrY;
+    // this.radius = PROJECTILE.RADIUS;
+    super(x + incrX + extraCushion, y + incrY + extraCushion, PROJECTILE.RADIUS);
+    [this.dx, this.dy] = Util.scale(Util.directionFrom(angle), speed);
+    this.damage = damage;
     this.color = PROJECTILE.COLOR;
   }
 
@@ -30,6 +23,7 @@ export default class Projectile {
   }
 
   draw(ctx) {
+    console.log('drawing projectile');
     Util.infreqLog(this.x, this.y, this.width, this.height);
     ctx.strokeStyle = this.color;
     ctx.fillStyle = this.color;
@@ -45,18 +39,6 @@ export default class Projectile {
   }
 
   // PROOF : MODIFY THIS FUNCTION TO FIT YOUR CODE OR REPORT SOURCE https://www.youtube.com/watch?v=i7FzA4NavDs
-  collideWith(sprite) {
-    if (this.x < sprite.x + sprite.width &&
-        this.x + this.width > sprite.x &&
-        this.y < sprite.y + sprite.height &&
-        this.y + this.height > sprite.y
-    ) {
-      sprite.takeDamage(this.damage);
-      return true;
-    } else {
-      return false;
 
-    }
-  }
 }
 

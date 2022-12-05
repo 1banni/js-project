@@ -25,3 +25,31 @@
       // player.setVelocity(playerDirection[idx]);
       // if (playerBlasters[idx]) player.fireBlasters();
       // player.update();
+
+      // handleEdges(width, height) {
+  //   if (this.x <= 0 || this.pos.x >= width) {
+  //     // convert angle to velocity or direction,
+  //     // flip x component
+  //     // convert back to angle
+  //     // thisad
+  //   }
+  // }
+
+
+  // setVelocity(dir) {
+
+
+  //   // Normalize direction vector then scale by player's max_speedd
+  //   // this.vel = Util.scale(Util.norm(dir), this.max_speed);
+  //   // let normDir = Util.dir(dir);
+  //   // console.log('normDir',normDir);
+  //   // this.vel = Util.scale(normDir, this.max_speed)
+  //   // if (logCount <= 1) {
+  //   //   console.log('setVel dir', dir);
+  //   // }
+
+  //   // if (logCount++ % logCon === 0)  {
+  //   //   console.log('setVel this.vel', this.vel);
+  //   //   console.log('setVel dir', dir);
+  //   // }
+  // }

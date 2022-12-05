@@ -2,7 +2,7 @@
 
 
 
-class Particle {
+export default class Particle {
 
   constructor (x, y, radius) {
     this.x = x;
@@ -10,14 +10,14 @@ class Particle {
     this.radius = radius;
   }
 
-  collideWith(particle) {
-    let dist = Math.sqrt((this.x - particle.x) ** 2 + (this.y - particle.y) ** 2);
-    let radiiLengths = this.radius + particle.radius;
-    return (distSquared ? true : false);
+  collideWith(player) {
+    let dist = Math.sqrt((this.x - player.x) ** 2 + (this.y - player.y) ** 2);
+    let radiiLengths = this.radius + player.radius;
+    if (dist > radiiLengths) {
+      player.damage(this.damage);
+      return true;
+    } else {
+      return false;
+    }
   }
-
-
-
-
-  
 }

@@ -1,25 +1,19 @@
 /** @type {HTMLCanvasElement} */
 
-
+// Key Handler & Util
 import { KeyHandler } from "../still/key-handler.js";
 import { Util } from "../still/util";
-import { PLAYER } from "../game-parameters/player-params.js";
+
+// Constants / Parameters
+import { PLAYER_PARAMS, PLAYER_COLORS } from "../game-parameters/player-params.js";
+import { PROJECTILE } from "../game-parameters/projectile-params.js";
+
+// Classes
 import CourseMap from "../still/course-map.js";
-
-/* PROOF NOTE:
-    - DON'T MODIFY THESE CONSTANTS TO IMPLEMENT FUNCTIONALITY.
-    - INSTEAD, ADD MORE FUNCTIONALITY VIA MORE CONSTANTS AND CTRL FLOW.
-
-    - RENAME PC TO BE player (all caps)
-*/
+import Health from "./heart.js";
 
 
-const PROJECTILE = {
-  SPEED: 5,
-  DELAY: 25,
-  DAMAGE: 1,
-}
-// PROOF
+
 
 export default class Player {
   constructor(idx, pos, angle, color, projectileController) {
@@ -29,14 +23,14 @@ export default class Player {
     this.y = pos[1];
     this.angle = angle;
     this.speed = 0;
-    this.max_speed =PLAYER.MAX_SPEED;
-    this.acceleration = PLAYER.ACCELERATION;
-    this.radius = PLAYER.RADIUS;
+    this.max_speed =PLAYER_PARAMS.MAX_SPEED;
+    this.acceleration = PLAYER_PARAMS.ACCELERATION;
+    this.radius = PLAYER_PARAMS.RADIUS;
     this.color = color;
-    this.projectiles = PLAYER.PROJECTILES;
+    this.projectiles = PLAYER_PARAMS.PROJECTILES;
     this.projectileController = projectileController;
-    this.health = PLAYER.MAX_HEALTH;
-    this.nitrous =PLAYER.MAX_NOS;
+    this.heart = new Health(PLAYER_PARAMS.MAX_HEALTH, PLAYER_PARAMS.MAX_HEALTH);
+    this.nitrous = PLAYER_PARAMS.MAX_NOS;
 
     // window.addEventListener('keydown', (e) => console.log(e.key));
     // Event listener for keyboard actionso
@@ -46,8 +40,12 @@ export default class Player {
 
   }
 
+  damage(points) {
+    this.heart.damage(points);
+    console.log(this.heart.health);
+  }
 
-  draw(ctx) {
+  drawPlayer(ctx) {
     ctx.strokeStyle = this.color;
     ctx.fillStyle = this.color;
     ctx.shadowColor = this.color;
@@ -58,8 +56,10 @@ export default class Player {
       0, 2 * Math.PI, false);
     ctx.fill();
     ctx.closePath();
+  }
 
-    let vector = Util.scale(Util.directionFrom(this.angle), PLAYER.RADIUS);
+  drawLine(ctx) {
+    let vector = Util.scale(Util.directionFrom(this.angle), PLAYER_PARAMS.RADIUS);
     ctx.strokeStyle = '#FFFFFF';
     ctx.fillStyle = this.color;
     ctx.lineWidth = 4;
@@ -68,17 +68,27 @@ export default class Player {
     // ctx.lineTo(400, 400);
     ctx.lineTo(this.x + vector[0], this.y + vector[1]);
     ctx.stroke();
-
   }
 
-  
+  drawHealth(ctx) {
+    
+  }
+
+  draw(ctx) {
+    this.drawPlayer(ctx);
+    this.drawLine(ctx);
+    this.drawHealth(ctx);
+  }
+
+
 
   fireBlasters() { // PROOF equiv to shoot
-    // console.log('shoot');
+    console.log('shoot');
+    console.log(this.projectiles);
     if (this.projectiles > 0) {
       this.projectiles--;
-      // let x = this.x + PLAYER.RADIUS; // PROOF - FIX THIS - BASE ON PLAYER DIRECTION
-      // let y = this.y + PLAYER.RADIUS;// + PLAYER.RADIUS;
+      // let x = this.x + PLAYER_PARAMS.RADIUS; // PROOF - FIX THIS - BASE ON PLAYER DIRECTION
+      // let y = this.y + PLAYER_PARAMS.RADIUS;// + PLAYER_PARAMS.RADIUS;
       this.projectileController.shoot(this.x, this.y, this.angle, PROJECTILE.SPEED, PROJECTILE.DAMAGE, PROJECTILE.DELAY);
     }
     // console.log('projX', x, 'projY', y);
@@ -96,51 +106,23 @@ export default class Player {
   runKeys() {
     let pressedKeys = this.keyHandler.activeActions()[this.idx];
 
-    if(pressedKeys.left) this.angle = (this.angle - 1 / PLAYER.TURN_RADIUS) % 360;
-    if (pressedKeys.right) this.angle = (this.angle + 1 / PLAYER.TURN_RADIUS) % 360;
+    if (pressedKeys.left) this.angle = (this.angle + 1 / PLAYER_PARAMS.TURN_RADIUS) % 360;
+    if (pressedKeys.right) this.angle = (this.angle - 1 / PLAYER_PARAMS.TURN_RADIUS) % 360;
     if (pressedKeys.blast) this.fireBlasters();
 
     if (pressedKeys.throttle) {
       // console.log('updating throttle');
-      this.speed = Math.min(this.max_speed, this.speed + PLAYER.ACCELERATION);
+      this.speed = Math.min(this.max_speed, this.speed + PLAYER_PARAMS.ACCELERATION);
     } else if (this.speed > 0) {
       this.speed = Math.floor(this.speed * 49 / 50 * 10) / 10;
     }
 
     if (pressedKeys.brake) {
       // if brake is pressed, speed becomes greater of -
-      this.speed = Math.max(-this.max_speed, this.speed - PLAYER.ACCELERATION * 1);
+      this.speed = Math.max(-this.max_speed, this.speed - PLAYER_PARAMS.ACCELERATION * 1);
     } else if (this.speed < 0) {
       // if break is
       this.speed = Math.ceil(this.speed * 49 / 50 * 10) / 10;
     }
   }
-
-  // handleEdges(width, height) {
-  //   if (this.x <= 0 || this.pos.x >= width) {
-  //     // convert angle to velocity or direction,
-  //     // flip x component
-  //     // convert back to angle
-  //     // thisad
-  //   }
-  // }
-
-
-  // setVelocity(dir) {
-
-
-  //   // Normalize direction vector then scale by player's max_speedd
-  //   // this.vel = Util.scale(Util.norm(dir), this.max_speed);
-  //   // let normDir = Util.dir(dir);
-  //   // console.log('normDir',normDir);
-  //   // this.vel = Util.scale(normDir, this.max_speed)
-  //   // if (logCount <= 1) {
-  //   //   console.log('setVel dir', dir);
-  //   // }
-
-  //   // if (logCount++ % logCon === 0)  {
-  //   //   console.log('setVel this.vel', this.vel);
-  //   //   console.log('setVel dir', dir);
-  //   // }
-  // }
 }
