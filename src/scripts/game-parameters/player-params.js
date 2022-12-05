@@ -3,7 +3,7 @@ import { DIM_X, DIM_Y, MAP_BORDER } from "./map-params";
 const STARTING_POS_CUSHION = MAP_BORDER.WALL_PADDING + 25;
 
 export const NUM_PLAYERS = 2;
-export const PLAYERS_COLOR = ['#0d00ff', '#a000fa', 'blue', 'purple'];
+export const PLAYERS_COLOR = ['#0dccff', '#a000fa', 'blue', 'purple'];
 export const PLAYER_PARAMS = {
   MAX_HEALTH: 100,
   MAX_SPEED: 10, // PROOF this isn't hitting cause setVelo isn't complete

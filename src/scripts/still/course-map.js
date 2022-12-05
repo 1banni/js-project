@@ -1,11 +1,14 @@
 /** @type {HTMLCanvasElement} */
-import {MAP_COLOR, MAP_BORDER, PLATFORMS, PLATFORM_BORDER_WIDTH } from "../game-parameters/map-params.js";
+import {MAP_COLOR, MAP_BORDER, PLATFORMS, PLATFORM_BORDER_WIDTH, DIM_X, DIM_Y } from "../game-parameters/map-params.js";
+import EdgeController from "./map-objects/edge-controller.js";
+import Edge from "./map-objects/edge.js";
 
 export default class CourseMap {
-  constructor(canvas) {
+  constructor(ctx) {
     // this.ctx = canvas.getContext("2d");
-    this.dims = {width: canvas.width, height: canvas.height}; // Map Dimensions (container for players/objects)
+    this.dims = {width: DIM_X, height: DIM_Y}; // Map Dimensions (container for players/objects)
     this.wallBumper =   MAP_BORDER.WALL_PADDING + (  MAP_BORDER.WALL_WIDTH / 2);
+
   }
 
   draw(ctx) {
@@ -53,6 +56,8 @@ export default class CourseMap {
 
   drawBridges (ctx) {
     // TBU (PROOF)
+    let edge = new Edge(100, 100, 100, 100, MAP_COLOR.PLATFORMS);
+    edge.draw(ctx);
   }
 
   static inbound(x, y, width, height) {
