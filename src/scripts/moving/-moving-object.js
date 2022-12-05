@@ -13,7 +13,7 @@ export default class Particle {
   collideWith(player) {
     let dist = Math.sqrt((this.x - player.x) ** 2 + (this.y - player.y) ** 2);
     let radiiLengths = this.radius + player.radius;
-    if (dist > radiiLengths) {
+    if (dist < radiiLengths) {
       player.damage(this.damage);
       return true;
     } else {

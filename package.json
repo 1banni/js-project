@@ -1,23 +1,23 @@
 {
-  "name": "mario-battle-00",
+  "name": "js-project",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "The goal is to pop/destroy your opponents’ balloons (lives) before your own balloons are popped; the game is similar to Mario Kart’s Battle Mode ([https://www.mariowiki.com/Battle_Mode](https://www.mariowiki.com/Battle_Mode)). The user can drive around the grid with WASD, fire projectiles at opponents and perform other moves with other keys. Players will lose health when hit by projectiles. Initially, the game will be 2-player with no CPUs.",
+  "main": "webpack.config.js",
   "scripts": {
     "watch": "webpack --watch --mode=development",
     "build": "webpack --mode=production"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wbannister/mario-battle-00.git"
+    "url": "git+https://github.com/wbannister/js-project.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/wbannister/mario-battle-00/issues"
+    "url": "https://github.com/wbannister/js-project/issues"
   },
-  "homepage": "https://github.com/wbannister/mario-battle-00#readme",
+  "homepage": "https://github.com/wbannister/js-project#readme",
   "dependencies": {
     "@babel/core": "^7.20.5",
     "@babel/preset-env": "^7.20.2",
@@ -30,7 +30,7 @@
     "sass": "^1.56.1",
     "sass-loader": "^13.2.0",
     "webpack": "^5.75.0",
-    "webpack-cli": "^5.0.0"
+    "webpack-cli": "^5.0.1"
   },
   "browserslist": [
     "defaults"

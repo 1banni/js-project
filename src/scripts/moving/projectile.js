@@ -19,11 +19,10 @@ export default class Projectile extends Particle{
   update() {
     this.x += this.dx;
     this.y += this.dy;
-
   }
 
   draw(ctx) {
-    console.log('drawing projectile');
+    // console.log('drawing projectile');
     Util.infreqLog(this.x, this.y, this.width, this.height);
     ctx.strokeStyle = this.color;
     ctx.fillStyle = this.color;

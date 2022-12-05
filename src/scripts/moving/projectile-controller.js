@@ -4,6 +4,13 @@ let bool = 0;
 
 // let startingProjectiles = 10;
 
+/******************** ********************/
+/*
+  note - you should probably wrap this differently (use animate functio and
+         remove loop from within projectile's draw method)
+*/
+/******************** ********************/
+
 export default class ProjectileController {
   projectiles =  [];
   timeBetweenProjectiles = 0;
@@ -29,8 +36,8 @@ export default class ProjectileController {
   collideWith(player) {
     return this.projectiles.some(projectile => {
       if (projectile.collideWith(player)) {
-        // this.delete(projectile);
-        player.damage();
+        this.delete(projectile);
+        player.damage(projectile.damage);
         return true;
       } else {
         return false;
@@ -54,13 +61,13 @@ export default class ProjectileController {
 
   draw(ctx) {
     // if (bool++ % 50 === 0) console.log('this.projectiles', this.projectiles);
-    console.log('drawing projectiles');
+    // console.log('drawing projectiles');
     this.projectiles.forEach(projectile => {
       if (this.isOutOfBounds(projectile)) {
-        console.log('deleting projectile');
+        // console.log('deleting projectile');
         this.delete(projectile);
       } else {
-        console.log('drawing projectile');
+        // console.log('drawing projectile');
         projectile.draw(ctx);
       }
     });

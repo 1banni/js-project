@@ -10,7 +10,7 @@ import { PROJECTILE } from "../game-parameters/projectile-params.js";
 
 // Classes
 import CourseMap from "../still/course-map.js";
-import Health from "./heart.js";
+import Heart from "./heart.js";
 
 
 
@@ -29,7 +29,8 @@ export default class Player {
     this.color = color;
     this.projectiles = PLAYER_PARAMS.PROJECTILES;
     this.projectileController = projectileController;
-    this.heart = new Health(PLAYER_PARAMS.MAX_HEALTH, PLAYER_PARAMS.MAX_HEALTH);
+    this.heart = new Heart(PLAYER_PARAMS.MAX_HEALTH, PLAYER_PARAMS.MAX_HEALTH,
+                           this.color, this.idx);
     this.nitrous = PLAYER_PARAMS.MAX_NOS;
 
     // window.addEventListener('keydown', (e) => console.log(e.key));
@@ -41,6 +42,7 @@ export default class Player {
   }
 
   damage(points) {
+    console.log('in damage player');
     this.heart.damage(points);
     console.log(this.heart.health);
   }
@@ -70,21 +72,21 @@ export default class Player {
     ctx.stroke();
   }
 
-  drawHealth(ctx) {
-    
+  drawHeart(ctx) {
+    this.heart.draw(ctx);
   }
 
   draw(ctx) {
     this.drawPlayer(ctx);
     this.drawLine(ctx);
-    this.drawHealth(ctx);
+    this.drawHeart(ctx);
   }
 
 
 
   fireBlasters() { // PROOF equiv to shoot
-    console.log('shoot');
-    console.log(this.projectiles);
+    // console.log('shoot');
+    // console.log(this.projectiles);
     if (this.projectiles > 0) {
       this.projectiles--;
       // let x = this.x + PLAYER_PARAMS.RADIUS; // PROOF - FIX THIS - BASE ON PLAYER DIRECTION
