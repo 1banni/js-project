@@ -1,4 +1,5 @@
-import Edge from "./edge";
+import VerticalEdge from "./vertical-edge";
+import HorizontalEdge from "./vertical-edge";
 import { MAP_COLOR, MAP_BORDER, PLATFORMS, DIM_X, DIM_Y } from "../../game-parameters/map-params";
 
 export default class EdgeController {
@@ -18,12 +19,36 @@ export default class EdgeController {
   }
 
   createBorder() {
-    let leftBorder = new VerticalEdge(MAP_BORDER.WALL_PADDING,
-                              MAP_BORDER.WALL_PADDING,
-                              0,
-                              DIM_Y - 2 * MAP_BORDER.WALL_PADDING,
-                              '#00ffff'); // MAP_COLOR.BORDER);
-    this.edges.push(leftBorder);
+    let leftBorder = new VerticalEdge(
+      MAP_BORDER.WALL_PADDING,
+      MAP_BORDER.WALL_PADDING,
+      0,
+      DIM_Y - 2 * MAP_BORDER.WALL_PADDING,
+      '#aa5555' // MAP_COLOR.BORDER);
+    );
 
+    let rightBorder = new VerticalEdge(DIM_X - MAP_BORDER.WALL_PADDING,
+      MAP_BORDER.WALL_PADDING,
+      0,
+      DIM_Y - 2 * MAP_BORDER.WALL_PADDING,
+      '#aa5555' // MAP_COLOR.BORDER);
+    );
+
+    let topBorder = new VerticalEdge(
+      MAP_BORDER.WALL_PADDING,
+      MAP_BORDER.WALL_PADDING,
+      DIM_X - 2 * MAP_BORDER.WALL_PADDING,
+      0,
+      '#aa5555' // MAP_COLOR.BORDER);
+    );
+
+
+    this.edges.push(leftBorder);
+    this.edges.push(rightBorder);
+
+  }
+
+  intersects(particle) {
+    this.edges.forEach( edge => edge.intersects(particle));
   }
 }

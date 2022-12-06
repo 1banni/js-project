@@ -1,4 +1,4 @@
-import Particle from "./-moving-object.js";
+import Particle from "./particle.js";
 import { PLAYER_PARAMS } from "../game-parameters/player-params.js";
 import { PROJECTILE } from "../game-parameters/projectile-params.js";
 import { Util } from "../still/util.js";
@@ -19,6 +19,14 @@ export default class Projectile extends Particle{
   update() {
     this.x += this.dx;
     this.y += this.dy;
+  }
+
+  reflectX() {
+    this.dx *= -1;
+  }
+
+  reflectY() {
+    this.dy *= -1;
   }
 
   draw(ctx) {

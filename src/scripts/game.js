@@ -14,8 +14,8 @@ export default class Game {
   constructor (canvas) {
     this.ctx = canvas.getContext('2d');
     this.map = new CourseMap(this.ctx);
-    this.projectileController = new ProjectileController(this.ctx);
     this.edgeController = new EdgeController(this.ctx);
+    this.projectileController = new ProjectileController(this.ctx, this.edgeController);
     // console.log('PLAYERS_START_POS', PLAYERS_START_POS);
     this.players = Array.from(Array(NUM_PLAYERS), () => {
       // console.log('playerIdx', playerIdx);
@@ -40,6 +40,11 @@ export default class Game {
     this.projectileController.update();
   }
 
+  checkIntersections() {
+    this.projectileController.checkIntersections();
+    // this.players.forEach(player => this.edgeController.intersects(player));
+  }
+
   checkCollisions () { // Checks each player for collision with projectile.
     // projectile.collideWith method calls damagePlayer()
     this.players.forEach( player => this.projectileController.collideWith(player) );
@@ -60,6 +65,7 @@ export default class Game {
 
   animate () {
     this.update();
+    this.checkIntersections();
     this.checkCollisions();
     this.draw(this.ctx);
     requestAnimationFrame(this.animate.bind(this));

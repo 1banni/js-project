@@ -1,3 +1,4 @@
+import { DIM_X, DIM_Y, MAP_BORDER } from "../game-parameters/map-params.js";
 import Projectile from "./projectile.js";
 
 let bool = 0;
@@ -15,36 +16,42 @@ export default class ProjectileController {
   projectiles =  [];
   timeBetweenProjectiles = 0;
 
-  constructor(ctx) {
+  constructor(ctx, edgeController) {
     this.ctx = ctx;
+    this.edgeController = edgeController;
   }
 
   delete(projectile) {
     this.projectiles.splice(this.projectiles.indexOf(projectile), 1);
   }
 
+  checkIntersections() {
+    this.projectiles.forEach( projectile => this.edgeController.intersects(projectile));
+  }
+
   // PROOF - THIS METHOD DOESN'T ACCOUNT FOR PROJECTILES GOING OFF BOTTOM LEFT / TOP RIGHT OF SCREEN
   // PROOF - CONSIDER REWRITING THIS. OTHER MAP OBJECTS
   isOutOfBounds(projectile) {
-    return projectile.x <= -projectile.width + 50 &&
-      projectile.y <= -projectile.height + 50 &&
-      projectile.x >= 1200 - 50 - projectile.width &&
-      projectile.y >= 1200 - 50 - projectile.height;
+    return projectile.x <= -projectile.width + MAP_BORDER.WALL_PADDING &&
+      projectile.y <= -projectile.height + MAP_BORDER.WALL_PADDING &&
+      projectile.x >= DIM_X - MAP_BORDER.WALL_PADDING - projectile.width &&
+      projectile.y >= DIM_Y - MAP_BORDER.WALL_PADDING - projectile.height;
   }
 
   collisionType(projectile) {
-    if (!(projectile.x <= -projectile.width + 50 &&
-      projectile.x >= 1200 - 50 - projectile.width
+    if (!(projectile.x <= -projectile.width + MAP_BORDER.WALL_PADDING &&
+      projectile.x >= 1200 - MAP_BORDER.WALL_PADDING - projectile.width
     )) {
       return 'horizontal';
     }
-    else if (!(projectile.y <= -projectile.height + 50 &&
-      projectile.y >= 1200 - 50 - projectile.height)
+    else if (!(projectile.y <= -projectile.height + MAP_BORDER.WALL_PADDING &&
+      projectile.y >= 1200 - MAP_BORDER.WALL_PADDING - projectile.height)
     ) {
       return 'vertical';
     }
     return 'unsure - see projectile-coontroller#collisionType(projectile) method'
   }
+
 
   // PROOF: MODIFY THIS FUNCTION TO FIT YOUR CODE OR REPORT SOURCE https://www.youtube.com/watch?v=i7FzA4NavDs
   collideWith(player) {
@@ -83,7 +90,7 @@ export default class ProjectileController {
         if (this.collisionType(projectile) === 'horizontal') {
 
         } else {
-          
+
         }
       } else {
         // console.log('drawing projectile');

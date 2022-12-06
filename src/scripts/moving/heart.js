@@ -21,10 +21,7 @@ export default class Heart {
   }
 
   damage(points) {
-    console.log('points', points);
-    console.log('this.health',this.health);
     this.health = Math.max(0, this.health - points);
-    console.log('this.health',this.health);
   }
 
   draw (ctx) {
