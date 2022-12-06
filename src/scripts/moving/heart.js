@@ -36,11 +36,11 @@ export default class Heart {
     ctx.fillRect(this.x, this.y, healthWidth, HEART_BAR.HEIGHT, 5);
 
     // Draw 'Player #{playerIndex} Health'
-    // ctx.font = "bold 12px arial";
-    // ctx.textAlign = "center";
-    // ctx.textBaseline = "middle";
-    // ctx.fillStyle = "#ffffff";
-    // ctx.fillText(`Player ${this.playerIndex} Health`, this.x + (HEART_BAR.WIDTH / 2), this.y + (HEART_BAR.HEIGHT / 2));
+    ctx.font = "bold 12px arial";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillStyle = "#ffffff";
+    ctx.fillText(`Player ${this.playerIndex} Health`, this.x + (HEART_BAR.WIDTH / 2), this.y + (HEART_BAR.HEIGHT / 2));
   }
 
 

@@ -3,7 +3,7 @@ export const PROJECTILE = {
   RADIUS: 10,
   DELAY: 7,
   DAMAGE: 3,
-  SPEED: 10,
+  SPEED: 8,
 }
 
 

@@ -50,23 +50,34 @@ export default class Game {
     this.players.forEach( player => this.projectileController.collideWith(player) );
   }
 
-
   draw (ctx) {
     ctx.clearRect(0, 0, DIM_X, DIM_Y);
     // Draw map -> projectiles -< players (order sensitive)
+    // Draw layer 0 :
+    // Draw players layer 0
+    // Draw map layer 1
+    // Draw players layer 1
+    // Copy Pacman - tunnels on side of screen
     this.map.draw(ctx);
-    this.projectileController.draw(ctx);
-    this.edgeController.draw(ctx);
-    this.players.forEach(player => {
-      Util.infreqLog(player);
-      player.draw(ctx)
-    });
+
+
+    // Layer 0
+    let layer = 0;
+    this.edgeController.drawLayer(ctx, layer);
+    this.projectileController.drawLayer(ctx, layer);
+    this.players.forEach(player => player.drawLayer(ctx, layer));
+
+    // Layer 1
+    layer = 1;
+    this.edgeController.drawLayer(ctx, layer);
+    this.projectileController.drawLayer(ctx, layer);
+    this.players.forEach(player => player.drawLayer(ctx, layer));
   }
 
   animate () {
     this.update();
-    this.checkIntersections();
-    this.checkCollisions();
+    this.checkIntersections(); // PROOF - UPDATE FOR LAYERS?
+    this.checkCollisions(); // PROOF - UPDATE FOR LAYERS?
     this.draw(this.ctx);
     requestAnimationFrame(this.animate.bind(this));
   }

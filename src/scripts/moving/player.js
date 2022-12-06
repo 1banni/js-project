@@ -7,44 +7,44 @@ import { Util } from "../still/util";
 // Constants / Parameters
 import { PLAYER_PARAMS, PLAYER_COLORS } from "../game-parameters/player-params.js";
 import { PROJECTILE } from "../game-parameters/projectile-params.js";
-import { DIM_X, DIM_Y } from "../game-parameters/map-params.js";
+import { DIM_X, DIM_Y, MAP_BORDER, PLATFORMS } from "../game-parameters/map-params.js";
 
 // Classes
 import CourseMap from "../still/course-map.js";
 import Heart from "./heart.js";
 
-
-
-
 export default class Player {
   constructor(idx, pos, angle, color, projectileController) {
-    // Starter Values
+    // params: passed in
     this.idx = idx;
     this.x = pos[0];
     this.y = pos[1];
     this.angle = angle;
     this.speed = 0;
-    this.max_speed =PLAYER_PARAMS.MAX_SPEED;
+    this.color = color;
+    this.projectileController = projectileController;
+
+    // params: default
+    this.alive = true;
+    this.layer = 0;
+
+
+    // params: set by constant
+    this.max_speed = PLAYER_PARAMS.MAX_SPEED;
     this.acceleration = PLAYER_PARAMS.ACCELERATION;
     this.radius = PLAYER_PARAMS.RADIUS;
-    this.color = color;
     this.projectiles = PLAYER_PARAMS.PROJECTILES;
-    this.projectileController = projectileController;
-    this.alive = true;
     this.heart = new Heart(PLAYER_PARAMS.MAX_HEALTH, PLAYER_PARAMS.MAX_HEALTH,
                            this.color, this.idx);
     this.nitrous = PLAYER_PARAMS.MAX_NOS;
 
-    // window.addEventListener('keydown', (e) => console.log(e.key));
-    // Event listener for keyboard actionso
+    // instantiate key handler and add event listeners for keyboard actions
     this.keyHandler = new KeyHandler();
     document.addEventListener('keydown', (e) => this.keyHandler.keyPressed(e));
     document.addEventListener('keyup', (e) => this.keyHandler.keyReleased(e));
-
   }
 
   damage(points) {
-    console.log('in damage player');
     this.heart.damage(points);
     if (this.heart.health <= 0) {
       this.alive = false;
@@ -55,6 +55,7 @@ export default class Player {
 
   drawPlayer(ctx) {
     ctx.fillStyle = this.color;
+    ctx.strokeStyle = 'white';
     ctx.shadowColor = this.color;
     ctx.shadowBlur = 30;
     ctx.lineWidth = 7;
@@ -63,17 +64,17 @@ export default class Player {
       0, 2 * Math.PI, false);
     ctx.fill();
     ctx.closePath();
+    ctx.shadowBlur = 0;
   }
 
   drawLine(ctx) {
-    let vector = Util.scale(Util.directionFrom(this.angle), PLAYER_PARAMS.RADIUS);
-    ctx.strokeStyle = '#FFFFFF';
+    let [dx, dy] = Util.scale(Util.directionFrom(this.angle), PLAYER_PARAMS.RADIUS);
+    ctx.strokeStyle = '#ffffff';
     ctx.fillStyle = this.color;
     ctx.lineWidth = 4;
     ctx.beginPath();
     ctx.moveTo(this.x, this.y);
-    // ctx.lineTo(400, 400);
-    ctx.lineTo(this.x + vector[0], this.y + vector[1]);
+    ctx.lineTo(this.x + dx, this.y + dy);
     ctx.stroke();
   }
 
@@ -81,29 +82,29 @@ export default class Player {
     this.heart.draw(ctx);
   }
 
-  draw(ctx) {
-    if (this.alive) {
-      this.drawPlayer(ctx);
-      this.drawLine(ctx);
+  drawLayer(ctx, layer) {
+    if (this.layer === layer) {
+      this.drawHeart(ctx);
+      if (this.alive) {
+        this.drawPlayer(ctx);
+        this.drawLine(ctx);
+      }
     }
-    this.drawHeart(ctx);
   }
 
-
+  // draw(ctx) {
+  //   this.drawHeart(ctx);
+  //   if (this.alive) {
+  //     this.drawPlayer(ctx);
+  //     this.drawLine(ctx);
+  //   }
+  // }
 
   fireBlasters() { // PROOF equiv to shoot
-    // console.log('shoot');
-    // console.log(this.projectiles);
     if (this.alive && this.projectiles > 0) {
       this.projectiles--;
-      // let x = this.x + PLAYER_PARAMS.RADIUS; // PROOF - FIX THIS - BASE ON PLAYER DIRECTION
-      // let y = this.y + PLAYER_PARAMS.RADIUS;// + PLAYER_PARAMS.RADIUS;
       this.projectileController.shoot(this.x, this.y, this.angle, PROJECTILE.SPEED, PROJECTILE.DAMAGE, PROJECTILE.DELAY);
     }
-    // console.log('projX', x, 'projY', y);
-
-    // let dir = Util.dir(this.vel);
-    // let proj = new Projectile(this.pos, dir);
   }
 
   update () {
@@ -112,6 +113,35 @@ export default class Player {
     if (this.alive) {
       [this.x, this.y] = CourseMap.inbound(this.x + velX, this.y + velY, this.radius, this.radius);
     }
+    this.updateLayer();
+    // PROOF100 UPDATE LAYER
+  }
+
+  updateLayer () {
+    let prevLayer = this.layer;
+    // outer if checks x location; inner width checks y location
+    if (this.x > PLATFORMS[0][0] && this.x < PLATFORMS[0][0] + MAP_BORDER.PLATFORM_WIDTH) {
+      if (this.y > PLATFORMS[0][1] && this.y < PLATFORMS[0][1] + MAP_BORDER.PLATFORM_HEIGHT) {
+        this.layer = 1;
+      } else if (this.y > PLATFORMS[1][1] && this.y < PLATFORMS[1][1] + MAP_BORDER.PLATFORM_HEIGHT) {
+        this.layer = 1;
+      }
+    } else if (this.x > PLATFORMS[2][0] && this.x < PLATFORMS[2][0] + MAP_BORDER.PLATFORM_WIDTH) {
+      if (this.y > PLATFORMS[0][1] && this.y < PLATFORMS[0][1] + MAP_BORDER.PLATFORM_HEIGHT) {
+        this.layer = 1;
+      } else if (this.y > PLATFORMS[1][1] && this.y < PLATFORMS[1][1] + MAP_BORDER.PLATFORM_HEIGHT) {
+        this.layer = 1;
+      }
+    }
+
+    // if below or above top/bottom of platforms, set layer to zero
+    if (this.y < PLATFORMS[0][1] || this.y > PLATFORMS[1][1] + MAP_BORDER.PLATFORM_HEIGHT) this.layer = 0;
+
+    // PROOF - Delete, for debugging
+    if (this.layer !== prevLayer) {
+      console.log(`${this.constructor.name} ${this.idx}'s layer changed from ${prevLayer} to ${this.layer}`);
+    }
+    // console.log('this.layer', this.layer);
   }
 
   runKeys() {
@@ -122,17 +152,14 @@ export default class Player {
     if (pressedKeys.blast) this.fireBlasters();
 
     if (pressedKeys.throttle) {
-      // console.log('updating throttle');
       this.speed = Math.min(this.max_speed, this.speed + PLAYER_PARAMS.ACCELERATION);
     } else if (this.speed > 0) {
       this.speed = Math.floor(this.speed * 49 / 50 * 10) / 10;
     }
 
     if (pressedKeys.brake) {
-      // if brake is pressed, speed becomes greater of -
       this.speed = Math.max(-this.max_speed, this.speed - PLAYER_PARAMS.ACCELERATION * 1);
     } else if (this.speed < 0) {
-      // if break is
       this.speed = Math.ceil(this.speed * 49 / 50 * 10) / 10;
     }
   }

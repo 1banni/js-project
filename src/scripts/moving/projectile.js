@@ -14,6 +14,7 @@ export default class Projectile extends Particle{
     [this.dx, this.dy] = Util.scale(Util.directionFrom(angle), speed);
     this.damage = damage;
     this.color = PROJECTILE.COLOR;
+    this.bounces = 6;
   }
 
   update() {
@@ -29,8 +30,11 @@ export default class Projectile extends Particle{
     this.dy *= -1;
   }
 
+  decrBounces() {
+    this.bounces = Math.max(0, --this.bounces);
+  }
+
   draw(ctx) {
-    // console.log('drawing projectile');
     Util.infreqLog(this.x, this.y, this.width, this.height);
     ctx.strokeStyle = this.color;
     ctx.fillStyle = this.color;
@@ -44,8 +48,5 @@ export default class Projectile extends Particle{
     ctx.closePath();
     this.update();
   }
-
-  // PROOF : MODIFY THIS FUNCTION TO FIT YOUR CODE OR REPORT SOURCE https://www.youtube.com/watch?v=i7FzA4NavDs
-
 }
 

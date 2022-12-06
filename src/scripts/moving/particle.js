@@ -1,9 +1,4 @@
-
-
-
-
 export default class Particle {
-
   constructor (x, y, radius) {
     this.x = x;
     this.y = y;

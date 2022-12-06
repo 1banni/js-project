@@ -14,9 +14,8 @@ export default class CourseMap {
   draw(ctx) {
     // Color Canvas
     this.drawCanvas(ctx);
-    this.drawMap(ctx);
-    this.drawPlatforms(ctx);
-    this.drawBridges(ctx);
+    // this.drawMap(ctx);
+    // this.drawPlatforms(ctx);
   }
 
   drawCanvas(ctx) {
@@ -52,12 +51,6 @@ export default class CourseMap {
 
       // PROOF - ADD EDGES TO EDGE-CONTROLLER
     });
-  }
-
-  drawBridges (ctx) {
-    // TBU (PROOF)
-    let edge = new Edge(100, 100, 100, 100, MAP_COLOR.PLATFORMS);
-    edge.draw(ctx);
   }
 
   static inbound(x, y, width, height) {
