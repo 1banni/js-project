@@ -1,7 +1,3 @@
-
-
-
-
 export default class Rectangle {
   constructor(x, y, width, height, color) {
     this.x = x;

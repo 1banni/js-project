@@ -35,7 +35,7 @@
   //   }
   // }
 
-  
+
 
   // setVelocity(dir) {
 
@@ -53,4 +53,14 @@
   //   //   console.log('setVel this.vel', this.vel);
   //   //   console.log('setVel dir', dir);
   //   // }
+  // }
+
+
+  // // PROOF - THIS METHOD DOESN'T ACCOUNT FOR PROJECTILES GOING OFF BOTTOM LEFT / TOP RIGHT OF SCREEN
+  // // PROOF - CONSIDER REWRITING THIS. OTHER MAP OBJECTS
+  // isOutOfBounds(projectile) {
+  //   return projectile.x <= -projectile.width + MAP_BORDER.WALL_PADDING &&
+  //     projectile.y <= -projectile.height + MAP_BORDER.WALL_PADDING &&
+  //     projectile.x >= DIM_X - MAP_BORDER.WALL_PADDING - projectile.width &&
+  //     projectile.y >= DIM_Y - MAP_BORDER.WALL_PADDING - projectile.height;
   // }

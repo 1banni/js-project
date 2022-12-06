@@ -24,9 +24,5 @@ export default class Edge {
     ctx.stroke();
   }
 
-  // Figure out which side of edge the particle is on
-  sideOf(particle) {
-
-  }
 
 }

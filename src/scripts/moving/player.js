@@ -10,11 +10,10 @@ import { PROJECTILE } from "../game-parameters/projectile-params.js";
 import { DIM_X, DIM_Y, MAP_BORDER, PLATFORMS } from "../game-parameters/map-params.js";
 
 // Classes
-import CourseMap from "../still/course-map.js";
 import Heart from "./heart.js";
 
 export default class Player {
-  constructor(idx, pos, angle, color, projectileController) {
+  constructor(idx, pos, angle, color, edgeController, projectileController) {
     // params: passed in
     this.idx = idx;
     this.x = pos[0];
@@ -22,6 +21,7 @@ export default class Player {
     this.angle = angle;
     this.speed = 0;
     this.color = color;
+    this.edgeController = edgeController;
     this.projectileController = projectileController;
 
     // params: default
@@ -35,13 +35,71 @@ export default class Player {
     this.radius = PLAYER_PARAMS.RADIUS;
     this.projectiles = PLAYER_PARAMS.PROJECTILES;
     this.heart = new Heart(PLAYER_PARAMS.MAX_HEALTH, PLAYER_PARAMS.MAX_HEALTH,
-                           this.color, this.idx);
-    this.nitrous = PLAYER_PARAMS.MAX_NOS;
+      this.color, this.idx);
+      this.nitrous = PLAYER_PARAMS.MAX_NOS;
 
-    // instantiate key handler and add event listeners for keyboard actions
+      // instantiate key handler and add event listeners for keyboard actions
     this.keyHandler = new KeyHandler();
     document.addEventListener('keydown', (e) => this.keyHandler.keyPressed(e));
     document.addEventListener('keyup', (e) => this.keyHandler.keyReleased(e));
+  }
+
+  update () {
+    this.runKeys();
+    let [velX, velY] = Util.scale(Util.directionFrom(this.angle), this.speed);
+    [this.x, this.y] = [this.x + velX, this.y + velY];
+
+    // if (this.alive) {
+      // [this.x, this.y] = CourseMap.inbound(this.x + velX, this.y + velY, this.radius, this.radius);
+    // }
+    this.updateLayer();
+    // PROOF100 UPDATE LAYER
+  }
+
+  updateLayer () {
+    let prevLayer = this.layer;
+    // outer if checks x location; inner width checks y location
+    if (this.x > PLATFORMS[0][0] && this.x < PLATFORMS[0][0] + MAP_BORDER.PLATFORM_WIDTH) {
+      if (this.y > PLATFORMS[0][1] && this.y < PLATFORMS[0][1] + MAP_BORDER.PLATFORM_HEIGHT) {
+        this.layer = 1;
+      } else if (this.y > PLATFORMS[1][1] && this.y < PLATFORMS[1][1] + MAP_BORDER.PLATFORM_HEIGHT) {
+        this.layer = 1;
+      }
+    } else if (this.x > PLATFORMS[2][0] && this.x < PLATFORMS[2][0] + MAP_BORDER.PLATFORM_WIDTH) {
+      if (this.y > PLATFORMS[0][1] && this.y < PLATFORMS[0][1] + MAP_BORDER.PLATFORM_HEIGHT) {
+        this.layer = 1;
+      } else if (this.y > PLATFORMS[1][1] && this.y < PLATFORMS[1][1] + MAP_BORDER.PLATFORM_HEIGHT) {
+        this.layer = 1;
+      }
+    }
+
+    // if below or above top/bottom of platforms, set layer to zero
+    if (this.y < PLATFORMS[0][1] || this.y > PLATFORMS[1][1] + MAP_BORDER.PLATFORM_HEIGHT) this.layer = 0;
+
+    // PROOF - Delete, for debugging
+    if (this.layer !== prevLayer) {
+      console.log(`${this.constructor.name} ${this.idx}'s layer changed from ${prevLayer} to ${this.layer}`);
+    }
+  }
+
+  runKeys() {
+    let pressedKeys = (this.alive ? this.keyHandler.activeActions()[this.idx] : {});
+
+    if (pressedKeys.left) this.angle = (this.angle + 1 / PLAYER_PARAMS.TURN_RADIUS) % 360;
+    if (pressedKeys.right) this.angle = (this.angle - 1 / PLAYER_PARAMS.TURN_RADIUS) % 360;
+    if (pressedKeys.blast) this.fireBlasters();
+
+    if (pressedKeys.throttle) {
+      this.speed = Math.min(this.max_speed, this.speed + PLAYER_PARAMS.ACCELERATION);
+    } else if (this.speed > 0) {
+      this.speed = Math.floor(this.speed * 49 / 50 * 10) / 10;
+    }
+
+    if (pressedKeys.brake) {
+      this.speed = Math.max(-this.max_speed, this.speed - PLAYER_PARAMS.ACCELERATION * 1);
+    } else if (this.speed < 0) {
+      this.speed = Math.ceil(this.speed * 49 / 50 * 10) / 10;
+    }
   }
 
   damage(points) {
@@ -103,64 +161,16 @@ export default class Player {
   fireBlasters() { // PROOF equiv to shoot
     if (this.alive && this.projectiles > 0) {
       this.projectiles--;
-      this.projectileController.shoot(this.x, this.y, this.angle, PROJECTILE.SPEED, PROJECTILE.DAMAGE, PROJECTILE.DELAY);
+      this.projectileController.shoot(this.x, this.y, this.angle, this.layer, PROJECTILE.SPEED, PROJECTILE.DAMAGE, PROJECTILE.DELAY);
     }
   }
 
-  update () {
-    this.runKeys();
-    let [velX, velY] = Util.scale(Util.directionFrom(this.angle), this.speed);
-    if (this.alive) {
-      [this.x, this.y] = CourseMap.inbound(this.x + velX, this.y + velY, this.radius, this.radius);
-    }
-    this.updateLayer();
-    // PROOF100 UPDATE LAYER
+  resetY (newY) {
+    this.y = newY;
   }
 
-  updateLayer () {
-    let prevLayer = this.layer;
-    // outer if checks x location; inner width checks y location
-    if (this.x > PLATFORMS[0][0] && this.x < PLATFORMS[0][0] + MAP_BORDER.PLATFORM_WIDTH) {
-      if (this.y > PLATFORMS[0][1] && this.y < PLATFORMS[0][1] + MAP_BORDER.PLATFORM_HEIGHT) {
-        this.layer = 1;
-      } else if (this.y > PLATFORMS[1][1] && this.y < PLATFORMS[1][1] + MAP_BORDER.PLATFORM_HEIGHT) {
-        this.layer = 1;
-      }
-    } else if (this.x > PLATFORMS[2][0] && this.x < PLATFORMS[2][0] + MAP_BORDER.PLATFORM_WIDTH) {
-      if (this.y > PLATFORMS[0][1] && this.y < PLATFORMS[0][1] + MAP_BORDER.PLATFORM_HEIGHT) {
-        this.layer = 1;
-      } else if (this.y > PLATFORMS[1][1] && this.y < PLATFORMS[1][1] + MAP_BORDER.PLATFORM_HEIGHT) {
-        this.layer = 1;
-      }
-    }
-
-    // if below or above top/bottom of platforms, set layer to zero
-    if (this.y < PLATFORMS[0][1] || this.y > PLATFORMS[1][1] + MAP_BORDER.PLATFORM_HEIGHT) this.layer = 0;
-
-    // PROOF - Delete, for debugging
-    if (this.layer !== prevLayer) {
-      console.log(`${this.constructor.name} ${this.idx}'s layer changed from ${prevLayer} to ${this.layer}`);
-    }
-    // console.log('this.layer', this.layer);
+  reverseDY () {
+    this.dy = this.dy * -0.6;
   }
 
-  runKeys() {
-    let pressedKeys = (this.alive ? this.keyHandler.activeActions()[this.idx] : {});
-
-    if (pressedKeys.left) this.angle = (this.angle + 1 / PLAYER_PARAMS.TURN_RADIUS) % 360;
-    if (pressedKeys.right) this.angle = (this.angle - 1 / PLAYER_PARAMS.TURN_RADIUS) % 360;
-    if (pressedKeys.blast) this.fireBlasters();
-
-    if (pressedKeys.throttle) {
-      this.speed = Math.min(this.max_speed, this.speed + PLAYER_PARAMS.ACCELERATION);
-    } else if (this.speed > 0) {
-      this.speed = Math.floor(this.speed * 49 / 50 * 10) / 10;
-    }
-
-    if (pressedKeys.brake) {
-      this.speed = Math.max(-this.max_speed, this.speed - PLAYER_PARAMS.ACCELERATION * 1);
-    } else if (this.speed < 0) {
-      this.speed = Math.ceil(this.speed * 49 / 50 * 10) / 10;
-    }
-  }
 }

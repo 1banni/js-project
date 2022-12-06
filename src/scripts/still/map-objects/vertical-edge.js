@@ -22,4 +22,13 @@ export default class VerticalEdge extends Edge {
       return false;
     }
   }
+
+  resetParticleX(particle) {
+    if (particle.x < this.x) {
+      console.log('resetting radius');
+      particle.resetX(this.x - particle.radius - 1);
+    } else {
+      particle.resetX(this.x + particle.radius - 1);
+    }
+  }
 }

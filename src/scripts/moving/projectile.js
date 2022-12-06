@@ -4,17 +4,16 @@ import { PROJECTILE } from "../game-parameters/projectile-params.js";
 import { Util } from "../still/util.js";
 
 export default class Projectile extends Particle{
-  constructor(x, y, angle, speed, damage) {
+  constructor(x, y, angle, layer, speed, damage) {
     let [incrX, incrY] = Util.scale(Util.directionFrom(angle), PLAYER_PARAMS.RADIUS + PROJECTILE.RADIUS);
-    let extraCushion = 3;
-    // this.x = x + incrX;
-    // this.y = y + incrY;
-    // this.radius = PROJECTILE.RADIUS;
-    super(x + incrX + extraCushion, y + incrY + extraCushion, PROJECTILE.RADIUS);
-    [this.dx, this.dy] = Util.scale(Util.directionFrom(angle), speed);
+    super(x + incrX + PROJECTILE.CUSHION, y + incrY + PROJECTILE.CUSHION, PROJECTILE.RADIUS);
+
+    this.layer = layer;
     this.damage = damage;
+    [this.dx, this.dy] = Util.scale(Util.directionFrom(angle), speed);
+
     this.color = PROJECTILE.COLOR;
-    this.bounces = 6;
+    this.bounces = PROJECTILE.BOUNCES;
   }
 
   update() {

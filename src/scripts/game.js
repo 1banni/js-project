@@ -23,6 +23,7 @@ export default class Game {
                         PLAYERS_START_POS[playerIdx], // PROOF - MOVE THIS LOGIC TO THE PLAYERS FILE
                         PLAYERS_START_DIR[playerIdx],
                         PLAYERS_COLOR[playerIdx++],
+                        this.edgeController,
                         this.projectileController);
     });
 
@@ -41,8 +42,8 @@ export default class Game {
   }
 
   checkIntersections() {
+    this.players.forEach(player => this.edgeController.intersects(player));
     this.projectileController.checkIntersections();
-    // this.players.forEach(player => this.edgeController.intersects(player));
   }
 
   checkCollisions () { // Checks each player for collision with projectile.
