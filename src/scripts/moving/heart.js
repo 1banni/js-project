@@ -15,9 +15,9 @@ export default class Heart {
     this.color = color;
     this.playerIndex = playerIndex;
 
-    let incrY = playerIndex * (HEART_BAR.HEIGHT + 8);
-    this.x = Math.floor((DIM_X * 3 / 4) - HEART_BAR.WIDTH);
-    this.y = Math.floor(DIM_Y * 1 / 160 + incrY);
+    let incrX = playerIndex * (HEART_BAR.WIDTH + HEART_BAR.PADDING/2);
+    this.x = Math.floor(DIM_X - HEART_BAR.PADDING - incrX);
+    this.y = Math.floor(DIM_Y * 1 / 160);
   }
 
   damage(points) {

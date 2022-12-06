@@ -15,4 +15,14 @@ export default class Particle {
       return false;
     }
   }
+
+  resetPos(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+
+  reverseDir(dxMult, dyMult) {
+    this.dx = this.dx * dxMult;
+    this.dy = this.dy * dyMult;
+  }
 }

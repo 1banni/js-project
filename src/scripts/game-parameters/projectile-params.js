@@ -4,7 +4,7 @@ export const PROJECTILE = {
   DELAY: 7,
   DAMAGE: 3,
   SPEED: 8,
-  CUSHION: 1,
+  CUSHION: 0,
   BOUNCES: 6
 }
 

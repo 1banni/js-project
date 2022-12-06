@@ -48,12 +48,7 @@ export default class Player {
     this.runKeys();
     let [velX, velY] = Util.scale(Util.directionFrom(this.angle), this.speed);
     [this.x, this.y] = [this.x + velX, this.y + velY];
-
-    // if (this.alive) {
-      // [this.x, this.y] = CourseMap.inbound(this.x + velX, this.y + velY, this.radius, this.radius);
-    // }
     this.updateLayer();
-    // PROOF100 UPDATE LAYER
   }
 
   updateLayer () {
@@ -150,14 +145,6 @@ export default class Player {
     }
   }
 
-  // draw(ctx) {
-  //   this.drawHeart(ctx);
-  //   if (this.alive) {
-  //     this.drawPlayer(ctx);
-  //     this.drawLine(ctx);
-  //   }
-  // }
-
   fireBlasters() { // PROOF equiv to shoot
     if (this.alive && this.projectiles > 0) {
       this.projectiles--;
@@ -165,12 +152,13 @@ export default class Player {
     }
   }
 
-  resetY (newY) {
-    this.y = newY;
+  resetPos (x, y) {
+    this.x = x;
+    this.y = y;
   }
 
-  reverseDY () {
-    this.dy = this.dy * -0.6;
+  reverseDir (dxMult, dyMult) {
+    this.dx = this.dx * dxMult;
+    this.dy = this.dy * dyMult;
   }
-
 }

@@ -21,11 +21,11 @@ export default class Projectile extends Particle{
     this.y += this.dy;
   }
 
-  reflectX() {
+  reverseDX() {
     this.dx *= -1;
   }
 
-  reflectY() {
+  reverseDY() {
     this.dy *= -1;
   }
 

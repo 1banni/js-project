@@ -1,6 +1,6 @@
 import VerticalEdge from "./vertical-edge";
 import HorizontalEdge from "./horizontal-edge";
-import { MAP_COLOR, MAP_BORDER, PLATFORMS, DIM_X, DIM_Y } from "../../game-parameters/map-params";
+import { MAP_COLOR, MAP_BORDER, PLATFORMS, BRIDGES, DIM_X, DIM_Y } from "../../game-parameters/map-params";
 
 export default class EdgeController {
   // Each subarray represents a layer/floor on the map
@@ -27,6 +27,7 @@ export default class EdgeController {
   create() {
     this.createBorder();
     this.createPlatforms();
+    this.createBridges();
     // add more method calls
   }
 
@@ -34,15 +35,30 @@ export default class EdgeController {
     this.createRectangle(
       MAP_BORDER.WALL_PADDING,MAP_BORDER.WALL_PADDING,
       DIM_X - 2 * MAP_BORDER.WALL_PADDING, DIM_Y - 2 * MAP_BORDER.WALL_PADDING,
-      0, '#aa5555'
+      0, MAP_COLOR.EDGES
     ); // MAP_COLOR.BORDER
   }
 
-  createRectangle(x, y, dx, dy, layer, color) {
-    this.edges.push(new VerticalEdge(x, y, 0, dy, layer, color)); // left border
-    this.edges.push(new VerticalEdge(x + dx, y, 0, dy, layer, color)); // right border
-    this.edges.push(new HorizontalEdge(x, y, dx, 0, layer, color)); // top border
-    this.edges.push(new HorizontalEdge(x, y + dy, dx, 0, layer, color)); // bottom border
+  createBridges () {
+    let layer = 1;
+    let color = MAP_COLOR.BRIDGES;
+    let dx = BRIDGES.VERTICAL_WIDTH;
+    let dy = BRIDGES.VERTICAL_HEIGHT;
+
+    let [x, y] = BRIDGES.VERTICAL[0];
+    this.createVerticalBridge(x, y, dx, dy, layer, color);
+
+    [x, y] = BRIDGES.VERTICAL[1];
+    this.createVerticalBridge(x, y, dx, dy, layer, color);
+
+    // [x, y] = BRIDGES.HORIZONTAL[0];
+    // createVerticalBridge(x, y, dx, dy, layer, color);
+
+    // [x, y] = BRIDGES.HORIZONTAL[1];
+    // createVerticalBridge(x, y, dx, dy, layer, color);
+
+
+
   }
 
   createPlatforms () {
@@ -75,6 +91,27 @@ export default class EdgeController {
     this.edges.push(new VerticalEdge(x + dx, y, 0, dy, layer, color)); // right border
     this.edges.push(new HorizontalEdge(x, y, dx, 0, layer, color)); // top border
     this.edges.push(new HorizontalEdge(x, y + dy, dx - gap, 0, layer, color)); // bottom border
+  }
+
+  createRectangle(x, y, dx, dy, layer, color) {
+    this.edges.push(new VerticalEdge(x, y, 0, dy, layer, color)); // left border
+    this.edges.push(new VerticalEdge(x + dx, y, 0, dy, layer, color)); // right border
+    this.edges.push(new HorizontalEdge(x, y, dx, 0, layer, color)); // top border
+    this.edges.push(new HorizontalEdge(x, y + dy, dx, 0, layer, color)); // bottom border
+  }
+
+  createVerticalBridge(x, y, dx, dy, layer, color) {
+    this.edges.push(new VerticalEdge(x, y, 0, dy, layer, color)); // left border
+    this.edges.push(new VerticalEdge(x + dx, y, 0, dy, layer, color)); // right border
+    this.edges.push(new HorizontalEdge(x, y, dx, 0, -1, color)); // top border
+    this.edges.push(new HorizontalEdge(x, y + dy, dx, 0, -1, color)); // bottom border
+  }
+
+  createHorizontalBridge(x, y, dx, dy, layer, color) {
+    this.edges.push(new VerticalEdge(x, y, 0, dy, -1, color)); // left border
+    this.edges.push(new VerticalEdge(x + dx, y, 0, dy, -1, color)); // right border
+    this.edges.push(new HorizontalEdge(x, y, dx, 0, layer, color)); // top border
+    this.edges.push(new HorizontalEdge(x, y + dy, dx, 0, layer, color)); // bottom border
   }
 
 

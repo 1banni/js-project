@@ -10,28 +10,27 @@ export default class HorizontalEdge extends Edge {
 
   intersects(particle) {
     if (particle.layer === this.layer && this.intersectHelper(particle)
-      ) {
-        if (particle instanceof Projectile) {
-          particle.reflectY();
-          particle.decrBounces();
-        } else {
-          this.resetParticleY(particle);
-          particle.reverseDY();
-        }
-        return true;
+    ) {
+      if (particle instanceof Projectile) {
+        particle.reverseDir(1,-1);
+        particle.decrBounces();
       } else {
-        return false;
+        this.resetParticleY(particle);
+        particle.reverseDir(1,-0.7);
       }
+      return true;
+    } else {
+      return false;
     }
+  }
 
-    resetParticleY (particle) {
-      if (particle.y < this.y) {
-        console.log('resetting radius');
-        particle.resetY(this.y - particle.radius - 1);
-      } else {
-        particle.resetY(this.y + particle.radius - 1);
-      }
+  resetParticleY (particle) {
+    if (particle.y < this.y) {
+      particle.resetPos(particle.x, this.y - particle.radius - 1);
+    } else {
+      particle.resetPos(particle.x, this.y + particle.radius + 1);
     }
+  }
     // // Draw method inherited
     // intersects (particle) {
       //   if (particle.layer === this.layer && this.intersectHelper(particle)) {
@@ -52,9 +51,13 @@ export default class HorizontalEdge extends Edge {
 
 
   intersectHelper (particle) {
-    return particle.x + particle.radius >= this.x && // particle's right-most point >= left end of line
-      particle.x - particle.radius <= this.x + this.dx && // particle's left-most point <= right end of line
-      Math.abs(particle.y - this.y) <= particle.radius;
+    console.log('Math.abs(particle.y - this.y) <= particle.radius', Math.abs(particle.y - this.y) <= particle.radius);
+    console.log('particle.x + particle.radius >= this.x', particle.x + particle.radius >= this.x);
+    console.log('particle.x - particle.radius <= this.x + this.dx', particle.x - particle.radius <= this.x + this.dx);
+
+    return Math.abs(particle.y - this.y) <= particle.radius
+      && particle.x + particle.radius >= this.x // particle's right-most point >= left end of line
+      && particle.x - particle.radius <= this.x + this.dx; // particle's left-most point <= right end of line
   }
 }
 
