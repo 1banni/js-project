@@ -6,22 +6,35 @@ export default class HorizontalEdge extends Edge {
     super(x, y, dx, dy, layer, color); // PROOF NOTE: MAY NEED TO ADD PARAMS HERE
   }
 
-
   intersects(particle) {
-    if (particle.layer === this.layer && this.intersectHelperY(particle)
-    ) {
-      if (particle instanceof Projectile) {
-        particle.reverseDir(1,-1);
-        particle.decrBounces();
+    if (particle.layer === this.layer) {
+      if (this instanceof HorizontalEdge && this.intersectHelperY(particle)
+      ) {
+        if (particle instanceof Projectile) {
+          particle.reverseDir(1,-1);
+          particle.decrBounces();
+        } else {
+          this.resetParticleY(particle);
+          particle.reverseDir(1,-0.7);
+        }
+        return true;
+      } else if (particle.layer === this.layer && this.intersectHelperX(particle)
+      ) {
+        if (particle instanceof Projectile) {
+         particle.reverseDir(-1, 1);
+         particle.decrBounces();
+        } else {
+          this.resetParticleX(particle);
+          particle.reverseDir(-0.7, 1);
+        }
+        return true;
       } else {
-        this.resetParticleY(particle);
-        particle.reverseDir(1,-0.7);
+        return false;
       }
-      return true;
-    } else {
+    }
+    else {
       return false;
     }
-  }
 
 
     // // Draw method inherited
@@ -43,11 +56,7 @@ export default class HorizontalEdge extends Edge {
   // }
 
 
-  intersectHelperY (particle) {
-    return Math.abs(particle.y - this.y) <= particle.radius
-      && particle.x + particle.radius >= this.x // particle's right-most point >= left end of line
-      && particle.x - particle.radius <= this.x + this.dx; // particle's left-most point <= right end of line
-  }
+
 }
 
 

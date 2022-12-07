@@ -40,4 +40,16 @@ export default class Edge {
     }
   }
 
+  intersectHelperY(particle) {
+    return Math.abs(particle.y - this.y) <= particle.radius
+      && particle.x + particle.radius >= this.x // particle's right-most point >= left end of line
+      && particle.x - particle.radius <= this.x + this.dx; // particle's left-most point <= right end of line
+  }
+
+  intersectHelperX(particle) {
+    return Math.abs(particle.x - this.x) <= particle.radius
+      && particle.y + particle.radius >= this.y // particle's bottoom-most point >= top end of line
+      && particle.y - particle.radius <= this.y + this.dy; // particle's top-most point <= bottom end of line
+  }
+
 }
