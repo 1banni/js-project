@@ -28,6 +28,10 @@ export const Util = {
     return [Math.sin(radians), Math.cos(radians)];
   },
 
+  // getAngle(dx, dy) {
+  //   return 180 * (Math.atan2(dy, dx)) * Math.PI;
+  // },
+
 
   // Calculates distance between two points
   dist (p1, p2) {

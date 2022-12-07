@@ -6,10 +6,10 @@ export const NUM_PLAYERS = 2;
 export const PLAYERS_COLOR = ['#0dccff', '#a000fa', 'blue', 'purple'];
 export const PLAYER_PARAMS = {
   MAX_HEALTH: 100,
-  MAX_SPEED: 10, // PROOF this isn't hitting cause setVelo isn't complete
+  MAX_SPEED: 8, // PROOF this isn't hitting cause setVelo isn't complete
   RADIUS: 20,
-  TURN_RADIUS: 0.5,
-  ACCELERATION: 0.05,
+  TURN_RADIUS: 0.3,
+  ACCELERATION: 0.1,
   PROJECTILES: 10000,
   MAX_NOS: 400,
   // TURN_RADIUS: 3;

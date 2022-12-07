@@ -42,8 +42,19 @@ export default class Game {
   }
 
   checkIntersections() {
-    this.players.forEach(player => this.edgeController.intersects(player));
-    this.projectileController.checkIntersections();
+    this.players.forEach(player => this.edgeController.intersects(player)); // Map
+    this.projectileController.checkIntersections(); // Projectiles
+    // Other Players
+    for (let i = 0; i < this.players.length; i++) {
+      for (let j = i+1; j < this.players.length; j++) {
+        // console.log('this.players[i].collideWith(this.players[j])', this.players[i].collideWith(this.players[j]));
+        if (this.players[i].collideWith(this.players[j])) {
+          let p1 = this.players[i];
+          let p2 = this.players[j];
+          
+        }
+      }
+    }
   }
 
   checkCollisions () { // Checks each player for collision with projectile.
@@ -68,11 +79,17 @@ export default class Game {
     this.projectileController.drawLayer(ctx, layer);
     this.players.forEach(player => player.drawLayer(ctx, layer));
 
+    this.map.drawBridges(ctx);
+
     // Layer 1
     layer = 1;
     this.edgeController.drawLayer(ctx, layer);
     this.projectileController.drawLayer(ctx, layer);
     this.players.forEach(player => player.drawLayer(ctx, layer));
+
+    // Layer -2
+    layer = -2;
+    this.edgeController.drawLayer(ctx, layer);
   }
 
   animate () {

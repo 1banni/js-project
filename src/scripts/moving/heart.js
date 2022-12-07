@@ -16,7 +16,7 @@ export default class Heart {
     this.playerIndex = playerIndex;
 
     let incrX = playerIndex * (HEART_BAR.WIDTH + HEART_BAR.PADDING/2);
-    this.x = Math.floor(DIM_X - HEART_BAR.PADDING - incrX);
+    this.x = Math.floor(DIM_X - HEART_BAR.WIDTH - HEART_BAR.PADDING - incrX - 50);
     this.y = Math.floor(DIM_Y * 1 / 160);
   }
 
@@ -36,11 +36,11 @@ export default class Heart {
     ctx.fillRect(this.x, this.y, healthWidth, HEART_BAR.HEIGHT, 5);
 
     // Draw 'Player #{playerIndex} Health'
-    ctx.font = "bold 12px arial";
+    ctx.font = "bold 18px arial";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
-    ctx.fillStyle = "#ffffff";
-    ctx.fillText(`Player ${this.playerIndex} Health`, this.x + (HEART_BAR.WIDTH / 2), this.y + (HEART_BAR.HEIGHT / 2));
+    ctx.fillStyle = "#181818";
+    ctx.fillText(`Health P${this.playerIndex}`, this.x + (HEART_BAR.WIDTH / 2), this.y + (HEART_BAR.HEIGHT / 2));
   }
 
 

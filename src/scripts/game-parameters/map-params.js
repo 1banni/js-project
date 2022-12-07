@@ -18,16 +18,23 @@ export const PLATFORMS = [
 
 export const BRIDGES = {
   VERTICAL: [
-    [300, 325],
-    [800, 325],
+    [312.5, 325],
+    [812.5, 325],
   ],
-  VERTICAL_WIDTH: 100,
-  VERTICAL_HEIGHT: 150,
-
   HORIZONTAL: [
-    [],
-    [],
-  ]
+    [475, 212.5]
+  ],
+  VERTICAL_WIDTH: 75,
+  VERTICAL_HEIGHT: 150,
+  HORIZONTAL_WIDTH: 250,
+  HORIZONTAL_HEIGHT: 75,
+  SLATS: 8,
+  SLATS_BETWEEN: 1,
+
+  // HORIZONTAL: [
+  //   [],
+  //   [],
+  // ]
 
 }
 
@@ -37,7 +44,8 @@ export const MAP_COLOR = {
   GROUND: '#000000',
   PLATFORMS: '#00ee15',
   BRIDGES: '#00ffff',
-  EDGES: 'ffaaff'
+  BRIDGES_SLATS_BETWEEN: '#aadddd',
+  EDGES: '#fac60c'
 };
 
 

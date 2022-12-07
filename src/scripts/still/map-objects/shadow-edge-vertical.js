@@ -1,7 +1,7 @@
-import Edge from "./edge";
+import ShadowEdge from "./shadow-edge";
 import Projectile from "../../moving/projectile";
 
-export default class VerticalEdge extends Edge {
+export default class ShadowEdgeVertical extends ShadowEdge {
   constructor(x, y, dx, dy, layer, color) {
     super(x, y, dx, dy, layer, color); // PROOF NOTE: MAY NEED TO ADD PARAMS HERE
   }
@@ -23,9 +23,15 @@ export default class VerticalEdge extends Edge {
     }
   }
 
+  resetParticleX(particle) {
+    if (particle.x < this.x) {
+      particle.resetPos(this.x - particle.radius - 1, particle.y);
+    } else {
+      particle.resetPos(this.x + particle.radius + 1, particle.y);
+    }
+  }
 
-
-  intersectHelper (particle) {
+  intersectHelper(particle) {
     return Math.abs(particle.x - this.x) <= particle.radius
       && particle.y + particle.radius >= this.y // particle's bottoom-most point >= top end of line
       && particle.y - particle.radius <= this.y + this.dy; // particle's top-most point <= bottom end of line

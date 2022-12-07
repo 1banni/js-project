@@ -10,14 +10,15 @@ import { PROJECTILE } from "../game-parameters/projectile-params.js";
 import { DIM_X, DIM_Y, MAP_BORDER, PLATFORMS } from "../game-parameters/map-params.js";
 
 // Classes
+import Particle from "./particle.js";
 import Heart from "./heart.js";
+import CourseMap from "../still/course-map.js";
 
-export default class Player {
+export default class Player extends Particle{
   constructor(idx, pos, angle, color, edgeController, projectileController) {
     // params: passed in
+    super(pos[0], pos[1], PLAYER_PARAMS.RADIUS);
     this.idx = idx;
-    this.x = pos[0];
-    this.y = pos[1];
     this.angle = angle;
     this.speed = 0;
     this.color = color;
@@ -32,7 +33,6 @@ export default class Player {
     // params: set by constant
     this.max_speed = PLAYER_PARAMS.MAX_SPEED;
     this.acceleration = PLAYER_PARAMS.ACCELERATION;
-    this.radius = PLAYER_PARAMS.RADIUS;
     this.projectiles = PLAYER_PARAMS.PROJECTILES;
     this.heart = new Heart(PLAYER_PARAMS.MAX_HEALTH, PLAYER_PARAMS.MAX_HEALTH,
       this.color, this.idx);
@@ -47,6 +47,7 @@ export default class Player {
   update () {
     this.runKeys();
     let [velX, velY] = Util.scale(Util.directionFrom(this.angle), this.speed);
+    // [this.x, this.y] = CourseMap.inbound([this.x + velX, this.y + velY]);
     [this.x, this.y] = [this.x + velX, this.y + velY];
     this.updateLayer();
   }
@@ -69,7 +70,12 @@ export default class Player {
     }
 
     // if below or above top/bottom of platforms, set layer to zero
-    if (this.y < PLATFORMS[0][1] || this.y > PLATFORMS[1][1] + MAP_BORDER.PLATFORM_HEIGHT) this.layer = 0;
+    if (this.y < PLATFORMS[0][1] || this.y > PLATFORMS[1][1] + MAP_BORDER.PLATFORM_HEIGHT) {
+      this.layer = 0;
+    }
+    else if (this.x < PLATFORMS[0][0] || this.x > PLATFORMS[2][0] + MAP_BORDER.PLATFORM_HEIGHT) {
+      this.layer = 0;
+    }
 
     // PROOF - Delete, for debugging
     if (this.layer !== prevLayer) {
@@ -157,8 +163,9 @@ export default class Player {
     this.y = y;
   }
 
-  reverseDir (dxMult, dyMult) {
+  reverseDir(dxMult, dyMult) { // this.angle = Util.getAngle(this.dx, this.dy);
     this.dx = this.dx * dxMult;
     this.dy = this.dy * dyMult;
+
   }
 }

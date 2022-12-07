@@ -24,5 +24,20 @@ export default class Edge {
     ctx.stroke();
   }
 
+  resetParticleY(particle) {
+    if (particle.y < this.y) {
+      particle.resetPos(particle.x, this.y - particle.radius - 1);
+    } else {
+      particle.resetPos(particle.x, this.y + particle.radius + 1);
+    }
+  }
+
+  resetParticleX(particle) {
+    if (particle.x < this.x) {
+      particle.resetPos(this.x - particle.radius - 1, particle.y);
+    } else {
+      particle.resetPos(this.x + particle.radius + 1, particle.y);
+    }
+  }
 
 }
