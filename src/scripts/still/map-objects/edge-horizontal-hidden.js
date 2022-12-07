@@ -1,7 +1,7 @@
 import ShadowEdge from "./shadow-edge";
 import Projectile from "../../moving/projectile";
 
-export default class ShadowEdgeHorizontal extends ShadowEdge {
+export default class EdgeHorizontalHidden extends EdgeHorizontal {
   constructor(x, y, dx, dy, layer, color) {
     super(x, y, dx, dy, layer, color); // PROOF NOTE: MAY NEED TO ADD PARAMS HERE
   }

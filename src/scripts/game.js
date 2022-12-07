@@ -1,11 +1,12 @@
 /** @type {HTMLCanvasElement} */
-import CourseMap from './still/course-map.js'
+import CourseMap from './still/map-objects/course-map.js'
 import Player from './moving/player.js';
 import ProjectileController from './moving/projectile-controller.js';
 import EdgeController from './still/map-objects/edge-controller.js';
 import { PLAYERS_COLOR, NUM_PLAYERS, PLAYERS_START_POS, PLAYERS_START_DIR } from './game-parameters/player-params.js';
 import { DIM_X, DIM_Y } from './game-parameters/map-params.js'
 import { Util } from './still/util.js';
+import NewEdgeController from './still/map-objects/new-edge-controller.js';
 
 let playerIdx = 0;
 
@@ -14,7 +15,8 @@ export default class Game {
   constructor (canvas) {
     this.ctx = canvas.getContext('2d');
     this.map = new CourseMap(this.ctx);
-    this.edgeController = new EdgeController(this.ctx);
+    // this.edgeController = new EdgeController(this.ctx);
+    this.newEdgeController = new NewEdgeController(this.ctx);
     this.projectileController = new ProjectileController(this.ctx, this.edgeController);
     this.players = Array.from(Array(NUM_PLAYERS), () => {
       return new Player(playerIdx,
@@ -40,20 +42,22 @@ export default class Game {
   }
 
   checkIntersections() {
-    this.players.forEach(player => this.edgeController.intersects(player)); // Map
+    this.players.forEach(player => this.newEdgeController.intersects(player)); // Map
     this.projectileController.checkIntersections(); // Projectiles
     // Other Players
-    for (let i = 0; i < this.players.length; i++) {
-      for (let j = i+1; j < this.players.length; j++) {
-        // console.log('this.players[i].collideWith(this.players[j])', this.players[i].collideWith(this.players[j]));
-        if (this.players[i].collideWith(this.players[j])) {
-          let p1 = this.players[i];
-          let p2 = this.players[j];
-          // PROOF - TBU
+    // for (let i = 0; i < this.players.length; i++) {
+    //   for (let j = i+1; j < this.players.length; j++) {
+    //     // console.log('this.players[i].collideWith(this.players[j])', this.players[i].collideWith(this.players[j]));
+          // IF DIST OF THIS IS LESS THAN 2X RADIUS, PLAYERS ARE COLLIDING
+          // GET THE VECTOR (SUBTRACT P2 FROM P1), THEN SCALE THAT VECTOR TO BE LENGTH R
+          // let p1 = this.players[i];
+    //       let p2 = this.players[j];
+    //
+    //       // PROOF - TBU
 
-        }
-      }
-    }
+    //     }
+    //   }
+    // }
   }
 
   checkCollisions () { // Checks each player for collision with projectile.
@@ -63,32 +67,41 @@ export default class Game {
 
   draw (ctx) {
     ctx.clearRect(0, 0, DIM_X, DIM_Y);
+    this.newEdgeController.drawCanvas(ctx);
+
+
+    // draw canvas -> grid, projectiles, players lvl 1, then lvl 2 ->
+    // draw map, projectiles, players lvl 1, then lvl 2 ->
     // Draw map -> projectiles -< players (order sensitive)
     // Draw layer 0 :
     // Draw players layer 0
     // Draw map layer 1
     // Draw players layer 1
     // Copy Pacman - tunnels on side of screen
-    this.map.draw(ctx);
 
 
-    // Layer 0
+    // // Layer 0
     let layer = 0;
-    this.edgeController.drawLayer(ctx, layer);
+    this.newEdgeController.drawLayer(ctx, layer);
     this.projectileController.drawLayer(ctx, layer);
     this.players.forEach(player => player.drawLayer(ctx, layer));
 
-    this.map.drawBridges(ctx);
 
-    // Layer 1
+    // // Layer 1
     layer = 1;
-    this.edgeController.drawLayer(ctx, layer);
+    this.newEdgeController.drawLayer(ctx, layer);
     this.projectileController.drawLayer(ctx, layer);
     this.players.forEach(player => player.drawLayer(ctx, layer));
 
-    // Layer -2
-    layer = -2;
-    this.edgeController.drawLayer(ctx, layer);
+    // // Layer -2
+    // layer = -2;
+    // this.edgeController.drawLayer(ctx, layer);
+
+    // let img = new Image();
+    // // img.src = '../img/heart.xcf';
+    // img.src = '../img/scratch-cookie.jpeg';
+    // ctx.drawImage(img, 0, 0);
+    // // (img, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
   }
 
   animate () {

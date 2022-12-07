@@ -12,7 +12,7 @@ import { DIM_X, DIM_Y, MAP_BORDER, PLATFORMS } from "../game-parameters/map-para
 // Classes
 import Particle from "./particle.js";
 import Heart from "./heart.js";
-import CourseMap from "../still/course-map.js";
+import CourseMap from "../still/map-objects/course-map.js";
 
 export default class Player extends Particle{
   constructor(idx, pos, angle, color, edgeController, projectileController) {
@@ -82,6 +82,25 @@ export default class Player extends Particle{
       console.log(`${this.constructor.name} ${this.idx}'s layer changed from ${prevLayer} to ${this.layer}`);
     }
   }
+
+  handleIntersect (x, y, edgeX, edgeY) {
+    if (edgeX) this.resetX(edgeX);
+    if (edgeY) this.resetY(edgeY);
+
+    this.reverseDir(x, y * -0.7);
+  }
+
+
+  resetX () {
+    this.resetPos(this.x + edgeX, this.y);
+  }
+
+
+  resetY () {
+    this.resetPos(this.x, this.y + edgeY);
+  }
+
+
 
   runKeys() {
     let pressedKeys = (this.alive ? this.keyHandler.activeActions()[this.idx] : {});

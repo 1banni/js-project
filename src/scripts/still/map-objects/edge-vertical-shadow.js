@@ -1,10 +1,14 @@
 import ShadowEdge from "./shadow-edge";
 import Projectile from "../../moving/projectile";
 
-export default class ShadowEdgeVertical extends ShadowEdge {
+export default class VerticalEdgeShadow extends VerticalEdge {
   constructor(x, y, dx, dy, layer, color) {
-    super(x, y, dx, dy, layer, color); // PROOF NOTE: MAY NEED TO ADD PARAMS HERE
+    super(x, y, dx, dy, layer, color);
   }
+
+  // PROOF: comment in once working
+  // draw () {}
+
 }
 
   // intersects(particle) {

@@ -16,23 +16,6 @@ export default class Projectile extends Particle{
     this.bounces = PROJECTILE.BOUNCES;
   }
 
-  update() {
-    this.x += this.dx;
-    this.y += this.dy;
-  }
-
-  reverseDX() {
-    this.dx *= -1;
-  }
-
-  reverseDY() {
-    this.dy *= -1;
-  }
-
-  decrBounces() {
-    this.bounces = Math.max(0, --this.bounces);
-  }
-
   draw(ctx) {
     Util.infreqLog(this.x, this.y, this.width, this.height);
     ctx.strokeStyle = this.color;
@@ -47,5 +30,28 @@ export default class Projectile extends Particle{
     ctx.closePath();
     this.update();
   }
+  
+  update() {
+    this.x += this.dx;
+    this.y += this.dy;
+  }
+
+  handleIntersect(x, y) {
+    this.reverseDir(x, y);
+    this.decrBounces();
+  }
+
+  reverseDX() {
+    this.dx *= -1;
+  }
+
+  reverseDY() {
+    this.dy *= -1;
+  }
+
+  decrBounces() {
+    this.bounces = Math.max(0, --this.bounces);
+  }
+
 }
 

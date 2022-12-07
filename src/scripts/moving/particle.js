@@ -5,6 +5,8 @@ export default class Particle {
     this.radius = radius;
   }
 
+
+
   collideWith(player) {
     let dist = Math.sqrt((this.x - player.x) ** 2 + (this.y - player.y) ** 2);
     let radiiLengths = this.radius + player.radius;
@@ -21,8 +23,8 @@ export default class Particle {
     this.y = y;
   }
 
-  reverseDir(dxMult, dyMult) {
-    this.dx = this.dx * dxMult;
-    this.dy = this.dy * dyMult;
+  reverseDir(x, y) {
+    this.dx = this.dx * x;
+    this.dy = this.dy * y;
   }
 }

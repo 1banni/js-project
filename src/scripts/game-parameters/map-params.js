@@ -40,12 +40,12 @@ export const BRIDGES = {
 
 
 export const MAP_COLOR = {
-  BORDER: '#333333', // light grey
+  BORDER: '#cccccc', // light grey
   GROUND: '#000000',
   PLATFORMS: '#00ee15',
   BRIDGES: '#00ffff',
   BRIDGES_SLATS_BETWEEN: '#aadddd',
-  EDGES: '#fac60c'
+  EDGES: '#00ee15'//'#fac60c'
 };
 
 

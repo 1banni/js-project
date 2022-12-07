@@ -14,6 +14,8 @@ let dukeMod = 1000;
 let dukeModDelta = 25;
 
 export const Util = {
+  
+
   // Infrequently log in console
   infreqLog (obj, str='', freq = 0) {
     if (duke++ % dukeMod === 0) {

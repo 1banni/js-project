@@ -1,7 +1,7 @@
 /** @type {HTMLCanvasElement} */
-import { MAP_COLOR, MAP_BORDER, BRIDGES, PLATFORM_BORDER_WIDTH, DIM_X, DIM_Y } from "../game-parameters/map-params.js";
-import EdgeController from "./map-objects/edge-controller.js";
-import Edge from "./map-objects/edge.js";
+import { MAP_COLOR, MAP_BORDER, BRIDGES, PLATFORM_BORDER_WIDTH, DIM_X, DIM_Y } from "../../game-parameters/map-params.js";
+import EdgeController from "./edge-controller.js";
+import Edge from "./edge.js";
 
 export default class CourseMap {
   constructor() {
@@ -10,51 +10,47 @@ export default class CourseMap {
   //   // this.wallBumper =   MAP_BORDER.WALL_PADDING + (  MAP_BORDER.WALL_WIDTH / 2);
   }
 
-  draw(ctx) {
-    // Color Canvas
-    this.drawCanvas(ctx);
-    this.drawBorder(ctx);
-    // this.drawBridges(ctx);
-  }
+  // draw(ctx) {
+  //   // Color Canvas
+  //   this.drawCanvas(ctx);
+  //   // this.drawBorder(ctx);
+  //   // this.drawBridges(ctx);
+  // }
 
-  drawCanvas(ctx) {
-    ctx.fillStyle = MAP_COLOR.BORDER;
-    ctx.fillRect(0, 0, DIM_X, DIM_Y);
-    // edges.forEach(edge => EdgeController.addEdge(edge));
-  }
+  
 
-  drawBorder (ctx) {
-    ctx.fillStyle = MAP_COLOR.GROUND;
-    ctx.shadowBlur = 0;
-    ctx.fillRect( MAP_BORDER.WALL_PADDING, MAP_BORDER.WALL_PADDING,
-                  DIM_X - MAP_BORDER.WALL_PADDING * 2,
-                  DIM_Y - MAP_BORDER.WALL_PADDING * 2 );
-  }
+  // drawBorder (ctx) {
+  //   ctx.fillStyle = MAP_COLOR.GROUND;
+  //   ctx.shadowBlur = 0;
+  //   ctx.fillRect( MAP_BORDER.WALL_PADDING, MAP_BORDER.WALL_PADDING,
+  //                 DIM_X - MAP_BORDER.WALL_PADDING * 2,
+  //                 DIM_Y - MAP_BORDER.WALL_PADDING * 2 );
+  // }
 
-  drawBridges(ctx) {
-    let arr1 = BRIDGES.HORIZONTAL[0];
-    let x1 = arr1[0];
-    let y1 = arr1[1];
-    let dx1 = BRIDGES.HORIZONTAL_WIDTH;
-    let dy1 = BRIDGES.HORIZONTAL_HEIGHT;
+  // drawBridges(ctx) {
+  //   let arr1 = BRIDGES.HORIZONTAL[0];
+  //   let x1 = arr1[0];
+  //   let y1 = arr1[1];
+  //   let dx1 = BRIDGES.HORIZONTAL_WIDTH;
+  //   let dy1 = BRIDGES.HORIZONTAL_HEIGHT;
 
-    let arr2 = BRIDGES.VERTICAL[0];
-    let x2 = arr2[0];
-    let y2 = arr2[1];
-    let dx2 = BRIDGES.VERTICAL_WIDTH;
-    let dy2 = BRIDGES.VERTICAL_HEIGHT;
+  //   let arr2 = BRIDGES.VERTICAL[0];
+  //   let x2 = arr2[0];
+  //   let y2 = arr2[1];
+  //   let dx2 = BRIDGES.VERTICAL_WIDTH;
+  //   let dy2 = BRIDGES.VERTICAL_HEIGHT;
 
-    let arr3 = BRIDGES.VERTICAL[1];
-    let x3 = arr3[0];
-    let y3 = arr3[1];
-    let dx3 = BRIDGES.VERTICAL_WIDTH;
-    let dy3 = BRIDGES.VERTICAL_HEIGHT;
+  //   let arr3 = BRIDGES.VERTICAL[1];
+  //   let x3 = arr3[0];
+  //   let y3 = arr3[1];
+  //   let dx3 = BRIDGES.VERTICAL_WIDTH;
+  //   let dy3 = BRIDGES.VERTICAL_HEIGHT;
 
-    ctx.fillStyle = 'rgba(125, 200, 200, 0.5)'; //'#118888'"
-    ctx.fillRect(x1, y1, dx1, dy1);
-    ctx.fillRect(x2, y2, dx2, dy2);
-    ctx.fillRect(x3, y3, dx3, dy3);
-  }
+  //   ctx.fillStyle = 'rgba(125, 200, 200, 0.5)'; //'#118888'"
+  //   ctx.fillRect(x1, y1, dx1, dy1);
+  //   ctx.fillRect(x2, y2, dx2, dy2);
+  //   ctx.fillRect(x3, y3, dx3, dy3);
+  // }
 
   // drawPlatforms (ctx) {
   //   // '#ffffff'

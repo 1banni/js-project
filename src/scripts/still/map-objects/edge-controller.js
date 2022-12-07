@@ -1,7 +1,7 @@
-import VerticalEdge from "./vertical-edge";
-import HorizontalEdge from "./horizontal-edge";
-import ShadowEdgeHorizontal from "./shadow-edge-horizontal";
-import ShadowEdgeVertical from "./vertical-edge-shadow";
+import VerticalEdge from "./edge-vertical";
+import HorizontalEdge from "./edge-horizontal";
+// import ShadowEdgeHorizontal from "./edge-horizontal-hidden";
+// import ShadowEdgeVertical from "./edge-vertical-shadow";
 import { MAP_COLOR, MAP_BORDER, PLATFORMS, BRIDGES, DIM_X, DIM_Y } from "../../game-parameters/map-params";
 
 export default class EdgeController {
