@@ -7,7 +7,7 @@ export default class VerticalEdge extends Edge {
   }
 
   intersects(particle) {
-    console.log('in vertical intersect');
+    // console.log('in vertical intersect');
     if (particle.layer === this.layer && this.intersectHelperX(particle)
     ) {
       if (particle instanceof Projectile) {

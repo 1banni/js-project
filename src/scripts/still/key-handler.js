@@ -19,7 +19,6 @@ export class KeyHandler {
   }
 
   keyPressed(e) {
-    console.log(typeof e.key);
     // Player 1
     if (e.key === 'w') this.actions[0].throttle = true;
     if (e.key === 'a') this.actions[0].left = true;

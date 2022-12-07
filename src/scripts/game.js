@@ -16,9 +16,7 @@ export default class Game {
     this.map = new CourseMap(this.ctx);
     this.edgeController = new EdgeController(this.ctx);
     this.projectileController = new ProjectileController(this.ctx, this.edgeController);
-    // console.log('PLAYERS_START_POS', PLAYERS_START_POS);
     this.players = Array.from(Array(NUM_PLAYERS), () => {
-      // console.log('playerIdx', playerIdx);
       return new Player(playerIdx,
                         PLAYERS_START_POS[playerIdx], // PROOF - MOVE THIS LOGIC TO THE PLAYERS FILE
                         PLAYERS_START_DIR[playerIdx],
@@ -51,7 +49,8 @@ export default class Game {
         if (this.players[i].collideWith(this.players[j])) {
           let p1 = this.players[i];
           let p2 = this.players[j];
-          
+          // PROOF - TBU
+
         }
       }
     }

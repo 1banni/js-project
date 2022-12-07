@@ -52,4 +52,35 @@ export default class Edge {
       && particle.y - particle.radius <= this.y + this.dy; // particle's top-most point <= bottom end of line
   }
 
+  intersects(particle) {
+    if (particle.layer === this.layer) {
+      if (this instanceof HorizontalEdge && this.intersectHelperY(particle)
+      ) {
+        if (particle instanceof Projectile) {
+          particle.reverseDir(1, -1);
+          particle.decrBounces();
+        } else {
+          this.resetParticleY(particle);
+          particle.reverseDir(1, -0.7);
+        }
+        return true;
+      } else if (this instanceof VerticalEdge && this.intersectHelperX(particle)
+      ) {
+        if (particle instanceof Projectile) {
+          particle.reverseDir(-1, 1);
+          particle.decrBounces();
+        } else {
+          this.resetParticleX(particle);
+          particle.reverseDir(-0.7, 1);
+        }
+        return true;
+      } else {
+        return false;
+      }
+    }
+    else {
+      return false;
+    }
+  }
+
 }

@@ -1,7 +1,7 @@
 import VerticalEdge from "./vertical-edge";
 import HorizontalEdge from "./horizontal-edge";
 import ShadowEdgeHorizontal from "./shadow-edge-horizontal";
-import ShadowEdgeVertical from "./shadow-edge-vertical";
+import ShadowEdgeVertical from "./vertical-edge-shadow";
 import { MAP_COLOR, MAP_BORDER, PLATFORMS, BRIDGES, DIM_X, DIM_Y } from "../../game-parameters/map-params";
 
 export default class EdgeController {
@@ -135,12 +135,18 @@ export default class EdgeController {
   }
 
   createRectangle(x, y, dx, dy,
-                  gapUpperLeft, gapBottomLeft, gapUpperRight, gapBottomRight
+                  gapUpperLeft, gapBottomLeft, gapUpperRight, gapBottomRight,
                   layer, color) {
     this.edges.push(new VerticalEdge(x, y, 0, dy, layer, color)); // left border
     this.edges.push(new VerticalEdge(x + dx, y, 0, dy, layer, color)); // right border
     this.edges.push(new HorizontalEdge(x + gapUpperLeft, y, dx - gapUpperLeft - gapUpperRight, 0, layer, color)); // top border
     this.edges.push(new HorizontalEdge(x + gapBottomLeft, y + dy, dx - gapBottomLeft - gapBottomRight, 0, layer, color)); // bottom border
+  }
+
+  createShadowRect(x, y, dx, dy
+
+    ) {
+
   }
 
   createPlatforms () {
@@ -152,30 +158,42 @@ export default class EdgeController {
 
 
     let layer = 0;
-    this.createRectangle(x, y, dx, dy, gap, 0, 0, 0, layer, color);
+    // this.createRectangle(x, y, dx, dy, gap, 0, 0, 0, layer, color);
     // P0
     // this.edges.push(new VerticalEdge(x, y, 0, dy, layer, color)); // left border
     // this.edges.push(new VerticalEdge(x + dx, y, 0, dy, layer, color)); // right border
     // this.edges.push(new HorizontalEdge(x + gap, y, dx - gap, 0, layer, color)); // top border
     // this.edges.push(new HorizontalEdge(x, y + dy, dx, 0, layer, color)); // bottom border
     layer = 1;
+    // Same
+    this.edges.push(new ShadowEdgeHorizontal(x + gap, y, dx - gap, 0, layer, '#ff0000')); // top border
     this.edges.push(new ShadowEdgeVertical(x, y, 0, dy, layer, '#ff0000')); // left border
+    // Diff
     this.edges.push(new ShadowEdgeVertical(x + dx, y, 0, 50, layer, '#ff0000')); // right border
     this.edges.push(new ShadowEdgeVertical(x + dx, y + 150, 0, 50, layer, '#ff0000')); // right border
-    this.edges.push(new ShadowEdgeHorizontal(x + gap, y, dx - gap, 0, layer, '#ff0000')); // top border
-    this.edges.push(new ShadowEdgeHorizontal(x, y + dy, 100, 0, layer, '#ff0000')); // bottom border
-    this.edges.push(new ShadowEdgeHorizontal(x+200, y + dy, 100, 0, layer, '#ff0000')); // bottom border
+    this.edges.push(new ShadowEdgeHorizontal(x, y + dy, 112.5, 0, layer, '#ff0000')); // bottom border
+    this.edges.push(new ShadowEdgeHorizontal(x+187.5, y + dy, 112.5, 0, layer, '#ff0000')); // bottom border
+
 
     [x, y] = PLATFORMS[1];
     layer = 0;
+    console.log('HERE');
     this.createRectangle(x, y, dx, dy, 0, gap, 0, 0, layer, color);
     layer = 1;
-    this.edges.push(new ShadowEdgeVertical(x, y, 0, dy, layer, 'ff0000')); // left border
-    this.edges.push(new ShadowEdgeVertical(x + dx, y, 0, 50, layer, 'ff0000')); // right border
-    this.edges.push(new ShadowEdgeVertical(x + dx, y + 150, 0, 50, layer, 'ff0000')); // right border
-    this.edges.push(new ShadowEdgeHorizontal(x + gap, y, dx - gap, 0, layer, 'ff0000')); // top border
-    this.edges.push(new ShadowEdgeHorizontal(x, y + dy, 100, 0, layer, 'ff0000')); // bottom border
-    this.edges.push(new ShadowEdgeHorizontal(x + gap + 25, y + dy, 100, 0, layer, 'ff0000')); // bottom border
+    // Same
+    console.log('x', x);
+    console.log('y', y);
+    console.log('dx', dx);
+    console.log('dy', dy);
+    console.log('layer', layer);
+    // this.edges.push(new ShadowEdgeHorizontal(x, y, dx-gap, 0, layer, '#ff0000')); // top border
+    // this.edges.push(new ShadowEdgeVertical(x + dx, y, 0, dy, layer, '#ff0000')); // right border
+    // // Diff
+    // this.edges.push(new ShadowEdgeVertical(x, y, 0, 62.5, layer, '#ff0000')); // left border
+    // this.edges.push(new ShadowEdgeVertical(x, y + 137.5, 0, dy, layer, '#ff0000')); // left border
+    // // this.edges.push(new ShadowEdgeVertical(x + dx, y + 150, 0, 50, layer, '#ff0000')); // right border
+    // this.edges.push(new ShadowEdgeHorizontal(x, y + dy, 62.5, 0, layer, '#ff0000')); // bottom border
+    // this.edges.push(new ShadowEdgeHorizontal(x + 137.5, y + 137.5, 100, 0, layer, '#ff0000')); // bottom border
 
     [x, y] = PLATFORMS[2];
     layer = 0;
@@ -185,11 +203,13 @@ export default class EdgeController {
     // this.edges.push(new HorizontalEdge(x, y, dx - gap, 0, layer, color)); // top border
     // this.edges.push(new HorizontalEdge(x, y + dy, dx, 0, layer, color)); // bottom borderawa
     layer = 1
+    // Same
     this.edges.push(new ShadowEdgeVertical(x, y, 0, dy, layer, color)); // left border
     this.edges.push(new ShadowEdgeVertical(x + dx, y, 0, dy, layer, color)); // right border
+    this.edges.push(new ShadowEdgeHorizontal(x + gap, y + dy, 100, 0, layer, color)); // bottom border
+    // Diff
     this.edges.push(new ShadowEdgeHorizontal(x, y, dx - gap, 0, layer, color)); // top border
     this.edges.push(new ShadowEdgeHorizontal(x, y, 100, 0, layer, color)); // top border
-    this.edges.push(new ShadowEdgeHorizontal(x + 200, y + dy, 100, 0, layer, color)); // bottom border
 
 
     // this.edges.push(new ShadowEdgeVertical(x, y, 0, dy, layer, color)); // left border
@@ -211,6 +231,12 @@ export default class EdgeController {
     layer = 1;
     // this.edges.push(new ShadowEdgeHorizontal(x, y + dy, 100, 0, layer, 'ff0000')); // bottom border
     // this.edges.push(new ShadowEdgeHorizontal(x + 200, y + dy, 100, 0, layer, 'ff0000')); // bottom border
+    this.edges.push(new ShadowEdgeVertical(x + dx, y, 0, 50, layer, 'ff0000')); // right border
+    this.edges.push(new ShadowEdgeHorizontal(x + gap, y, dx - gap, 0, layer, 'ff0000')); // top border
+    this.edges.push(new ShadowEdgeVertical(x, y, 0, dy, layer, 'ff0000')); // left border
+    this.edges.push(new ShadowEdgeVertical(x + dx, y + 150, 0, 50, layer, 'ff0000')); // right border
+    this.edges.push(new ShadowEdgeHorizontal(x, y + dy, 100, 0, layer, 'ff0000')); // bottom border
+    this.edges.push(new ShadowEdgeHorizontal(x + gap + 25, y + dy, 100, 0, layer, 'ff0000')); // bottom border
   }
 
 
