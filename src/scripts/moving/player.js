@@ -84,23 +84,11 @@ export default class Player extends Particle{
   }
 
   handleIntersect (x, y, edgeX, edgeY) {
-    if (edgeX) this.resetX(edgeX);
-    if (edgeY) this.resetY(edgeY);
-
+    // if (edgeX) this.resetX(edgeX);
+    // if (edgeY) this.resetY(edgeY);
+    edgeX ? this.resetPos(edgeX, this.y) : this.resetPos(this.x, edgeY);
     this.reverseDir(x, y * -0.7);
   }
-
-
-  resetX () {
-    this.resetPos(this.x + edgeX, this.y);
-  }
-
-
-  resetY () {
-    this.resetPos(this.x, this.y + edgeY);
-  }
-
-
 
   runKeys() {
     let pressedKeys = (this.alive ? this.keyHandler.activeActions()[this.idx] : {});
