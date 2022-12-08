@@ -5,8 +5,9 @@ export const PERK = {
     SIZE: 40,
   },
   PROJ: {
-    MAX_COUNT: 8,
+    MAX_COUNT: 10,
     TYPE: 1,
+    SIZE: 40,
   },
   SECONDS_APPEARING: 200
 }

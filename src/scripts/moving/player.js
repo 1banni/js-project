@@ -126,11 +126,11 @@ export default class Player extends Particle{
   }
 
   givePerk(type) {
-    if (type) {
-      this.projectiles += 2;
-    } else {
-      this.health.restore(20);
-    }
+    console.log('type', type);
+    if (type === 0) this.health.restore(20);
+    console.log('this.projectiles', this.projectiles);
+    if (type === 1) this.projectiles += 2;
+    console.log('this.projectiles', this.projectiles);
   }
 
   drawPlayer(ctx) {

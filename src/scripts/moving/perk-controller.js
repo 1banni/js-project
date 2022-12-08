@@ -9,9 +9,15 @@ export default class PerkController {
     // this.ctx = ctx;
     this.heartImg = new Image();
     this.heartImg.src = '../src/img/heart.png';
+    this.projImg = new Image();
+    this.projImg.src = '../src/img/greenbars.png';
     // this.addHeart.
     for (let i = 0; i < PERK.HEART.MAX_COUNT; i++) {
       this.addHeart();
+    }
+
+    for (let i = 0; i < PERK.PROJ.MAX_COUNT; i++) {
+      this.addProj();
     }
   }
 
@@ -26,7 +32,7 @@ export default class PerkController {
   collideWith(player) {
     return this.perks.some(perk => {
       if (perk.collideWith(player)) {
-        player.givePerk(this.type);
+        player.givePerk(perk.type);
         this.delete(perk);
         return true;
       } else {
@@ -35,19 +41,21 @@ export default class PerkController {
     });
   }
 
-
+  addProj () {
+    let [x, y] = Util.generateCoords(PERK.PROJ.SIZE);
+    this.perks.push(new Perk(x, y, 1));
+    console.log('this.perks', this.perks);
+  }
 
   addHeart () {
     let [x, y] = Util.generateCoords(PERK.HEART.SIZE);
-
     this.perks.push(new Perk(x, y, 0));
-    console.log('this.perks', this.perks);
   }
 
   draw(ctx) {
     this.perks.forEach( perk => {
       if (perk.type) {
-        // ctx.drawImage.bind(ctx)(this.projImg, 100, 100);
+        ctx.drawImage.bind(ctx)(this.projImg, perk.x, perk.y, PERK.PROJ.SIZE, PERK.PROJ.SIZE);
       } else {
         ctx.drawImage.bind(ctx)(this.heartImg, perk.x, perk.y, PERK.HEART.SIZE, PERK.HEART.SIZE);
       }

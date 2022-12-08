@@ -7,15 +7,18 @@ import { PERK } from "../game-parameters/perk-params";
 
 export default class Perk {
   constructor(x, y, type) {
+    // Position
     this.x = x;
     this.y = y;
-    this.taken = false;
-    this.time;
-    this.startTime;
-    this.alive = true;
 
-    this.lifeInFrames = 1;
+    // Type
+    console.log('type', type);
     this.type = type;
+
+    // Expiration
+    this.startTime;
+    this.time;
+    this.alive = true;
 
   }
 
@@ -23,7 +26,7 @@ export default class Perk {
     if (player.layer > 0) return false; // Perks only exist on layer 0
 
     let dist = Math.sqrt((this.x - player.x) ** 2 + (this.y - player.y) ** 2);
-    if (dist < player.radius) {
+    if (dist < player.radius * 3) {
       return true;
     } else {
       return false;
