@@ -9,25 +9,32 @@
   <link rel="stylesheet" href="./dist/main.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="background" href='./src/img/background-1.png'>
   <link href="https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap" rel="stylesheet">
   <title> Hover Duel </title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap');
   </style>
-  <style>
 
-  </style>
+  <!-- <link rel="stylesheet" href=""> -->
 </head>
 
 <body>
-  <div id="main-menu" style="display:block">
-    <h1>Hover Duel</h1>
-    <button id="start-game" onclick="{() => startGame()}">Start Game</button>
-  </div>
+  <div id="container" width="1300" height="900;">
+    <div>
+      <h1>Hover Duel</h1>
+    </div>
+    <!-- <image id="img1" src="./src/img/background-1.png"></image> -->
 
-  <div class="hidden" id="game-window">
-    <!-- <h1>Hover Duel</h1> -->
-    <canvas id="game-canvas" width="1200" height="800"></canvas>
+    <div class="hidden" id="game-window">
+      <!-- <h1>Hover Duel</h1> -->
+      <canvas id="game-canvas" width="1200" height="800"></canvas>
+    </div>
+
+    <div id="main-menu" style="display:block">
+      <button id="start-game" onclick="{() => startGame()}">Start Game</button>
+    </div>
+
   </div>
 
 </body>

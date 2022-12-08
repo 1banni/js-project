@@ -1,7 +1,7 @@
 /** @type {HTMLCanvasElement} */
 
 // Key Handler & Util
-import { KeyHandler } from '../still/key-handler.js';
+import KeyHandler from '../key-handler.js';
 import { Util } from '../still/util.js';
 
 // Constant Parameters
@@ -21,6 +21,10 @@ export default class Player extends Particle {
     this.color = color;
     this.edgeController = edgeController;
     this.projectileController = projectileController;
+    this.keyHandler = new KeyHandler();
+
+    document.addEventListener('keydown', (e) => this.keyHandler.keyPressed(e));
+    document.addEventListener('keyup', (e) => this.keyHandler.keyReleased(e));;
 
     // params: default
     this.alive = true;
@@ -34,10 +38,7 @@ export default class Player extends Particle {
     this.projectiles = PLAYER.PROJECTILES;
     this.nitrous = PLAYER.MAX_NOS;
 
-    // instantiate key handler and add event listeners for keyboard actions
-    this.keyHandler = new KeyHandler();
-    document.addEventListener('keydown', (e) => this.keyHandler.keyPressed(e));
-    document.addEventListener('keyup', (e) => this.keyHandler.keyReleased(e));
+
   }
 
   update () {

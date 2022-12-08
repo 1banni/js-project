@@ -1,20 +1,21 @@
 
 
 export default class Edge {
-  constructor(x1, y1, x2, y2, layers, color) {
+  constructor(x1, y1, x2, y2, layers, color, lineWidth=10) {
     this.x1 = x1;
     this.y1 = y1;
     this.x2 = x2;
     this.y2 = y2;
     this.layers = layers;
     this.color = color;
+    this.lineWidth = lineWidth;
     // rounding below may not be necessary
     this.vertical = (Math.floor(this.x1 * 1) === Math.floor(this.x2 * 1) ? true : false);
   }
 
   draw(ctx) {
     ctx.strokeStyle = this.color;
-    ctx.lineWidth = 10;
+    ctx.lineWidth = this.lineWidth;
     ctx.beginPath();
     ctx.moveTo(this.x1, this.y1);
     ctx.lineTo(this.x2, this.y2);

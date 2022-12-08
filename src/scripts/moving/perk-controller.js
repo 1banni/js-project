@@ -43,10 +43,11 @@ export default class PerkController {
   }
 
   collideWith(player) {
-    return this.perks.some( (perk, idx) => {
+    // return this.perks.some( (perk, idx) => {
+    this.perks = _.reject(this.perks, (perk) => {
       if (perk.collideWith(player)) {
         player.givePerk(perk.type);
-        this.deleteAtIndex(perk, idx);
+        // this.deleteAtIndex(perk, idx);
         return true;
       } else {
         return false;
@@ -88,12 +89,15 @@ export default class PerkController {
   }
 
   draw(ctx) {
-    this.perks.forEach( perk => {
+    let projCt = 0;
+    let maxProj = 3;
+
+    this.perks.forEach( (perk) => {
       if (perk.type === 0) { // medpak / heart
         ctx.drawImage.bind(ctx)(this.heartImg, perk.x, perk.y, PERK.HEART.SIZE, PERK.HEART.SIZE);
       }
       else if (perk.type === 1) { // reload
-        ctx.drawImage.bind(ctx)(this.projImg, perk.x, perk.y, PERK.PROJ.SIZE, PERK.PROJ.SIZE);
+        if (projCt++ < maxProj) ctx.drawImage.bind(ctx)(this.projImg, perk.x, perk.y, PERK.PROJ.SIZE, PERK.PROJ.SIZE);
       }
     });
 

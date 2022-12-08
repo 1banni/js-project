@@ -1,4 +1,4 @@
-export class KeyHandler {
+export default class KeyHandler {
   constructor() {
     this.actions = [
       { // Player 1
@@ -19,6 +19,8 @@ export class KeyHandler {
   }
 
   keyPressed(e) {
+    console.log('keyPressed', );
+
       if (e.key === ' ' || e.key === 'ArrowLeft' || e.key === 'ArrowRight' ||
           e.key === 'ArrowDown' || e.key === 'ArrowUp')
       {
@@ -59,6 +61,7 @@ export class KeyHandler {
   }
 
   activeActions() {
+    console.log('this.actions', this.actions);
     return this.actions;
   }
 }

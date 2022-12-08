@@ -3,6 +3,7 @@ import Player from './moving/player.js';
 import EdgeController from './still/edge-controller.js';
 import ProjectileController from './moving/projectile-controller.js';
 import PerkController from './moving/perk-controller.js';
+import KeyHandler from './key-handler.js';
 import { MAP, PLAYER, PERK } from "./game-params";
 
 
@@ -13,32 +14,38 @@ export default class Game {
 
   constructor (ctx) {
     this.ctx = ctx;
+
+    // Time
     this.lastTime = null;
     this.time;
 
+    // Rounds
     this.startNextRound = true;
     this.round = 0;
     this.rounds = Object.keys(PERK.ROUNDS).length;
     this.roundHopper = 0; // proof
 
+    // Other classes
     this.edgeController = new EdgeController(this.ctx);
     this.projectileController = new ProjectileController(this.ctx, this.edgeController);
     this.perkController;
     this.players = Array.from(Array(PLAYER.NUMBER), () => {
       return new Player(playerIdx,
-                        PLAYER.STARTING_POS[playerIdx], // PROOF - MOVE THIS LOGIC TO THE PLAYER FILE
-                        PLAYER.STARTING_DIR[playerIdx],
-                        PLAYER.COLORS[playerIdx++],
-                        this.edgeController,
-                        this.projectileController);
-    });
-    console.log('this.players', this.players);
+        PLAYER.STARTING_POS[playerIdx], // PROOF - MOVE THIS LOGIC TO THE PLAYER FILE
+        PLAYER.STARTING_DIR[playerIdx],
+        PLAYER.COLORS[playerIdx++],
+        this.edgeController,
+        this.projectileController);
+      });
+      console.log('this.players', this.players);
 
-    // this.obstacles = Array.from(Array(numObstacles), () => new Obstacle());
-    // this.perks = Array.from(Array(numPerks), () => new Perk());
+      // this.obs;tacles = Array.from(Array(numObstacles), () => new Obstacle());
+      // this.perks = Array.from(Array(numPerks), () => new Perk());
 
+    // Kickstart
     this.updateRound();
     this.draw(this.ctx);
+    this.animate();
     // this.rest
   }
 

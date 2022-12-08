@@ -1,5 +1,6 @@
 import { MAP } from "../game-params";
 import Edge from "./edge";
+import { Util } from "./util";
 
 export default class EdgeController {
 
@@ -30,8 +31,10 @@ export default class EdgeController {
     // only draw shade on layer 0 (not included in edges due to lack of
     // ... intersects / collision functionality)
     if (layer === 1) {
-      this.drawShade(ctx, 275, 375, 300, 500, 500, 0, 'rgba(150, 255, 255, 0.7)');
-      this.drawShade(ctx, 425, 725, 200, 275, 0, 325, 'rgba(150, 255, 255, 0.7)');
+      this.drawShade(ctx, 275, 375, 300, 500, 500, 0, 'rgba(150, 150, 150, 0.7)');
+      this.drawShade(ctx, 425, 725, 200, 275, 0, 325, 'rgba(150, 150, 150, 0.7)');
+      // this.drawShade(ctx, 275, 375, 300, 500, 500, 0, 'rgba(150, 255, 255, 0.7)');
+      // this.drawShade(ctx, 425, 725, 200, 275, 0, 325, 'rgba(150, 255, 255, 0.7)');
     }
   }
 
@@ -46,22 +49,23 @@ export default class EdgeController {
 
   createVert () {
     this.createVertBorder();
-    // Platforms open
+    // Bridges open
     for (let i = 200; i < 1200; i += 750) {
       this.edges.push(new Edge(i, 150, // x1, y1
       i, 350, // x2, y2
-      [0, 1], MAP.COLORS.PLATFORMS // layer, color
+        [0, 1], (MAP.COLORS.PLATFORMS) // layer, color
       ));
+
       this.edges.push(new Edge(i, 450, // x1, y1
       i, 650, // x2, y2
-      [0, 1], MAP.COLORS.PLATFORMS // layer, color
+      [0, 1], (MAP.COLORS.PLATFORMS) // layer, color
       ));
     }
-
+    // Platform
     for (let i = 450; i < 750; i += 250) {
       this.edges.push(new Edge(i, 150 - 5, // x1, y1
       i, 350, // x2, y2
-      [0], MAP.COLORS.PLATFORMS // layer, color
+      [0], Util.lightenColor(MAP.COLORS.PLATFORMS) // layer, color
       ));
       this.edges.push(new Edge(i, 450 - 5, // x1, y1
       i, 650, // x2, y2
@@ -71,21 +75,12 @@ export default class EdgeController {
       // Platforms intersecting
       this.edges.push(new Edge(i, 150, // x1, y1
       i, 195, // x2, y2
-      [1], MAP.COLORS.PLATFORMS // layer, color
-      ));
-      this.edges.push(new Edge(i, 280, // x1, y1
-      i, 350, // x2, y2
-      [1], MAP.COLORS.PLATFORMS // layer, color
+      [1], Util.lightenColor(MAP.COLORS.PLATFORMS) // layer, color
       ));
       this.edges.push(new Edge(i, 450, // x1, y1
       i, 520, // x2, y2
       [1], MAP.COLORS.PLATFORMS // layer, color
       ));
-      this.edges.push(new Edge(i, 605, // x1, y1
-      i, 650, // x2, y2
-      [1], MAP.COLORS.PLATFORMS // layer, color
-      ));
-
     }
 
     // Bridges
