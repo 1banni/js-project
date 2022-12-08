@@ -14,8 +14,8 @@ export default class Game {
 
   constructor (canvas) {
     this.ctx = canvas.getContext('2d');
-    this.startTime = null;
-    this.time;
+    // this.startTime = null;
+    // this.time;
 
     this.edgeController = new EdgeController(this.ctx);
     this.projectileController = new ProjectileController(this.ctx, this.edgeController);
