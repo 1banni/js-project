@@ -13,9 +13,9 @@ export default class PerkController {
     this.numNos = option.NOS;
     // let [numMedpaks, numProjectiles] = option;
     this.heartImg = new Image();
-    this.heartImg.src = 'assets/heart.png';
+    this.heartImg.src = './assets/heart.png';
     this.projImg = new Image();
-    this.projImg.src = 'assets/greenbars.png';
+    this.projImg.src = './assets/greenbars.png';
     // this.addHeart.
     this.generatePerks();
   }
