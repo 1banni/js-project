@@ -15,6 +15,7 @@ let bool = 0;
 export default class ProjectileController {
   projectiles =  [];
   timeBetweenProjectiles = 0;
+  delay = 3;
 
   constructor(ctx, edgeController) {
     this.ctx = ctx;
@@ -71,13 +72,13 @@ export default class ProjectileController {
   }
 
 
-  shoot(x, y, angle, layer, speed, damage, delay) {
-    if (this.timeBetweenProjectiles <= 0) {
-      this.projectiles.push(new Projectile(x, y, angle, layer, speed, damage));
-      this.timeBetweenProjectiles = delay;
-    }
+  shoot(x, y, angle, layer, speed, damage) {
+    this.projectiles.push(new Projectile(x, y, angle, layer, speed, damage));
+    // if (this.timeBetweenProjectiles <= 0) {
+    //   this.timeBetweenProjectiles = delay;
+    // }
 
-    this.timeBetweenProjectiles--;
+    // this.timeBetweenProjectiles--;
   }
 
 

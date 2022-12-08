@@ -1,4 +1,4 @@
-import { MAP_BORDER, DIM_X, DIM_Y } from "../game-parameters/map-params";
+import { MAP_BORDER, DIM_X, DIM_Y, PLATFORMS } from "../game-parameters/map-params";
 
 export default class Particle {
   constructor (x, y, radius) {
@@ -27,6 +27,39 @@ export default class Particle {
   reverseDir(x, y) {
     this.dx = this.dx * x;
     this.dy = this.dy * y;
+  }
+
+  updateLayer() {
+    let prevLayer = this.layer;
+    let sp = 5;
+    // outer if checks x location; inner width checks y location
+    PLATFORMS[0][0]
+    if (this.x > PLATFORMS[0][0] && this.x < PLATFORMS[0][0] + MAP_BORDER.PLATFORM_WIDTH - sp) {
+      if (this.y > PLATFORMS[0][1] && this.y < PLATFORMS[0][1] + MAP_BORDER.PLATFORM_HEIGHT) {
+        this.layer = 1;
+      } else if (this.y > PLATFORMS[1][1] && this.y < PLATFORMS[1][1] + MAP_BORDER.PLATFORM_HEIGHT) {
+        this.layer = 1;
+      }
+    } else if (this.x > PLATFORMS[2][0] && this.x < PLATFORMS[2][0] + MAP_BORDER.PLATFORM_WIDTH) {
+      if (this.y > PLATFORMS[0][1] && this.y < PLATFORMS[0][1] + MAP_BORDER.PLATFORM_HEIGHT) {
+        this.layer = 1;
+      } else if (this.y > PLATFORMS[1][1] && this.y < PLATFORMS[1][1] + MAP_BORDER.PLATFORM_HEIGHT) {
+        this.layer = 1;
+      }
+    }
+
+    // if below or above top/bottom of platforms, set layer to zero
+    if (this.y < PLATFORMS[0][1] || this.y > PLATFORMS[1][1] + MAP_BORDER.PLATFORM_HEIGHT) {
+      this.layer = 0;
+    }
+    else if (this.x < PLATFORMS[0][0] || this.x > PLATFORMS[2][0] + MAP_BORDER.PLATFORM_HEIGHT) {
+      this.layer = 0;
+    }
+
+    // PROOF - Delete, for debugging
+    if (this.layer !== prevLayer) {
+      console.log(`${this.constructor.name} ${this.idx}'s layer changed from ${prevLayer} to ${this.layer}`);
+    }
   }
 
   static inbound(x, y, radius, alive) {

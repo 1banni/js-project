@@ -13,7 +13,7 @@ import { DIM_X, DIM_Y, MAP_BORDER, PLATFORMS } from "../game-parameters/map-para
 import Particle from "./particle.js";
 import PlayerHealth from "./player-health.js";
 
-export default class Player extends Particle{
+export default class Player extends Particle {
   constructor(idx, pos, angle, color, edgeController, projectileController) {
     // params: passed in
     super(pos[0], pos[1], PLAYER_PARAMS.RADIUS);
@@ -35,6 +35,7 @@ export default class Player extends Particle{
     this.projectiles = PLAYER_PARAMS.PROJECTILES;
     this.health = new PlayerHealth(PLAYER_PARAMS.MAX_HEALTH, this.color, this.idx);
     this.nitrous = PLAYER_PARAMS.MAX_NOS;
+    this.blasters = true;
 
     // instantiate key handler and add event listeners for keyboard actions
     this.keyHandler = new KeyHandler();
@@ -50,37 +51,6 @@ export default class Player extends Particle{
     this.updateLayer();
   }
 
-  updateLayer () {
-    let prevLayer = this.layer;
-    // outer if checks x location; inner width checks y location
-    if (this.x > PLATFORMS[0][0] && this.x < PLATFORMS[0][0] + MAP_BORDER.PLATFORM_WIDTH) {
-      if (this.y > PLATFORMS[0][1] && this.y < PLATFORMS[0][1] + MAP_BORDER.PLATFORM_HEIGHT) {
-        this.layer = 1;
-      } else if (this.y > PLATFORMS[1][1] && this.y < PLATFORMS[1][1] + MAP_BORDER.PLATFORM_HEIGHT) {
-        this.layer = 1;
-      }
-    } else if (this.x > PLATFORMS[2][0] && this.x < PLATFORMS[2][0] + MAP_BORDER.PLATFORM_WIDTH) {
-      if (this.y > PLATFORMS[0][1] && this.y < PLATFORMS[0][1] + MAP_BORDER.PLATFORM_HEIGHT) {
-        this.layer = 1;
-      } else if (this.y > PLATFORMS[1][1] && this.y < PLATFORMS[1][1] + MAP_BORDER.PLATFORM_HEIGHT) {
-        this.layer = 1;
-      }
-    }
-
-    // if below or above top/bottom of platforms, set layer to zero
-    if (this.y < PLATFORMS[0][1] || this.y > PLATFORMS[1][1] + MAP_BORDER.PLATFORM_HEIGHT) {
-      this.layer = 0;
-    }
-    else if (this.x < PLATFORMS[0][0] || this.x > PLATFORMS[2][0] + MAP_BORDER.PLATFORM_HEIGHT) {
-      this.layer = 0;
-    }
-
-    // PROOF - Delete, for debugging
-    if (this.layer !== prevLayer) {
-      console.log(`${this.constructor.name} ${this.idx}'s layer changed from ${prevLayer} to ${this.layer}`);
-    }
-  }
-
   handleIntersect (x, y, edgeX, edgeY) {
     // if (edgeX) this.resetX(edgeX);
     // if (edgeY) this.resetY(edgeY);
@@ -93,7 +63,14 @@ export default class Player extends Particle{
 
     if (pressedKeys.left) this.angle = (this.angle + 1 / PLAYER_PARAMS.TURN_RADIUS) % 360;
     if (pressedKeys.right) this.angle = (this.angle - 1 / PLAYER_PARAMS.TURN_RADIUS) % 360;
-    if (pressedKeys.blast) this.fireBlasters();
+    if (pressedKeys.blast) {
+      if (this.blasters) {
+        this.blasters = false;
+        this.fireBlasters();
+      }
+    } else {
+      this.blasters = true;
+    }
 
     if (pressedKeys.throttle) {
       this.speed = Math.min(this.max_speed, this.speed + PLAYER_PARAMS.ACCELERATION);
@@ -110,10 +87,12 @@ export default class Player extends Particle{
 
 
   fireBlasters() { // PROOF equiv to shoot
+    console.log('called fireBlasters');
     if (this.alive && this.projectiles > 0) {
       this.projectiles--;
-      this.projectileController.shoot(this.x, this.y, this.angle, this.layer, PROJECTILE.SPEED, PROJECTILE.DAMAGE, PROJECTILE.DELAY);
+      this.projectileController.shoot(this.x, this.y, this.angle, this.layer, PROJECTILE.SPEED, PROJECTILE.DAMAGE);
     }
+    console.log('this.projectiles', this.projectiles);
   }
 
   damage(points) {
