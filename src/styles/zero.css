@@ -22,3 +22,8 @@ body {
   height: 100wh;
   background: linear-gradient(90deg, '#0000FF', '#999999');
 }
+
+
+.hidden {
+  display: none !important;
+}

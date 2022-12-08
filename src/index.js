@@ -1,8 +1,20 @@
 import GameView from "./scripts/game-view.js";
 import Game from "./scripts/game.js";
+document.addEventListener("DOMContentLoaded", () => {
+  const startGameButton = document.getElementById('start-game');
+  startGameButton.addEventListener('click', startGame);
 
-function startGame() {
-  document.addEventListener("DOMContentLoaded", () => {
+
+  function startGame() {
+    const gameWindow = document.getElementById('game-window');
+    gameWindow.classList.remove("hidden");
+    const mainMenu = document.getElementById('main-menu');
+    mainMenu.classList.add("hidden");
+    // canvas.removeAttribute("style");
+
+
+    console.log('starting');
+
     const canvas = document.getElementById('game-canvas');
     const ctx = canvas.getContext("2d");
     let CANVAS_WIDTH = canvas.width = 1200;
@@ -11,10 +23,9 @@ function startGame() {
 
 
 
-    const menu = document.getElementById('menu');
-    console.log('starting');
-  });
-}
+      const menu = document.getElementById('menu');
+  }
 
-console.log('window', window);
+  console.log('window', window);
 
+});

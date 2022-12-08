@@ -37,7 +37,8 @@ export default class Game {
     // this.obstacles = Array.from(Array(numObstacles), () => new Obstacle());
     // this.perks = Array.from(Array(numPerks), () => new Perk());
 
-    // this.draw(this.ctx);
+    this.updateRound();
+    this.draw(this.ctx);
     // this.rest
   }
 
@@ -130,10 +131,10 @@ export default class Game {
 
 
   animate () {
-    this.update();
     this.checkIntersections(); // PROOF - UPDATE FOR LAYERS?
     this.checkCollisions(); // PROOF - UPDATE FOR LAYERS?
     this.draw(this.ctx);
+    this.update();
     requestAnimationFrame(this.animate.bind(this));
   }
 

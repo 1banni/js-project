@@ -21,6 +21,8 @@ Sunday
 Basic
 -
 
+Start Menu, Instrustructions, Modal
+
 
 Intermediate
 -

@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <script src="./dist/main.js"></script>
+  <script src="./dist/main.js" defer></script>
   <link rel="stylesheet" href="./dist/main.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,17 +20,16 @@
 </head>
 
 <body>
-  <h1>Hover Duel</h1>
-  <canvas id="game-canvas" width="1200" height="800" style="display:none"></canvas>
-
-
-  <div id="start-view" style="display:block">
-    <button onclick='startGame()'>Start Game</button>
+  <div id="main-menu" style="display:block">
+    <h1>Hover Duel</h1>
+    <button id="start-game" onclick="{() => startGame()}">Start Game</button>
   </div>
 
-  <script>
-     $("#start-view").click(function() {})
-  </script>
+  <div class="hidden" id="game-window">
+    <!-- <h1>Hover Duel</h1> -->
+    <canvas id="game-canvas" width="1200" height="800"></canvas>
+  </div>
+
 </body>
 
 </html>
