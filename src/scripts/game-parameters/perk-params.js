@@ -9,10 +9,10 @@ export const PERK = {
     TYPE: 1,
     SIZE: 40,
   },
-  SECONDS_APPEARING: 8,
-  ROUND_LENGTH: 12,
+  SECONDS_APPEARING: 5,
+  ROUND_LENGTH: 6,
   ROUNDS: [
-    [0, 0],
+    [0, 2],
     [0, 4],
     [2, 6],
     [3, 5],

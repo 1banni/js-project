@@ -18,6 +18,7 @@ export default class Game {
     this.startTime = null;
     this.time;
     this.round = 0;
+    this.roundHopper = 0;
     this.nextRound = true;
 
     this.edgeController = new EdgeController(this.ctx);
@@ -65,7 +66,10 @@ export default class Game {
 
 
   update () { // Updates Moving Objects
-    this.updateRound();
+    if (this.roundHopper++ % 200 === 0) {
+      this.roundHopper = 1;
+      this.updateRound();
+    }
     this.players.forEach((player) => player.update());
     this.projectileController.update();
     this.perkController.update();
