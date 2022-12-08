@@ -11,8 +11,8 @@ let playerIdx = 0;
 // Game Constants
 export default class Game {
 
-  constructor (canvas) {
-    this.ctx = canvas.getContext('2d');
+  constructor (ctx) {
+    this.ctx = ctx;
     this.lastTime = null;
     this.time;
 
@@ -38,7 +38,7 @@ export default class Game {
     // this.perks = Array.from(Array(numPerks), () => new Perk());
 
     // this.draw(this.ctx);
-    this.animate();
+    // this.rest
   }
 
 

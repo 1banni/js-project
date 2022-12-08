@@ -1,7 +1,13 @@
+import Game from "./game.js";
+
 export default class GameView {
-  constructor (canvas, game) {
-    this.ctx = canvas.getContext("2d");
-    this.game = game;
+  constructor(ctx) {
+    this.ctx = ctx;
+    this.game = new Game(ctx);
+  }
+
+  start() {
+    console.log('we made itttttt');
   }
 }
 // PROOF - consider adding below methods to the constructor later
