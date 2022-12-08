@@ -60,13 +60,7 @@ export default class PerkController {
         ctx.drawImage.bind(ctx)(this.heartImg, perk.x, perk.y, PERK.HEART.SIZE, PERK.HEART.SIZE);
       }
     });
-    // let img = new Image();
-    // img.src = '../src/img/heart.png';
-    // let ctx = this.ctx;
-    // img.onload = function () {
-    // // (img, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
-    // ctx.drawImage.bind(ctx)(this.img, 200, 200);
-    // }
+
   }
 
 }

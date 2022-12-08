@@ -1,11 +1,11 @@
 import Particle from "./particle.js";
-import { PLAYER_PARAMS } from "../game-parameters/player-params.js";
+import { PLAYERS } from "../game-parameters/player-params.js";
 import { PROJECTILE } from "../game-parameters/projectile-params.js";
 import { Util } from "../still/util.js";
 
 export default class Projectile extends Particle{
   constructor(x, y, angle, layer, speed, damage) {
-    let [incrX, incrY] = Util.scale(Util.directionFrom(angle), PLAYER_PARAMS.RADIUS + PROJECTILE.RADIUS);
+    let [incrX, incrY] = Util.scale(Util.directionFrom(angle), PLAYERS.RADIUS + PROJECTILE.RADIUS);
     super(x + incrX + PROJECTILE.CUSHION, y + incrY + PROJECTILE.CUSHION, PROJECTILE.RADIUS);
 
     this.layer = layer;
@@ -32,16 +32,14 @@ export default class Projectile extends Particle{
   }
 
   update() {
-    // this.x += this.dx;
-    // this.y += this.dy;
     [this.x, this.y] = Particle.inbound(this.x + this.dx, this.y + this.dy, this.radius, true);
   }
 
   handleIntersect(x, y) {
     console.log('reversing direction');
-    if (x === -1) this.reverseDX();
-    if (y === -1) this.reverseDY();
-    // this.reverseDir(x, y);
+    // if (x === -1) this.reverseDX();
+    // if (y === -1) this.reverseDY();
+    this.reverseDir(x, y);
     this.decrBounces();
     console.log('this.bounces', this.bounces);
   }

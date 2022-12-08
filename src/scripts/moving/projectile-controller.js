@@ -1,16 +1,4 @@
-import { DIM_X, DIM_Y, MAP_BORDER } from "../game-parameters/map-params.js";
 import Projectile from "./projectile.js";
-
-let bool = 0;
-
-// let startingProjectiles = 10;
-
-/******************** ********************/
-/*
-  note - you should probably wrap this differently (use animate functio and
-         remove loop from within projectile's draw method)
-*/
-/******************** ********************/
 
 export default class ProjectileController {
   projectiles =  [];
@@ -42,19 +30,6 @@ export default class ProjectileController {
     });
   }
 
-  // draw(ctx) {
-  //   this.projectiles.forEach(projectile => {
-  //     if (this.isOutOfBounds(projectile) || projectile.bounces === 0) {
-  //       this.delete(projectile);
-  //       // if (this.collisionType(projectile) === 'horizontal') {
-  //       // } else {
-  //       // }
-  //     } else {
-  //       projectile.draw(ctx);
-  //     }
-  //   });
-  // }
-
   checkIntersections() {
     this.projectiles.forEach( projectile => this.edgeController.intersects(projectile));
   }
@@ -71,28 +46,7 @@ export default class ProjectileController {
     });
   }
 
-
   shoot(x, y, angle, layer, speed, damage) {
     this.projectiles.push(new Projectile(x, y, angle, layer, speed, damage));
-    // if (this.timeBetweenProjectiles <= 0) {
-    //   this.timeBetweenProjectiles = delay;
-    // }
-
-    // this.timeBetweenProjectiles--;
   }
-
-
-  // collisionType(projectile) {
-  //   if (!(projectile.x <= -projectile.width + MAP_BORDER.WALL_PADDING &&
-  //     projectile.x >= 1200 - MAP_BORDER.WALL_PADDING - projectile.width
-  //   )) {
-  //     return 'horizontal';
-  //   }
-  //   else if (!(projectile.y <= -projectile.height + MAP_BORDER.WALL_PADDING &&
-  //     projectile.y >= 1200 - MAP_BORDER.WALL_PADDING - projectile.height)
-  //   ) {
-  //     return 'vertical';
-  //   }
-  //   return 'unsure - see projectile-coontroller#collisionType(projectile) method';
-  // }
 }

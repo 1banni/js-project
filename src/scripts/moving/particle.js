@@ -1,4 +1,4 @@
-import { MAP_BORDER, DIM_X, DIM_Y, PLATFORMS } from "../game-parameters/map-params";
+import { MAP } from "../game-parameters/map-params";
 
 export default class Particle {
   constructor (x, y, radius) {
@@ -12,7 +12,6 @@ export default class Particle {
     let dist = Math.sqrt((this.x - player.x) ** 2 + (this.y - player.y) ** 2);
     let radiiLengths = this.radius + player.radius;
     if (dist < radiiLengths) {
-      // player.damage(this.damage);
       return true;
     } else {
       return false;
@@ -33,26 +32,26 @@ export default class Particle {
     let prevLayer = this.layer;
     let sp = 5;
     // outer if checks x location; inner width checks y location
-    PLATFORMS[0][0]
-    if (this.x > PLATFORMS[0][0] && this.x < PLATFORMS[0][0] + MAP_BORDER.PLATFORM_WIDTH - sp) {
-      if (this.y > PLATFORMS[0][1] && this.y < PLATFORMS[0][1] + MAP_BORDER.PLATFORM_HEIGHT) {
+    // MAP.PLATFORM_POS[0][0]
+    if (this.x > MAP.PLATFORM_POS[0][0] && this.x < MAP.PLATFORM_POS[0][0] + MAP.PLATFORM_WIDTH - sp) {
+      if (this.y > MAP.PLATFORM_POS[0][1] && this.y < MAP.PLATFORM_POS[0][1] + MAP.PLATFORM_HEIGHT) {
         this.layer = 1;
-      } else if (this.y > PLATFORMS[1][1] && this.y < PLATFORMS[1][1] + MAP_BORDER.PLATFORM_HEIGHT) {
+      } else if (this.y > MAP.PLATFORM_POS[1][1] && this.y < MAP.PLATFORM_POS[1][1] + MAP.PLATFORM_HEIGHT) {
         this.layer = 1;
       }
-    } else if (this.x > PLATFORMS[2][0] && this.x < PLATFORMS[2][0] + MAP_BORDER.PLATFORM_WIDTH) {
-      if (this.y > PLATFORMS[0][1] && this.y < PLATFORMS[0][1] + MAP_BORDER.PLATFORM_HEIGHT) {
+    } else if (this.x > MAP.PLATFORM_POS[2][0] && this.x < MAP.PLATFORM_POS[2][0] + MAP.PLATFORM_WIDTH) {
+      if (this.y > MAP.PLATFORM_POS[0][1] && this.y < MAP.PLATFORM_POS[0][1] + MAP.PLATFORM_HEIGHT) {
         this.layer = 1;
-      } else if (this.y > PLATFORMS[1][1] && this.y < PLATFORMS[1][1] + MAP_BORDER.PLATFORM_HEIGHT) {
+      } else if (this.y > MAP.PLATFORM_POS[1][1] && this.y < MAP.PLATFORM_POS[1][1] + MAP.PLATFORM_HEIGHT) {
         this.layer = 1;
       }
     }
 
     // if below or above top/bottom of platforms, set layer to zero
-    if (this.y < PLATFORMS[0][1] || this.y > PLATFORMS[1][1] + MAP_BORDER.PLATFORM_HEIGHT) {
+    if (this.y < MAP.PLATFORM_POS[0][1] || this.y > MAP.PLATFORM_POS[1][1] + MAP.PLATFORM_HEIGHT) {
       this.layer = 0;
     }
-    else if (this.x < PLATFORMS[0][0] || this.x > PLATFORMS[2][0] + MAP_BORDER.PLATFORM_HEIGHT) {
+    else if (this.x < MAP.PLATFORM_POS[0][0] || this.x > MAP.PLATFORM_POS[2][0] + MAP.PLATFORM_HEIGHT) {
       this.layer = 0;
     }
 
@@ -67,10 +66,10 @@ export default class Particle {
     if (!alive) return [x, y];
 
     let space = 2;
-    let x0 = MAP_BORDER.WALL_PADDING - space;
-    let y0 = MAP_BORDER.WALL_PADDING - space;
-    let x1 = DIM_X - MAP_BORDER.WALL_PADDING + space;
-    let y1 = DIM_Y - MAP_BORDER.WALL_PADDING + space;
+    let x0 = MAP.BORDER_WIDTH - space;
+    let y0 = MAP.BORDER_WIDTH - space;
+    let x1 = MAP.DIM_X - MAP.BORDER_WIDTH + space;
+    let y1 = MAP.DIM_Y - MAP.BORDER_WIDTH + space;
     if (x < x0 + radius) {
       x = x0 + radius;
     } else if (x > x1 - radius) {

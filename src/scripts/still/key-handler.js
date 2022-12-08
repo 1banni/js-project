@@ -19,6 +19,13 @@ export class KeyHandler {
   }
 
   keyPressed(e) {
+      // if (e.key === ' ' || e.key === 'ArrowLeft' || e.key === 'ArrowRight' ||
+      //     e.key === 'ArrowDown' || e.key === 'ArrowUp')
+      // {
+      //     e.returnValue = false;
+      // }
+    console.log('e.key', e.key);
+
     // Player 1
     if (e.key === 'w') this.actions[0].throttle = true;
     if (e.key === 'a') this.actions[0].left = true;

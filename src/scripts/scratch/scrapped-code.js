@@ -64,3 +64,44 @@
   //     projectile.x >= DIM_X - MAP_BORDER.WALL_PADDING - projectile.width &&
   //     projectile.y >= DIM_Y - MAP_BORDER.WALL_PADDING - projectile.height;
   // }
+
+
+
+  // draw(ctx) {
+  //   this.projectiles.forEach(projectile => {
+  //     if (this.isOutOfBounds(projectile) || projectile.bounces === 0) {
+  //       this.delete(projectile);
+  //       // if (this.collisionType(projectile) === 'horizontal') {
+  //       // } else {
+  //       // }
+  //     } else {
+  //       projectile.draw(ctx);
+  //     }
+  //   });
+  // }
+
+
+
+  // collisionType(projectile) {
+  //   if (!(projectile.x <= -projectile.width + MAP_BORDER.WALL_PADDING &&
+  //     projectile.x >= 1200 - MAP_BORDER.WALL_PADDING - projectile.width
+  //   )) {
+  //     return 'horizontal';
+  //   }
+  //   else if (!(projectile.y <= -projectile.height + MAP_BORDER.WALL_PADDING &&
+  //     projectile.y >= 1200 - MAP_BORDER.WALL_PADDING - projectile.height)
+  //   ) {
+  //     return 'vertical';
+  //   }
+  //   return 'unsure - see projectile-coontroller#collisionType(projectile) method';
+  // }
+
+
+
+      // let img = new Image();
+    // img.src = '../src/img/heart.png';
+    // let ctx = this.ctx;
+    // img.onload = function () {
+    // // (img, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
+    // ctx.drawImage.bind(ctx)(this.img, 200, 200);
+    // }

@@ -1,6 +1,6 @@
 export const PROJECTILE = {
   COLOR: '#dd0000',
-  RADIUS: 10,
+  RADIUS: 15,
   DELAY: 7,
   DAMAGE: 40,
   SPEED: 8,

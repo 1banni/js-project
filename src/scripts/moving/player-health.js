@@ -1,6 +1,5 @@
-import { DIM_X, DIM_Y } from "../game-parameters/map-params";
-import { MAP_BORDER } from "../game-parameters/map-params";
-import { HEALTH_BAR } from "../game-parameters/health-params";
+import { MAP } from "../game-parameters/map-params";
+import { HEALTH_BAR } from "../game-parameters/border-params";
 
 
 export default class PlayerHealth {
@@ -11,8 +10,8 @@ export default class PlayerHealth {
     this.playerIndex = playerIndex;
 
     let incrX = playerIndex * (HEALTH_BAR.WIDTH + HEALTH_BAR.PADDING/2);
-    this.x = Math.floor(DIM_X - HEALTH_BAR.WIDTH - HEALTH_BAR.PADDING - incrX - 50);
-    this.y = Math.floor(DIM_Y * 1 / 160);
+    this.x = Math.floor(MAP.DIM_X - HEALTH_BAR.WIDTH - HEALTH_BAR.PADDING - incrX - 50);
+    this.y = Math.floor(MAP.DIM_Y * 1 / 160);
   }
 
   damage(points) {

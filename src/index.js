@@ -9,15 +9,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Disable default browser response to all keys
   // PROOF - UPDATE TO ONLY DISABLE CERTAIN KEYS (USER SHOULD BE ABLE TO CTRL TAB)
-  document.onkeydown = KD;
-  function KD(e) {
-    // if (e.key === ' ' || e.key === ArrowLeft || e.key === ArrowRight ||
-    //     e.key === ArrowDown || e.key === ArrowUp)
-    // {
-        e.returnValue = false;
-    // }
+  // document.onkeydown = KD;
+  // function KD(e) {
+  //   if (e.key === ' ' || e.key === ArrowLeft || e.key === ArrowRight ||
+  //       e.key === ArrowDown || e.key === ArrowUp)
+  //   {
+  //       e.returnValue = false;
+  //   }
 
-  }
+  // }
 
 
 });

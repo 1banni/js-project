@@ -21,65 +21,41 @@ export default class Edge {
     ctx.stroke();
   }
 
-  // must iterate through edges and proojectiles when you call this
-  // consider generalizing this logic: instead of calculating for both this.vertical and this.horizontal,
-  // pass the vector that's perpendicular the drawn here into handlIntersect
   intersects (particle) {
-    // Optimization - check layer first
-    if (!this.layers.includes(particle.layer)) return false;
+    if (!this.layers.includes(particle.layer)) return false; // Optimization - check layer first
 
     let radi = particle.radius;
     let edgeX = 0;
     let edgeY = 0;
     let gap = 0.1;
 
-
     if (this.vertical) {
       if (Math.abs(particle.x - this.x1) < radi) { // is distance greater < radius
-        // if (particle.y <= this.y2 + radi && particle.y >= this.y1 - radi) {
         if (particle.y <= this.y2 && particle.y >= this.y1) {
           console.log('this.vertical', this.vertical);
           edgeX = (particle.x < this.x1 ? this.x1 - radi - gap : this.x1 + radi + gap);
           particle.handleIntersect(-1, 1, edgeX, edgeY);
           return true;
         } else {
-          // let p1 = (particle.y < this.y1 ? [this.x1, this.y1] : [this.x2, this.y2]);
-          // let p2 = [particle.x, particle.y];
-          // if (Util.dist(p1, p2) < radi) {
-          //   edgeX = (particle.x < this.x1 ? this.x1 - radi - 1 : this.x1 + radi + 1);
-          //   particle.handleIntersect(1, -1, edgeX, edgeY);
-          //   return true;
-          // } else {
-            return false;
-          // }
+          return false;
         }
       } else {
         return false;
       }
     } else { // Horizontal
       if (Math.abs(particle.y - this.y1) < radi) { // is distance greater < radius
-        // if (particle.x <= this.x2 + radi && particle.x >= this.x1 - radi) {
         if (particle.x <= this.x2 + 1 && particle.x >= this.x1 - 1) {
           console.log('this.vertical', this.vertical);
           edgeY = (particle.y < this.y1 ? this.y1 - radi - gap : this.y1 + radi + gap);
           particle.handleIntersect(1, -1, edgeX, edgeY);
           return true;
         } else {
-          // let p1 = (particle.y < this.y1 ? [this.x1, this.y1] : [this.x2, this.y2]);
-          // let p2 = [particle.x, particle.y];
-          // if (Util.dist(p1, p2) < radi) {
-          //   edgeY = (particle.y < this.y1 ? this.y1 - radi - 1 : this.y1 + radi + 1);
-          //   particle.handleIntersect(1, -1, edgeX, edgeY);
-            return true;
-          // } else {
-            return false;
-          // }
+          return false;
         }
       } else {
         return false;
       }
     }
-    return null;
   }
 
   resetParticleY(particle) {
@@ -98,7 +74,4 @@ export default class Edge {
       particle.resetPos(this.x + particle.radius + 1, particle.y);
     }
   }
-
-
-
-  }
+}

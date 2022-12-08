@@ -3,8 +3,8 @@ import Player from './moving/player.js';
 import EdgeController from './still/edge-controller.js';
 import ProjectileController from './moving/projectile-controller.js';
 import PerkController from './moving/perk-controller.js';
-import { PLAYERS_COLOR, NUM_PLAYERS, PLAYERS_START_POS, PLAYERS_START_DIR } from './game-parameters/player-params.js';
-import { DIM_X, DIM_Y } from './game-parameters/map-params.js'
+import { PLAYERS } from './game-parameters/player-params.js';
+import { MAP } from './game-parameters/map-params.js'
 
 
 let playerIdx = 0;
@@ -20,11 +20,11 @@ export default class Game {
     this.edgeController = new EdgeController(this.ctx);
     this.projectileController = new ProjectileController(this.ctx, this.edgeController);
     this.perkController = new PerkController()
-    this.players = Array.from(Array(NUM_PLAYERS), () => {
+    this.players = Array.from(Array(PLAYERS.NUMBER), () => {
       return new Player(playerIdx,
-                        PLAYERS_START_POS[playerIdx], // PROOF - MOVE THIS LOGIC TO THE PLAYERS FILE
-                        PLAYERS_START_DIR[playerIdx],
-                        PLAYERS_COLOR[playerIdx++],
+                        PLAYERS.STARTING_POS[playerIdx], // PROOF - MOVE THIS LOGIC TO THE PLAYERS FILE
+                        PLAYERS.STARTING_DIR[playerIdx],
+                        PLAYERS.COLORS[playerIdx++],
                         this.edgeController,
                         this.projectileController);
     });
@@ -43,6 +43,8 @@ export default class Game {
     this.players.forEach((player) => player.update());
     this.projectileController.update();
     this.perkController.update();
+
+
   }
 
   checkIntersections() {
@@ -71,7 +73,7 @@ export default class Game {
   }
 
   draw (ctx) {
-    ctx.clearRect(0, 0, DIM_X, DIM_Y);
+    ctx.clearRect(0, 0, MAP.DIM_X, MAP.DIM_Y);
     this.edgeController.drawCanvas(ctx);
     let layer = 0;
     this.edgeController.drawLayer(ctx, layer);

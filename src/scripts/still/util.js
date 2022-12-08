@@ -8,7 +8,7 @@ https://open.appacademy.io/learn/ch---oct-2022-sf-cohort/javascript/asteroids
 */
 
 import _ from "lodash";
-import { MAP_BORDER, DIM_X, DIM_Y, PLATFORMS } from "../game-parameters/map-params";
+import { MAP } from "../game-parameters/map-params";
 
 
 let duke = 0;
@@ -16,8 +16,6 @@ let dukeMod = 1000;
 let dukeModDelta = 25;
 
 export const Util = {
-
-
   // Infrequently log in console
   infreqLog (obj, str='', freq = 0) {
     if (duke++ % dukeMod === 0) {
@@ -57,14 +55,14 @@ export const Util = {
   // },
   generateCoords(spacing) {
     let sp = spacing;
-    let x = MAP_BORDER.WALL_PADDING + Math.random() * (DIM_X - MAP_BORDER.WALL_PADDING * 2 - sp);
-    let y = MAP_BORDER.WALL_PADDING + Math.random() * (DIM_Y - MAP_BORDER.WALL_PADDING * 2 - sp);
+    let x = MAP.BORDER_WIDTH + Math.random() * (MAP.DIM_X - MAP.BORDER_WIDTH * 2 - sp);
+    let y = MAP.BORDER_WIDTH + Math.random() * (MAP.DIM_Y - MAP.BORDER_WIDTH * 2 - sp);
     // Force perks to spawn outside of platforms
     while (((x >= 200 - sp && x <= 400 + sp) || (x >= 700 - sp && x <= 900 + sp))
       && ((y >= 150 - sp && y <= 350) || (y >= 450 - sp && y <= 650))
     ) {
-      x = MAP_BORDER.WALL_PADDING + Math.random() * (DIM_X - MAP_BORDER.WALL_PADDING * 2 - sp);
-      y = MAP_BORDER.WALL_PADDING + Math.random() * (DIM_Y - MAP_BORDER.WALL_PADDING * 2 - sp);
+      x = MAP.BORDER_WIDTH + Math.random() * (MAP.DIM_X - MAP.BORDER_WIDTH * 2 - sp);
+      y = MAP.BORDER_WIDTH + Math.random() * (MAP.DIM_Y - MAP.BORDER_WIDTH * 2 - sp);
     }
     return [x,y];
   }

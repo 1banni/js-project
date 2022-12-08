@@ -5,9 +5,9 @@ import { KeyHandler } from "../still/key-handler.js";
 import { Util } from "../still/util";
 
 // Constants / Parameters
-import { PLAYER_PARAMS, PLAYER_COLORS } from "../game-parameters/player-params.js";
+import { PLAYERS } from "../game-parameters/player-params.js";
 import { PROJECTILE } from "../game-parameters/projectile-params.js";
-import { DIM_X, DIM_Y, MAP_BORDER, PLATFORMS } from "../game-parameters/map-params.js";
+import { MAP } from "../game-parameters/map-params.js";
 
 // Classes
 import Particle from "./particle.js";
@@ -16,7 +16,7 @@ import PlayerHealth from "./player-health.js";
 export default class Player extends Particle {
   constructor(idx, pos, angle, color, edgeController, projectileController) {
     // params: passed in
-    super(pos[0], pos[1], PLAYER_PARAMS.RADIUS);
+    super(pos[0], pos[1], PLAYERS.RADIUS);
     this.idx = idx;
     this.angle = angle;
     this.speed = 0;
@@ -28,14 +28,13 @@ export default class Player extends Particle {
     this.alive = true;
     this.layer = 0;
 
-
     // params: set by constant
-    this.max_speed = PLAYER_PARAMS.MAX_SPEED;
-    this.acceleration = PLAYER_PARAMS.ACCELERATION;
-    this.projectiles = PLAYER_PARAMS.PROJECTILES;
-    this.health = new PlayerHealth(PLAYER_PARAMS.MAX_HEALTH, this.color, this.idx);
-    this.nitrous = PLAYER_PARAMS.MAX_NOS;
     this.blasters = true;
+    this.health = new PlayerHealth(PLAYERS.MAX_HEALTH, this.color, this.idx);
+    this.max_speed = PLAYERS.MAX_SPEED;
+    this.acceleration = PLAYERS.ACCELERATION;
+    this.projectiles = PLAYERS.PROJECTILES;
+    // this.nitrous = PLAYERS.MAX_NOS;
 
     // instantiate key handler and add event listeners for keyboard actions
     this.keyHandler = new KeyHandler();
@@ -47,7 +46,6 @@ export default class Player extends Particle {
     this.runKeys();
     let [velX, velY] = Util.scale(Util.directionFrom(this.angle), this.speed);
     [this.x, this.y] = Particle.inbound(this.x + velX, this.y + velY, this.radius, this.alive);
-    // [this.x, this.y] = [this.x + velX, this.y + velY];
     this.updateLayer();
   }
 
@@ -61,8 +59,8 @@ export default class Player extends Particle {
   runKeys() {
     let pressedKeys = (this.alive ? this.keyHandler.activeActions()[this.idx] : {});
 
-    if (pressedKeys.left) this.angle = (this.angle + 1 / PLAYER_PARAMS.TURN_RADIUS) % 360;
-    if (pressedKeys.right) this.angle = (this.angle - 1 / PLAYER_PARAMS.TURN_RADIUS) % 360;
+    if (pressedKeys.left) this.angle = (this.angle + 1 / PLAYERS.TURN_RADIUS) % 360;
+    if (pressedKeys.right) this.angle = (this.angle - 1 / PLAYERS.TURN_RADIUS) % 360;
     if (pressedKeys.blast) {
       if (this.blasters) {
         this.blasters = false;
@@ -73,13 +71,13 @@ export default class Player extends Particle {
     }
 
     if (pressedKeys.throttle) {
-      this.speed = Math.min(this.max_speed, this.speed + PLAYER_PARAMS.ACCELERATION);
+      this.speed = Math.min(this.max_speed, this.speed + PLAYERS.ACCELERATION);
     } else if (this.speed > 0) {
       this.speed = Math.floor(this.speed * 49 / 50 * 10) / 10;
     }
 
     if (pressedKeys.brake) {
-      this.speed = Math.max(-this.max_speed, this.speed - PLAYER_PARAMS.ACCELERATION * 1);
+      this.speed = Math.max(-this.max_speed, this.speed - PLAYERS.ACCELERATION * 1);
     } else if (this.speed < 0) {
       this.speed = Math.ceil(this.speed * 49 / 50 * 10) / 10;
     }
@@ -99,8 +97,8 @@ export default class Player extends Particle {
     this.health.damage(points);
     if (this.health.health <= 0) {
       this.alive = false;
-      this.x = DIM_X + 100;
-      this.y = DIM_Y + 100;
+      this.x = MAP.DIM_X + 100;
+      this.y = MAP.DIM_Y + 100;
     }
   }
 
@@ -127,7 +125,7 @@ export default class Player extends Particle {
   }
 
   drawLine(ctx) {
-    let [dx, dy] = Util.scale(Util.directionFrom(this.angle), PLAYER_PARAMS.RADIUS);
+    let [dx, dy] = Util.scale(Util.directionFrom(this.angle), PLAYERS.RADIUS);
     ctx.strokeStyle = '#ffffff';
     ctx.fillStyle = this.color;
     ctx.lineWidth = 4;

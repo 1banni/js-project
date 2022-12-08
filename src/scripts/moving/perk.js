@@ -1,4 +1,3 @@
-import { MAP_BORDER } from "../game-parameters/map-params"
 import { PERK } from "../game-parameters/perk-params";
 
 // ALL QUIRKS WILL HAVE: POSITION, taken (status, turns to true in player inventory),
