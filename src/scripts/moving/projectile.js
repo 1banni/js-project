@@ -1,16 +1,23 @@
-import Particle from "./particle.js";
-import { PLAYERS } from "../game-parameters/player-params.js";
-import { PROJECTILE } from "../game-parameters/projectile-params.js";
 import { Util } from "../still/util.js";
+import { PLAYER, PROJECTILE } from "../game-params.js";
+import Particle from "./particle.js";
 
 export default class Projectile extends Particle{
-  constructor(x, y, angle, layer, speed, damage) {
-    let [incrX, incrY] = Util.scale(Util.directionFrom(angle), PLAYERS.RADIUS + PROJECTILE.RADIUS);
-    super(x + incrX + PROJECTILE.CUSHION, y + incrY + PROJECTILE.CUSHION, PROJECTILE.RADIUS);
+  // Increment projectile starting position to edge of player
+  // Give velocity base on player's direction vector
+  // Establish other relevant variables
+  constructor(playerX, playerY, angle, layer, speed, damage) {
+    let dir = Util.directionFrom(angle);
+    let [incrX, incrY] = Util.scale(dir, PLAYER.RADIUS + PROJECTILE.RADIUS);
+    let x = playerX + incrX + PROJECTILE.CUSHION;
+    let y = playerY + incrY + PROJECTILE.CUSHION;
+    let radius = PROJECTILE.RADIUS;
 
-    this.layer = layer;
+    super(x, y, radius);
+
+    this.layer = layer; // PROOF - MOVE TO SUPER
     this.damage = damage;
-    [this.dx, this.dy] = Util.scale(Util.directionFrom(angle), speed);
+    [this.dx, this.dy] = Util.scale(dir, speed);
 
     this.color = PROJECTILE.COLOR;
     this.bounces = PROJECTILE.BOUNCES;

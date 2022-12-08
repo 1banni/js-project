@@ -1,4 +1,4 @@
-import { PERK } from "../game-parameters/perk-params";
+import { PERK } from "../game-params";
 
 // ALL QUIRKS WILL HAVE: POSITION, taken (status, turns to true in player inventory),
 // ALL QUIRK SUBCLASSES MUST HAVE A METHOD TO ADD THEMSELVES TO PLAYER INVENTORY / REMOVE FROM MAP
@@ -31,6 +31,7 @@ export default class Perk {
     }
   }
 
+  // PROOF - this is slowing your code and must be moved
   decrFrames() {
     this.time = new Date().getTime();
     if (!this.startTime) this.startTime = this.time;

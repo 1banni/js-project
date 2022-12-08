@@ -3,9 +3,7 @@ import Player from './moving/player.js';
 import EdgeController from './still/edge-controller.js';
 import ProjectileController from './moving/projectile-controller.js';
 import PerkController from './moving/perk-controller.js';
-import { PLAYERS } from './game-parameters/player-params.js';
-import { MAP } from './game-parameters/map-params.js'
-import { PERK } from './game-parameters/perk-params.js'
+import { MAP, PLAYER, PERK } from "./game-params";
 
 
 let playerIdx = 0;
@@ -15,20 +13,22 @@ export default class Game {
 
   constructor (canvas) {
     this.ctx = canvas.getContext('2d');
-    this.startTime = null;
+    this.lastTime = null;
     this.time;
+
+    this.startNextRound = true;
     this.round = 0;
-    this.roundHopper = 0;
-    this.nextRound = true;
+    this.rounds = Object.keys(PERK.ROUNDS).length;
+    this.roundHopper = 0; // proof
 
     this.edgeController = new EdgeController(this.ctx);
     this.projectileController = new ProjectileController(this.ctx, this.edgeController);
     this.perkController;
-    this.players = Array.from(Array(PLAYERS.NUMBER), () => {
+    this.players = Array.from(Array(PLAYER.NUMBER), () => {
       return new Player(playerIdx,
-                        PLAYERS.STARTING_POS[playerIdx], // PROOF - MOVE THIS LOGIC TO THE PLAYERS FILE
-                        PLAYERS.STARTING_DIR[playerIdx],
-                        PLAYERS.COLORS[playerIdx++],
+                        PLAYER.STARTING_POS[playerIdx], // PROOF - MOVE THIS LOGIC TO THE PLAYER FILE
+                        PLAYER.STARTING_DIR[playerIdx],
+                        PLAYER.COLORS[playerIdx++],
                         this.edgeController,
                         this.projectileController);
     });
@@ -43,12 +43,13 @@ export default class Game {
 
 
   updateRound () {
-    if (this.nextRound) {
-      this.nextRound = false;
-      if (this.round < PERK.ROUNDS.length) {
+    if (this.startNextRound) {
+      this.startNextRound = false;
+      if (this.round < this.rounds) {
         this.perkController = new PerkController(PERK.ROUNDS[this.round]);
+        console.log('this.perkController', this.perkController); // POTENTIAL BUG
       } else {
-        this.perkController = new PerkController(PERK.ROUNDS[PERK.ROUNDS.length - 1]);
+        this.perkController = new PerkController(PERK.ROUNDS[this.rounds - 1]);
       }
       console.log('this.round', this.round);
     }
@@ -58,7 +59,7 @@ export default class Game {
     let timePassed = this.time - this.startTime;
     if (timePassed > 1000 * PERK.ROUND_LENGTH) {
       this.round++;
-      this.nextRound = true;
+      this.startNextRound = true;
       this.startTime = this.time;
     }
   }
@@ -82,7 +83,7 @@ export default class Game {
     // for (let i = 0; i < this.players.length; i++) {
     //   for (let j = i+1; j < this.players.length; j++) {
     //     // console.log('this.players[i].collideWith(this.players[j])', this.players[i].collideWith(this.players[j]));
-          // IF DIST OF THIS IS LESS THAN 2X RADIUS, PLAYERS ARE COLLIDING
+          // IF DIST OF THIS IS LESS THAN 2X RADIUS, PLAYER ARE COLLIDING
           // GET THE VECTOR (SUBTRACT P2 FROM P1), THEN SCALE THAT VECTOR TO BE LENGTH R
           // let p1 = this.players[i];
     //       let p2 = this.players[j];

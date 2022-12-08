@@ -1,5 +1,4 @@
-import { MAP } from "../game-parameters/map-params";
-import { HEALTH_BAR } from "../game-parameters/border-params";
+import { MAP, HEALTH_BAR } from "../game-params";
 import { Util } from "../still/util";
 
 

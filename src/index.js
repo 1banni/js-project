@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let game = new Game(canvas);
   let gameView = new GameView(canvas, game);
 
+  const menu = document.getElementById('game-canvas');
 
   // Disable default browser response to all keys
   // PROOF - UPDATE TO ONLY DISABLE CERTAIN KEYS (USER SHOULD BE ABLE TO CTRL TAB)

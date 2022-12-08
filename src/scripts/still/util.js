@@ -8,7 +8,7 @@ https://open.appacademy.io/learn/ch---oct-2022-sf-cohort/javascript/asteroids
 */
 
 import _ from "lodash";
-import { MAP } from "../game-parameters/map-params";
+import { MAP } from '../game-params';
 
 
 let duke = 0;
@@ -16,7 +16,7 @@ let dukeMod = 1000;
 let dukeModDelta = 25;
 
 export const Util = {
-  // Infrequently log in console
+  // Infrequently log in console (i.e., player position,  other game state)
   infreqLog (obj, str='', freq = 0) {
     if (duke++ % dukeMod === 0) {
       duke += freq;
@@ -24,6 +24,34 @@ export const Util = {
       dukeMod = Math.floor(dukeMod * (1 + dukeModDelta/100));
     }
   },
+
+  // Generate random coordinates
+  randomCoords(x1, y1, width, height, spacing) {
+    let sp = spacing; // (i.e., for preventing image/elemnt overlap)
+    let x = x1 + Math.random() * (width - sp);
+    let y = y1 + Math.random() * (height - sp);
+
+    // Force perks to spawn outside of platforms
+    while (((x >= 200 - sp && x <= 400 + sp) || (x >= 700 - sp && x <= 900 + sp))
+      && ((y >= 150 - sp && y <= 350) || (y >= 450 - sp && y <= 650))
+    ) {
+      x = x1 + Math.random() * (width - sp);
+      y = y1 + Math.random() * (height - sp);
+    }
+    return [x, y];
+  },
+
+  lightenColor(color, degree) {
+    let basis = '0123456789abcdef';
+    let res = color.slice(1).split("").map(char => {
+      let num = basis.indexOf(char);
+      let newNum = Math.floor((15 - num) / degree + num).toString();
+      return basis[newNum];
+    });
+    res.unshift('#');
+    return res.join("");
+  },
+
   // Calculates radians from degree
   directionFrom(degree) {
     let radians = Math.PI / 180 * degree;
@@ -38,49 +66,16 @@ export const Util = {
   norm (vector) {
     return Util.dist([0,0], vector);
   },
+
   // Peels out direction of vector
   dir (vector) {
     let norm = Util.norm(vector);
     let oneOverNorm = (norm === 0 ? 1 : norm);
     return Util.scale(vector, oneOverNorm);
   },
+
   // Scales vector with magnitude
   scale (vector, magnitude) {
     return _.map(vector, (num) => num * magnitude);
-  },
-  // PROOF NOTE - IN MOTION CLASS, WANT TO NORMALIZE DIRECTION VECTORE THEN SCALE BY MAX_SPEED
-
-  // getAngle(dx, dy) {
-  //   return 180 * (Math.atan2(dy, dx)) * Math.PI;
-  // },
-  generateCoords(spacing) {
-    let sp = spacing;
-    let x = MAP.BORDER_WIDTH + Math.random() * (MAP.DIM_X - MAP.BORDER_WIDTH * 2 - sp);
-    let y = MAP.BORDER_WIDTH + Math.random() * (MAP.DIM_Y - MAP.BORDER_WIDTH * 2 - sp);
-    // Force perks to spawn outside of platforms
-    while (((x >= 200 - sp && x <= 400 + sp) || (x >= 700 - sp && x <= 900 + sp))
-      && ((y >= 150 - sp && y <= 350) || (y >= 450 - sp && y <= 650))
-    ) {
-      x = MAP.BORDER_WIDTH + Math.random() * (MAP.DIM_X - MAP.BORDER_WIDTH * 2 - sp);
-      y = MAP.BORDER_WIDTH + Math.random() * (MAP.DIM_Y - MAP.BORDER_WIDTH * 2 - sp);
-    }
-    return [x,y];
-  },
-
-  baseConverter(n, b) {
-    let basis = '0123456789abcdef';
-    if (n < b) return basis[n];
-    return baseConverter(Math.floor(n / b), b) + basis[n % b];
-  },
-
-  lightenColor(color, degree) {
-    let basis = '0123456789abcdef';
-    let res = color.slice(1).split("").map(char => {
-      let num = basis.indexOf(char);
-      let newNum = Math.floor((15 - num) / degree + num).toString();
-      return basis[newNum];
-    });
-    res.unshift('#');
-    return res.join("");
   }
 }

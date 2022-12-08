@@ -1,4 +1,4 @@
-import { MAP } from "../game-parameters/map-params";
+import { MAP } from "../game-params";
 
 export default class Particle {
   constructor (x, y, radius) {
@@ -7,15 +7,10 @@ export default class Particle {
     this.radius = radius;
   }
 
-
   collideWith(player) {
-    let dist = Math.sqrt((this.x - player.x) ** 2 + (this.y - player.y) ** 2);
-    let radiiLengths = this.radius + player.radius;
-    if (dist < radiiLengths) {
-      return true;
-    } else {
-      return false;
-    }
+    let squaredDistance = (this.x - player.x) ** 2 + (this.y - player.y) ** 2;
+    let squaredSumOfRadii = (this.radius + player.radius) ** 2;
+    return (squaredDistance < squaredSumOfRadii ? true : false);
   }
 
   resetPos(x, y) {
@@ -73,6 +68,7 @@ export default class Particle {
     }
   }
 
+  // Future Update: Make non-static
   static inbound(x, y, radius, alive) {
     // console.log('pre-inbound', x, y);
     if (!alive) return [x, y];
@@ -82,6 +78,7 @@ export default class Particle {
     let y0 = MAP.BORDER_WIDTH - space;
     let x1 = MAP.DIM_X - MAP.BORDER_WIDTH + space;
     let y1 = MAP.DIM_Y - MAP.BORDER_WIDTH + space;
+
     if (x < x0 + radius) {
       x = x0 + radius;
     } else if (x > x1 - radius) {

@@ -1,4 +1,4 @@
-import { MAP } from "../game-parameters/map-params";
+import { MAP } from "../game-params";
 import Edge from "./edge";
 
 export default class EdgeController {
