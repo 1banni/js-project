@@ -30,9 +30,21 @@ export default class Particle {
 
   updateLayer() {
     let prevLayer = this.layer;
-    let sp = 5;
+    let sp = 50;
     // outer if checks x location; inner width checks y location
-    // MAP.PLATFORM_POS[0][0]
+    console.log('------------');
+    console.log('this.x', this.x);
+    console.log('> MAP.PLATFORM_POS[0][0]', MAP.PLATFORM_POS[0][0]);
+    console.log('< MAP.PLATFORM_POS[0][0] + MAP.PLATFORM_WIDTH', MAP.PLATFORM_POS[0][0] + MAP.PLATFORM_WIDTH);
+    console.log('---');
+    console.log('this.y', this.y);
+    console.log('> MAP.PLATFORM_POS[0][1]', MAP.PLATFORM_POS[0][1]);
+    console.log('< MAP.PLATFORM_POS[0][1] + MAP.PLATFORM_HEIGHT', MAP.PLATFORM_POS[0][1] + MAP.PLATFORM_HEIGHT);
+    console.log('else');
+    console.log('> MAP.PLATFORM_POS[1][1]', MAP.PLATFORM_POS[1][1]);
+    console.log('< MAP.PLATFORM_POS[1][1] + MAP.PLATFORM_HEIGHT', MAP.PLATFORM_POS[1][1] + MAP.PLATFORM_HEIGHT);
+
+
     if (this.x > MAP.PLATFORM_POS[0][0] && this.x < MAP.PLATFORM_POS[0][0] + MAP.PLATFORM_WIDTH - sp) {
       if (this.y > MAP.PLATFORM_POS[0][1] && this.y < MAP.PLATFORM_POS[0][1] + MAP.PLATFORM_HEIGHT) {
         this.layer = 1;

@@ -44,10 +44,10 @@ export class KeyHandler {
     e.stopPropagation();
 
     // Player 1
-    if (e.key === 'w') this.actions[0].throttle = false;
-    if (e.key === 'a') this.actions[0].left = false;
-    if (e.key === 's') this.actions[0].brake = false;
-    if (e.key === 'd') this.actions[0].right = false;
+    if (e.key === 'w' || e.key === 'W') this.actions[0].throttle = false;
+    if (e.key === 'a' || e.key === 'A') this.actions[0].left = false;
+    if (e.key === 's' || e.key === 'S') this.actions[0].brake = false;
+    if (e.key === 'd' || e.key === 'D') this.actions[0].right = false;
     if (e.key === ' ') this.actions[0].blast = false;
 
     // Player 2
