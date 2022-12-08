@@ -17,10 +17,10 @@ let dukeModDelta = 25;
 
 export const Util = {
   // Infrequently log in console (i.e., player position,  other game state)
-  infreqLog (obj, str='', freq = 0) {
+  infreqLog(str = '', obj, freq = 0) {
     if (duke++ % dukeMod === 0) {
       duke += freq;
-      console.log(typeof obj, obj, str);
+      console.log(str, obj, typeof obj);
       dukeMod = Math.floor(dukeMod * (1 + dukeModDelta/100));
     }
   },
@@ -41,6 +41,7 @@ export const Util = {
     return [x, y];
   },
 
+  // lighten a color (bring closer to white)
   lightenColor(color, degree) {
     let basis = '0123456789abcdef';
     let res = color.slice(1).split("").map(char => {
@@ -51,6 +52,16 @@ export const Util = {
     res.unshift('#');
     return res.join("");
   },
+  // darkenColor(color, degree) {
+  //   let basis = '0123456789abcdef';
+  //   let res = color.slice(1).split("").map(char => {
+  //     let num = basis.indexOf(char);
+  //     let newNum = Math.floor((num) * degree + num).toString();
+  //     return basis[newNum];
+  //   });
+  //   res.unshift('#');
+  //   return res.join("");
+  // },
 
   // Calculates radians from degree
   directionFrom(degree) {

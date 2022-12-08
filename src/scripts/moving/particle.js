@@ -25,19 +25,19 @@ export default class Particle {
 
   updateLayer() {
     let prevLayer = this.layer;
-    let sp = 50;
+    let sp = MAP.BORDER_WIDTH;
     // outer if checks x location; inner width checks y location
-    console.log('------------');
-    console.log('this.x', this.x);
-    console.log('> MAP.PLATFORM_POS[0][0]', MAP.PLATFORM_POS[0][0]);
-    console.log('< MAP.PLATFORM_POS[0][0] + MAP.PLATFORM_WIDTH', MAP.PLATFORM_POS[0][0] + MAP.PLATFORM_WIDTH);
-    console.log('---');
-    console.log('this.y', this.y);
-    console.log('> MAP.PLATFORM_POS[0][1]', MAP.PLATFORM_POS[0][1]);
-    console.log('< MAP.PLATFORM_POS[0][1] + MAP.PLATFORM_HEIGHT', MAP.PLATFORM_POS[0][1] + MAP.PLATFORM_HEIGHT);
-    console.log('else');
-    console.log('> MAP.PLATFORM_POS[1][1]', MAP.PLATFORM_POS[1][1]);
-    console.log('< MAP.PLATFORM_POS[1][1] + MAP.PLATFORM_HEIGHT', MAP.PLATFORM_POS[1][1] + MAP.PLATFORM_HEIGHT);
+    // console.log('------------');
+    // console.log('this.x', this.x);
+    // console.log('> MAP.PLATFORM_POS[0][0]', MAP.PLATFORM_POS[0][0]);
+    // console.log('< MAP.PLATFORM_POS[0][0] + MAP.PLATFORM_WIDTH', MAP.PLATFORM_POS[0][0] + MAP.PLATFORM_WIDTH);
+    // console.log('---');
+    // console.log('this.y', this.y);
+    // console.log('> MAP.PLATFORM_POS[0][1]', MAP.PLATFORM_POS[0][1]);
+    // console.log('< MAP.PLATFORM_POS[0][1] + MAP.PLATFORM_HEIGHT', MAP.PLATFORM_POS[0][1] + MAP.PLATFORM_HEIGHT);
+    // console.log('else');
+    // console.log('> MAP.PLATFORM_POS[1][1]', MAP.PLATFORM_POS[1][1]);
+    // console.log('< MAP.PLATFORM_POS[1][1] + MAP.PLATFORM_HEIGHT', MAP.PLATFORM_POS[1][1] + MAP.PLATFORM_HEIGHT);
 
 
     if (this.x > MAP.PLATFORM_POS[0][0] && this.x < MAP.PLATFORM_POS[0][0] + MAP.PLATFORM_WIDTH - sp) {
@@ -75,9 +75,9 @@ export default class Particle {
 
     let space = 2;
     let x0 = MAP.BORDER_WIDTH - space;
-    let y0 = MAP.BORDER_WIDTH - space;
+    let y0 = MAP.BORDER_HEIGHT - space;
     let x1 = MAP.DIM_X - MAP.BORDER_WIDTH + space;
-    let y1 = MAP.DIM_Y - MAP.BORDER_WIDTH + space;
+    let y1 = MAP.DIM_Y - MAP.BORDER_HEIGHT + space;
 
     if (x < x0 + radius) {
       x = x0 + radius;
@@ -85,9 +85,9 @@ export default class Particle {
       x = x1 - radius;
     }
 
-    if (y < y0) {
+    if (y < y0 - radius) {
       y = y1;
-    } else if (y > y1) {
+    } else if (y > y1 + radius - 1) { // NOTE: NEGATIVE ONE IS NECESSARY TO PREVENT FLICKERING
       y = y0;
     }
     // console.log('post-inbound', x, y);

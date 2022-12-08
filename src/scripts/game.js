@@ -45,12 +45,10 @@ export default class Game {
   updateRound () {
     if (this.startNextRound) {
       this.startNextRound = false;
-      if (this.round < this.rounds) {
-        this.perkController = new PerkController(PERK.ROUNDS[this.round]);
-        console.log('this.perkController', this.perkController); // POTENTIAL BUG
-      } else {
-        this.perkController = new PerkController(PERK.ROUNDS[this.rounds - 1]);
-      }
+      // Repeat last round once all roudns are complete
+      let isLast = !(this.round < this.rounds);
+      let pointer = Math.min(this.round, this.rounds);
+      this.perkController = new PerkController(PERK.ROUNDS[pointer - isLast]);
       console.log('this.round', this.round);
     }
 
@@ -137,5 +135,11 @@ export default class Game {
     this.checkCollisions(); // PROOF - UPDATE FOR LAYERS?
     this.draw(this.ctx);
     requestAnimationFrame(this.animate.bind(this));
+  }
+
+  hangingIndex(arr, i) {
+    let isLast = !(i < arr.length);
+    let pointer = Math.min(i, arr.length)
+    return arr[pointer - isLast]
   }
 }

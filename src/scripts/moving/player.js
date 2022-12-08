@@ -100,11 +100,11 @@ export default class Player extends Particle {
   }
 
   givePerk(type) {
-    console.log('type', type);
+    // console.log('type', type);
     if (type === 0) this.health.restore(20);
-    console.log('this.projectiles', this.projectiles);
+    // console.log('this.projectiles', this.projectiles);
     if (type === 1) this.projectiles += 2;
-    console.log('this.projectiles', this.projectiles);
+    // console.log('this.projectiles', this.projectiles);
   }
 
   drawPlayer(ctx) {
@@ -125,7 +125,7 @@ export default class Player extends Particle {
     let [dx, dy] = Util.scale(Util.directionFrom(this.angle), PLAYER.RADIUS);
     ctx.strokeStyle = '#ffffff';
     ctx.fillStyle = this.color;
-    ctx.lineWidth = 4;
+    ctx.lineWidth = 10;
     ctx.beginPath();
     ctx.moveTo(this.x, this.y);
     ctx.lineTo(this.x + dx, this.y + dy);

@@ -28,7 +28,6 @@ export default class PerkController {
         this.addPerk(idx);
       }
     });
-    console.log('generating perks', this.perks);
   }
 
   update() {

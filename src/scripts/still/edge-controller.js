@@ -120,6 +120,8 @@ export default class EdgeController {
   }
 
   createHori() {
+    this.createHoriBorder();
+
     let platW = MAP.PLATFORM_WIDTH;
     let platH = MAP.PLATFORM_HEIGHT;
 
@@ -177,8 +179,51 @@ export default class EdgeController {
         [1], MAP.COLORS.BRIDGES // layer, color
       ));
     }
+  }
+
+  createHoriBorder () {
+    let wallPad = MAP.BORDER_WIDTH;
+    let ceilPad = MAP.BORDER_WIDTH / 2;
+    /***** Top *****/
+    // Game Border Left
+    this.edges.push(new Edge(wallPad, ceilPad + 5, // x1, y1
+      250, ceilPad + 5, // x2, y2
+      [0, 1], MAP.COLORS.EDGES // layer, color
+    ));
+    // Game Border Middle
+    this.edges.push(new Edge(MAP.DIM_X / 2 * 0.8, ceilPad + 5, // x1, y1
+      MAP.DIM_X / 2 * 1.2, ceilPad + 5, // x2, y2
+      [0, 1], MAP.COLORS.EDGES // layer, color
+    ));
+    // Game Border Right
+    this.edges.push(new Edge(950, ceilPad + 5, // x1, y1
+      MAP.DIM_X - wallPad, ceilPad + 5, // x2, y2
+      [0, 1], MAP.COLORS.EDGES // layer, color
+    ));
 
 
+    /***** Middle *****/
+    // Game Border Left
+    this.edges.push(new Edge(wallPad, MAP.DIM_Y - (ceilPad + 5), // x1, y1
+      250, MAP.DIM_Y - (ceilPad + 5), // x2, y2
+      [0, 1], MAP.COLORS.EDGES // layer, color
+    ));
+    // Game Border Middle
+    this.edges.push(new Edge(MAP.DIM_X / 2 * 0.8, MAP.DIM_Y - (ceilPad + 5), // x1, y1
+      MAP.DIM_X / 2 * 1.2, MAP.DIM_Y - (ceilPad + 5), // x2, y2
+      [0, 1], MAP.COLORS.EDGES // layer, color
+    ));
+    // Game Border Right
+    this.edges.push(new Edge(950, MAP.DIM_Y - (ceilPad + 5), // x1, y1
+      MAP.DIM_X - wallPad, MAP.DIM_Y - (ceilPad + 5), // x2, y2
+      [0, 1], MAP.COLORS.EDGES // layer, color
+    ));
+
+    // Game Border Right
+    this.edges.push(new Edge(MAP.DIM_X - wallPad, 0, // x1, y1
+      MAP.DIM_X - wallPad, MAP.DIM_Y, // x2, y2
+      [0, 1], MAP.COLORS.EDGES // layer, color
+    ));
   }
 
   drawShade (ctx, x1, x2, y1, y2, gapX, gapY, color) {

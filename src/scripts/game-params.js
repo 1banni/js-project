@@ -1,13 +1,10 @@
-export const HEALTH_BAR = {
-  WIDTH: 100,
-  HEIGHT: 33,
-  PADDING: 10,
-}
+
 
 export const MAP = {
   DIM_X: 1200,
   DIM_Y: 800,
-  BORDER_WIDTH: 50,
+  BORDER_WIDTH: 100,
+  BORDER_HEIGHT: 50,
   PLATFORM_WIDTH: 300,
   PLATFORM_HEIGHT: 200,
 
@@ -19,13 +16,19 @@ export const MAP = {
   ],
 
   COLORS: {
-    BORDER: '#cccccc', // light grey
+    BORDER: '#000000', // light grey
     GROUND: '#000000',
-    PLATFORMS: '#00ee15',
+    PLATFORMS: 'rgba(150, 255, 255)',// '#ffea00', // '#00ee15',
     BRIDGES: '#00ffff',
     BRIDGES_SLATS_BETWEEN: '#aadddd',
-    EDGES: '#00ee15'//'#fac60c'
+    EDGES: 'rgba(150, 255, 255)' // '#ffea00' // '#00ee15'//'#fac60c'
   }
+}
+
+export const HEALTH_BAR = {
+  WIDTH: 25,
+  HEIGHT: MAP.DIM_Y - MAP.BORDER_HEIGHT * 2,
+  PADDING: 10,
 }
 
 
@@ -55,7 +58,7 @@ export const PLAYER = {
   ACCELERATION: 0.1,
   PROJECTILES: 3,
   MAX_NOS: 400,
-  COLORS: ['#0dccff', '#a000fa', 'blue', 'purple'],
+  COLORS: ['#ff3300', '#0044ff', '#ffea00', '#0dccff', '#a000fa', 'blue', 'purple'],
   STARTING_POS: [[CUSHION, CUSHION], // top left
   [MAP.DIM_X - CUSHION, MAP.DIM_Y - CUSHION], // bottom right
   [MAP.DIM_X - CUSHION, CUSHION], // top right
@@ -65,11 +68,13 @@ export const PLAYER = {
 
 export const PERK = {
   HEART: {
+    LIFE: 40,
     MAX_COUNT: 5,
     TYPE: 0,
     SIZE: 40,
   },
   PROJ: {
+    LIFE: 40,
     MAX_COUNT: 10,
     TYPE: 1,
     SIZE: 40,
