@@ -1,4 +1,4 @@
-# Whiplash
+# Hover Duel
 
 The goal is to pop/destroy your opponents’ balloons (lives) before your own balloons are popped; the game is similar to Mario Kart’s Battle Mode ([https://www.mariowiki.com/Battle_Mode](https://www.mariowiki.com/Battle_Mode)). The user can drive around the grid with WASD, fire projectiles at opponents and perform other moves with other keys. Players will lose health when hit by projectiles. Initially, the game will be 2-player with no CPUs.
 
