@@ -21,7 +21,6 @@ export default class ProjectileController {
     this.edgeController = edgeController;
   }
 
-
   update() {
     this.projectiles.forEach((projectile) => projectile.update());
   }

@@ -11,8 +11,7 @@ import { DIM_X, DIM_Y, MAP_BORDER, PLATFORMS } from "../game-parameters/map-para
 
 // Classes
 import Particle from "./particle.js";
-import Heart from "./heart.js";
-import CourseMap from "../still/map-objects/course-map.js";
+import PlayerHealth from "./player-health.js";
 
 export default class Player extends Particle{
   constructor(idx, pos, angle, color, edgeController, projectileController) {
@@ -34,11 +33,10 @@ export default class Player extends Particle{
     this.max_speed = PLAYER_PARAMS.MAX_SPEED;
     this.acceleration = PLAYER_PARAMS.ACCELERATION;
     this.projectiles = PLAYER_PARAMS.PROJECTILES;
-    this.heart = new Heart(PLAYER_PARAMS.MAX_HEALTH, PLAYER_PARAMS.MAX_HEALTH,
-      this.color, this.idx);
-      this.nitrous = PLAYER_PARAMS.MAX_NOS;
+    this.health = new PlayerHealth(PLAYER_PARAMS.MAX_HEALTH, this.color, this.idx);
+    this.nitrous = PLAYER_PARAMS.MAX_NOS;
 
-      // instantiate key handler and add event listeners for keyboard actions
+    // instantiate key handler and add event listeners for keyboard actions
     this.keyHandler = new KeyHandler();
     document.addEventListener('keydown', (e) => this.keyHandler.keyPressed(e));
     document.addEventListener('keyup', (e) => this.keyHandler.keyReleased(e));
@@ -47,8 +45,8 @@ export default class Player extends Particle{
   update () {
     this.runKeys();
     let [velX, velY] = Util.scale(Util.directionFrom(this.angle), this.speed);
-    // [this.x, this.y] = CourseMap.inbound([this.x + velX, this.y + velY]);
-    [this.x, this.y] = [this.x + velX, this.y + velY];
+    [this.x, this.y] = Particle.inbound(this.x + velX, this.y + velY, this.radius, this.alive);
+    // [this.x, this.y] = [this.x + velX, this.y + velY];
     this.updateLayer();
   }
 
@@ -110,12 +108,28 @@ export default class Player extends Particle{
     }
   }
 
+
+  fireBlasters() { // PROOF equiv to shoot
+    if (this.alive && this.projectiles > 0) {
+      this.projectiles--;
+      this.projectileController.shoot(this.x, this.y, this.angle, this.layer, PROJECTILE.SPEED, PROJECTILE.DAMAGE, PROJECTILE.DELAY);
+    }
+  }
+
   damage(points) {
-    this.heart.damage(points);
-    if (this.heart.health <= 0) {
+    this.health.damage(points);
+    if (this.health.health <= 0) {
       this.alive = false;
       this.x = DIM_X + 100;
       this.y = DIM_Y + 100;
+    }
+  }
+
+  givePerk(type) {
+    if (type) {
+      this.projectiles += 2;
+    } else {
+      this.health.restore(20);
     }
   }
 
@@ -144,24 +158,17 @@ export default class Player extends Particle{
     ctx.stroke();
   }
 
-  drawHeart(ctx) {
-    this.heart.draw(ctx);
+  drawHealth(ctx) {
+    this.health.draw(ctx);
   }
 
   drawLayer(ctx, layer) {
     if (this.layer === layer) {
-      this.drawHeart(ctx);
+      this.drawHealth(ctx);
       if (this.alive) {
         this.drawPlayer(ctx);
         this.drawLine(ctx);
       }
-    }
-  }
-
-  fireBlasters() { // PROOF equiv to shoot
-    if (this.alive && this.projectiles > 0) {
-      this.projectiles--;
-      this.projectileController.shoot(this.x, this.y, this.angle, this.layer, PROJECTILE.SPEED, PROJECTILE.DAMAGE, PROJECTILE.DELAY);
     }
   }
 
