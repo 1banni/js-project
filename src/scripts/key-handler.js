@@ -61,7 +61,6 @@ export default class KeyHandler {
   }
 
   activeActions() {
-    console.log('this.actions', this.actions);
     return this.actions;
   }
 }
