@@ -36,12 +36,10 @@ export default class Projectile extends Particle{
   }
 
   handleIntersect(x, y) {
-    console.log('reversing direction');
     // if (x === -1) this.reverseDX();
     // if (y === -1) this.reverseDY();
     this.reverseDir(x, y);
     this.decrBounces();
-    console.log('this.bounces', this.bounces);
   }
 
   reverseDX() {

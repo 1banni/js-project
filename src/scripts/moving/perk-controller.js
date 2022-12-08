@@ -5,18 +5,19 @@ import { Util } from "../still/util";
 export default class PerkController {
   perks = [];
 
-  constructor(/* ctx */) {
+  constructor(arr) {
     // this.ctx = ctx;
+    let [numHearts, numProjectiles] = arr;
     this.heartImg = new Image();
     this.heartImg.src = '../src/img/heart.png';
     this.projImg = new Image();
     this.projImg.src = '../src/img/greenbars.png';
     // this.addHeart.
-    for (let i = 0; i < PERK.HEART.MAX_COUNT; i++) {
+    for (let i = 0; i < numHearts; i++) {
       this.addHeart();
     }
 
-    for (let i = 0; i < PERK.PROJ.MAX_COUNT; i++) {
+    for (let i = 0; i < numProjectiles; i++) {
       this.addProj();
     }
   }
@@ -44,7 +45,6 @@ export default class PerkController {
   addProj () {
     let [x, y] = Util.generateCoords(PERK.PROJ.SIZE);
     this.perks.push(new Perk(x, y, 1));
-    console.log('this.perks', this.perks);
   }
 
   addHeart () {

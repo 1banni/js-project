@@ -11,7 +11,6 @@ export default class Perk {
     this.y = y;
 
     // Type
-    console.log('type', type);
     this.type = type;
 
     // Expiration

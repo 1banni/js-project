@@ -5,6 +5,7 @@ import ProjectileController from './moving/projectile-controller.js';
 import PerkController from './moving/perk-controller.js';
 import { PLAYERS } from './game-parameters/player-params.js';
 import { MAP } from './game-parameters/map-params.js'
+import { PERK } from './game-parameters/perk-params.js'
 
 
 let playerIdx = 0;
@@ -14,12 +15,14 @@ export default class Game {
 
   constructor (canvas) {
     this.ctx = canvas.getContext('2d');
-    // this.startTime = null;
-    // this.time;
+    this.startTime = null;
+    this.time;
+    this.round = 0;
+    this.nextRound = true;
 
     this.edgeController = new EdgeController(this.ctx);
     this.projectileController = new ProjectileController(this.ctx, this.edgeController);
-    this.perkController = new PerkController()
+    this.perkController;
     this.players = Array.from(Array(PLAYERS.NUMBER), () => {
       return new Player(playerIdx,
                         PLAYERS.STARTING_POS[playerIdx], // PROOF - MOVE THIS LOGIC TO THE PLAYERS FILE
@@ -38,13 +41,34 @@ export default class Game {
   }
 
 
+  updateRound () {
+    if (this.nextRound) {
+      this.nextRound = false;
+      if (this.round < PERK.ROUNDS.length) {
+        this.perkController = new PerkController(PERK.ROUNDS[this.round]);
+      } else {
+        this.perkController = new PerkController(PERK.ROUNDS[PERK.ROUNDS.length - 1]);
+      }
+      console.log('this.round', this.round);
+    }
+
+    this.time = new Date().getTime();
+    if (!this.startTime) this.startTime = this.time;
+    let timePassed = this.time - this.startTime;
+    if (timePassed > 1000 * PERK.ROUND_LENGTH) {
+      this.round++;
+      this.nextRound = true;
+      this.startTime = this.time;
+    }
+  }
+
+
 
   update () { // Updates Moving Objects
+    this.updateRound();
     this.players.forEach((player) => player.update());
     this.projectileController.update();
     this.perkController.update();
-
-
   }
 
   checkIntersections() {

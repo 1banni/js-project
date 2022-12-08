@@ -32,7 +32,6 @@ export default class Edge {
     if (this.vertical) {
       if (Math.abs(particle.x - this.x1) < radi) { // is distance greater < radius
         if (particle.y <= this.y2 && particle.y >= this.y1) {
-          console.log('this.vertical', this.vertical);
           edgeX = (particle.x < this.x1 ? this.x1 - radi - gap : this.x1 + radi + gap);
           particle.handleIntersect(-1, 1, edgeX, edgeY);
           return true;
@@ -45,7 +44,6 @@ export default class Edge {
     } else { // Horizontal
       if (Math.abs(particle.y - this.y1) < radi) { // is distance greater < radius
         if (particle.x <= this.x2 + 1 && particle.x >= this.x1 - 1) {
-          console.log('this.vertical', this.vertical);
           edgeY = (particle.y < this.y1 ? this.y1 - radi - gap : this.y1 + radi + gap);
           particle.handleIntersect(1, -1, edgeX, edgeY);
           return true;

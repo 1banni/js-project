@@ -65,5 +65,22 @@ export const Util = {
       y = MAP.BORDER_WIDTH + Math.random() * (MAP.DIM_Y - MAP.BORDER_WIDTH * 2 - sp);
     }
     return [x,y];
+  },
+
+  baseConverter(n, b) {
+    let basis = '0123456789abcdef';
+    if (n < b) return basis[n];
+    return baseConverter(Math.floor(n / b), b) + basis[n % b];
+  },
+
+  lightenColor(color, degree) {
+    let basis = '0123456789abcdef';
+    let res = color.slice(1).split("").map(char => {
+      let num = basis.indexOf(char);
+      let newNum = Math.floor((15 - num) / degree + num).toString();
+      return basis[newNum];
+    });
+    res.unshift('#');
+    return res.join("");
   }
 }

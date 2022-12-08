@@ -1,5 +1,6 @@
 import { MAP } from "../game-parameters/map-params";
 import { HEALTH_BAR } from "../game-parameters/border-params";
+import { Util } from "../still/util";
 
 
 export default class PlayerHealth {
@@ -30,7 +31,7 @@ export default class PlayerHealth {
 
     // Draw Player Color Bar
     let healthWidth = Math.floor((this.health / this.maxHealth) * HEALTH_BAR.WIDTH);
-    ctx.fillStyle = this.color;
+    ctx.fillStyle = Util.lightenColor(this.color, 1.8);
     ctx.fillRect(this.x, this.y, healthWidth, HEALTH_BAR.HEIGHT, 5);
 
     // Draw 'Player #{playerIndex} Health'

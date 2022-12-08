@@ -62,9 +62,10 @@ export default class Player extends Particle {
     if (pressedKeys.left) this.angle = (this.angle + 1 / PLAYERS.TURN_RADIUS) % 360;
     if (pressedKeys.right) this.angle = (this.angle - 1 / PLAYERS.TURN_RADIUS) % 360;
     if (pressedKeys.blast) {
+      // if statement prevents multiple fires on one key press
       if (this.blasters) {
         this.blasters = false;
-        this.fireBlasters();
+        this.shoot();
       }
     } else {
       this.blasters = true;
@@ -83,9 +84,7 @@ export default class Player extends Particle {
     }
   }
 
-
-  fireBlasters() { // PROOF equiv to shoot
-    console.log('called fireBlasters');
+  shoot() {
     if (this.alive && this.projectiles > 0) {
       this.projectiles--;
       this.projectileController.shoot(this.x, this.y, this.angle, this.layer, PROJECTILE.SPEED, PROJECTILE.DAMAGE);
