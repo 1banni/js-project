@@ -26,10 +26,10 @@ export class KeyHandler {
       }
 
     // Player 1
-    if (e.key === 'w') this.actions[0].throttle = true;
-    if (e.key === 'a') this.actions[0].left = true;
-    if (e.key === 's') this.actions[0].brake = true;
-    if (e.key === 'd') this.actions[0].right = true;
+    if (e.key === 'w' || e.key === 'W') this.actions[0].throttle = true;
+    if (e.key === 'a' || e.key === 'A') this.actions[0].left = true;
+    if (e.key === 's' || e.key === 'S') this.actions[0].brake = true;
+    if (e.key === 'd' || e.key === 'D') this.actions[0].right = true;
     if (e.key === ' ') this.actions[0].blast = true;
 
     // Player 2

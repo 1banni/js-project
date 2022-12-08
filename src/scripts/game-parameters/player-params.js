@@ -4,7 +4,7 @@ const CUSHION = MAP.BORDER_WIDTH + 25;
 
 export const PLAYERS = {
   NUMBER: 2,
-  MAX_HEALTH: 200,
+  MAX_HEALTH: 300,
   MAX_SPEED: 4, // PROOF this isn't hitting cause setVelo isn't complete
   RADIUS: 20,
   TURN_RADIUS: 0.3,
