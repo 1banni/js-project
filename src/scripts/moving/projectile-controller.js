@@ -1,4 +1,5 @@
 import Projectile from "./projectile.js";
+import _ from "lodash";
 
 export default class ProjectileController {
   projectiles =  [];
@@ -35,15 +36,15 @@ export default class ProjectileController {
   }
 
   collideWith(player) {
-    return this.projectiles.some(projectile => {
+    this.projectiles = _.reject(this.projectiles, (projectile) => {
       if (projectile.collideWith(player)) {
-        this.delete(projectile);
+        // this.delete(projectile);
         player.damage(projectile.damage);
         return true;
       } else {
         return false;
       }
-    });
+    })
   }
 
   shoot(x, y, angle, layer, speed, damage) {

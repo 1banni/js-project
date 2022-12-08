@@ -113,7 +113,7 @@ export default class EdgeController {
     ));
 
     // Game Border Right
-    this.edges.push(new Edge(MAP.DIM_X - wallPad, 0, // x1, y1
+    this.edges.push(new Edge(MAP.DIM_X - wallPad - 1, 0, // x1, y1
       MAP.DIM_X - wallPad, MAP.DIM_Y, // x2, y2
       [0, 1], MAP.COLORS.EDGES // layer, color
     ));

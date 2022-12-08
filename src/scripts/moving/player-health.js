@@ -25,36 +25,7 @@ export default class PlayerHealth {
     this.health = Math.min(this.maxHealth, this.health + points);
   }
 
-  draw (ctx) {
-    // Draw Red Bar
-    ctx.shadowBlur = 0;
-    ctx.strokeStyle = '#ffffff';
-    ctx.lineWidth = 3;
-    // ctx.fillStyle = null;
-    // ctx.fillStyle = '#000000';
-    ctx.strokeRect(this.x, this.y, HEALTH_BAR.WIDTH, HEALTH_BAR.HEIGHT, 5);
 
-    // Draw Player Color Bar
-    let gap = 3;
-    // let healthWidth = Math.floor((this.health / this.maxHealth) * HEALTH_BAR.WIDTH);
-    let healthHeight = Math.floor((this.health / this.maxHealth) * HEALTH_BAR.HEIGHT);
-    ctx.fillStyle = '#33ff33';
-    ctx.fillRect(this.x + gap, HEALTH_BAR.HEIGHT - Math.max(0, healthHeight) + this.y + gap, HEALTH_BAR.WIDTH - gap * 2, healthHeight - gap * 2);
-
-    // ctx.fillStyle = playerColor;
-    // Draw 'Player #{playerIndex} Health'
-    ctx.font = "bold 17pt arial";
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    ctx.fillStyle = this.color;
-    if (this.playerIndex === 0) {
-      // ctx.fillRect(this.x + (HEALTH_BAR.WIDTH / 2) + 12, this.y - 15, 10, 5);
-      ctx.fillText(`Player ${this.playerIndex + 1}`, this.x + (HEALTH_BAR.WIDTH / 2)+18, this.y - 25);
-    } else {
-      ctx.fillText(`Player ${this.playerIndex + 1}`, this.x + (HEALTH_BAR.WIDTH / 2)-18, this.y - 25);
-
-    }
-  }
 
 
 }

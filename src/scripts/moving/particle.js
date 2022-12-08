@@ -73,17 +73,17 @@ export default class Particle {
     // console.log('pre-inbound', x, y);
     if (!alive) return [x, y];
 
-    let space = 2;
-    let x0 = MAP.BORDER_WIDTH - space;
+    let space = 1;
+    let x0 = MAP.BORDER_WIDTH;
     let y0 = MAP.BORDER_HEIGHT - space;
-    let x1 = MAP.DIM_X - MAP.BORDER_WIDTH + space;
+    let x1 = MAP.DIM_X - MAP.BORDER_WIDTH;
     let y1 = MAP.DIM_Y - MAP.BORDER_HEIGHT + space;
 
-    if (x < x0 + radius) {
-      x = x0 + radius;
-    } else if (x > x1 - radius) {
-      x = x1 - radius;
-    }
+    // if (x < x0 + radius) {
+    //   x = x0 + radius + space*2;
+    // } else if (x > x1 - radius) {
+    //   x = x1 - radius - space*2;
+    // }
 
     if (y < y0 - radius) {
       y = y1;
