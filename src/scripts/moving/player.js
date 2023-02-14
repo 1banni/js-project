@@ -90,6 +90,10 @@ export default class Player extends Particle {
     }
   }
 
+  isAlive() {
+    return this.health.health > 0;
+  }
+
   givePerk(type) {
     if (type === 0) this.health.restore(20);
     if (type === 1) this.projectiles = Math.min(20, this.projectiles + 2);

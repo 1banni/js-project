@@ -31,7 +31,6 @@ export const HEALTH_BAR = {
   PADDING: 10,
 }
 
-
 export const BRIDGES = {
   VERTICAL: [
     [312.5, 325],
@@ -46,12 +45,12 @@ export const BRIDGES = {
   HORIZONTAL_HEIGHT: 75,
 }
 
-
 const CUSHION = MAP.BORDER_WIDTH + 25;
 
 export const PLAYER = {
   NUMBER: 2,
-  MAX_HEALTH: 300,
+  // MAX_HEALTH: 300,
+  MAX_HEALTH: 30,
   MAX_SPEED: 4, // PROOF this isn't hitting cause setVelo isn't complete
   RADIUS: 20,
   TURN_RADIUS: 0.3,

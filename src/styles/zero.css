@@ -137,6 +137,10 @@ button:hover {
   /* width: 1500px; */
 }
 
+.canvas-wrapper {
+  position: relative;
+}
+
 .game-canvas {
   width: 60vw;
   height: 640px;
@@ -148,9 +152,19 @@ button:hover {
   margin-right: auto;
   display: block;
   margin-bottom: 100px;
+  position: relative;
   /* width: 800px; */
 }
 
+#end-screen-wrapper {
+  border: 2px solid pink;
+  background-color: aqua;
+  z-index: 15;
+  position: relative;
+  width: 1200;
+  height: 800;
+  display: block;
+}
 
 .start-game {
 

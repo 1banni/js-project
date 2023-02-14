@@ -63,7 +63,14 @@ export default class Game {
     }
   }
 
-
+  endGame (survivingPlayers) {
+    // this.ctx.stroke
+    this.ctx.fillStyle = 'white';
+    this.ctx.strokeStyle = 'white';
+    this.ctx.font = '48px arial';
+    this.ctx.clearRect(0, 0, MAP.DIM_X, MAP.DIM_Y);
+    this.ctx.fillText(`Game Over.  Player ${survivingPlayers[0].idx + 1} wins`, MAP.DIM_X * 0.4, MAP.DIM_Y * 0.45);
+  }
 
   update () { // Updates Moving Objects
     if (this.roundHopper++ % 200 === 0) {
@@ -135,6 +142,10 @@ export default class Game {
     this.checkCollisions(); // PROOF - UPDATE FOR LAYERS?
     this.draw(this.ctx);
     this.update();
+    if (!this.players.every(player => player.isAlive())) {
+      console.log('ending game');
+      return this.endGame(this.players.filter(player => player.isAlive()));
+    }
     requestAnimationFrame(this.animate.bind(this));
   }
 

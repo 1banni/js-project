@@ -21,5 +21,7 @@ export default class PlayerHealth {
   restore(points) {
     this.health = Math.min(this.maxHealth, this.health + points);
   }
+
+
 }
 
