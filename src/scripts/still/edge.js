@@ -17,6 +17,7 @@ export default class Edge {
     ctx.strokeStyle = this.color;
     ctx.lineWidth = this.lineWidth;
     ctx.beginPath();
+    // ctx.rect(this.x1, this.y1, this.x2 - this.x1, this.y2 - this.y1);
     ctx.moveTo(this.x1, this.y1);
     ctx.lineTo(this.x2, this.y2);
     ctx.stroke();

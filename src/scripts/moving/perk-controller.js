@@ -17,14 +17,17 @@ export default class PerkController {
     this.projImg = new Image();
     this.projImg.src = './assets/greenbars.png';
     // this.addHeart.
+    console.log('in constructor');
     this.generatePerks();
   }
 
   generatePerks () {
+    console.log('generating perks');
     let params = [this.numMedpaks, this.numProjectiles, this.numNos];
     params.forEach( (param, idx) => {
       let tik = 0;
       while (tik++ < param) {
+        console.log(`adding perk ${idx}`);
         this.addPerk(idx);
       }
     });
@@ -44,15 +47,21 @@ export default class PerkController {
 
   collideWith(player) {
     // return this.perks.some( (perk, idx) => {
+    // console.log('this.perks - before');
+    // console.log(this.perks);
     this.perks = _.reject(this.perks, (perk) => {
       if (perk.collideWith(player)) {
         player.givePerk(perk.type);
         // this.deleteAtIndex(perk, idx);
         return true;
       } else {
+        console.log('inside of false');
         return false;
       }
     });
+
+    // console.log('this.perks - after');
+    // console.log(this.perks);
   }
 
   addPerk(type) {
@@ -89,15 +98,16 @@ export default class PerkController {
   }
 
   draw(ctx) {
-    let projCt = 0;
-    let maxProj = 3;
+    // let projCt = 0;
+    // let maxProj = 3;
 
     this.perks.forEach( (perk) => {
       if (perk.type === 0) { // medpak / heart
         ctx.drawImage.bind(ctx)(this.heartImg, perk.x, perk.y, PERK.HEART.SIZE, PERK.HEART.SIZE);
       }
       else if (perk.type === 1) { // reload
-        if (projCt++ < maxProj) ctx.drawImage.bind(ctx)(this.projImg, perk.x, perk.y, PERK.PROJ.SIZE, PERK.PROJ.SIZE);
+        // if (projCt++ < maxProj)
+        ctx.drawImage.bind(ctx)(this.projImg, perk.x, perk.y, PERK.PROJ.SIZE, PERK.PROJ.SIZE);
       }
     });
 

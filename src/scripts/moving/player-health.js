@@ -1,7 +1,4 @@
-import { map } from "lodash";
 import { MAP, HEALTH_BAR } from "../game-params";
-import { Util } from "../still/util";
-
 
 export default class PlayerHealth {
   constructor(health, color, playerIndex) {
@@ -24,9 +21,5 @@ export default class PlayerHealth {
   restore(points) {
     this.health = Math.min(this.maxHealth, this.health + points);
   }
-
-
-
-
 }
 

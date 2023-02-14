@@ -38,7 +38,6 @@ export default class ProjectileController {
   collideWith(player) {
     this.projectiles = _.reject(this.projectiles, (projectile) => {
       if (projectile.collideWith(player)) {
-        // this.delete(projectile);
         player.damage(projectile.damage);
         return true;
       } else {

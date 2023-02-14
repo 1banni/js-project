@@ -6,14 +6,10 @@ import { PERK } from "../game-params";
 
 export default class Perk {
   constructor(x, y, type) {
-    // Position
     this.x = x;
     this.y = y;
-
-    // Type
     this.type = type;
 
-    // Expiration
     this.startTime;
     this.time;
     this.alive = true;

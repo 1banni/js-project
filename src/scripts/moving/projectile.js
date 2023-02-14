@@ -9,6 +9,7 @@ export default class Projectile extends Particle{
   constructor(playerX, playerY, angle, layer, speed, damage) {
     let dir = Util.directionFrom(angle);
     let [incrX, incrY] = Util.scale(dir, PLAYER.RADIUS + PROJECTILE.RADIUS);
+    // let [incrX, incrY] = Util.scale(dir, PLAYER.RADIUS);
     let x = playerX + incrX + PROJECTILE.CUSHION;
     let y = playerY + incrY + PROJECTILE.CUSHION;
     let radius = PROJECTILE.RADIUS;
@@ -18,6 +19,12 @@ export default class Projectile extends Particle{
     this.layer = layer; // PROOF - MOVE TO SUPER
     this.damage = damage;
     [this.dx, this.dy] = Util.scale(dir, speed);
+
+
+    console.log('playerX, playerY, incrX, incrY, PROJECTILE.CUSHION');
+    console.log(playerX, playerY, incrX, incrY, PROJECTILE.CUSHION);
+    console.log('this.x, this.y, this.dx, this.dy');
+    console.log(this.x, this.y, this.dx, this.dy);
 
     this.color = PROJECTILE.COLOR;
     this.bounces = PROJECTILE.BOUNCES;
