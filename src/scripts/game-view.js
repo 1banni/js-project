@@ -7,7 +7,7 @@ export default class GameView {
   }
 
   start() {
-    console.log('we made itttttt');
+
   }
 }
 // PROOF - consider adding below methods to the constructor later

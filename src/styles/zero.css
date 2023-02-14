@@ -209,6 +209,40 @@ button:hover {
   align-self: flex-start;
   margin-top: 100px;
 }
+
+.external-links {
+  margin-top: 20px;
+  /* border: 2px solid white; */
+  /* border-radius: 12px; */
+}
+
+.external-links h3 {
+  font-family: var(--ff);
+  font-size: 20px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  margin-left: 10px;
+  font-weight: 200;
+}
+
+.links {
+  display: flex;
+  flex-direction: row;
+  margin-left: 25px;
+  margin-bottom: 15px;
+}
+
+.github-img {
+  width: 40px;
+  margin-top: 4px;
+}
+
+.linked-img {
+  /* margin-top: 20px; */
+  width: 50px;
+  margin-left: 25px;
+  background-color: transparent;
+}
 /*
 #container {
   border: 2px solid red;
