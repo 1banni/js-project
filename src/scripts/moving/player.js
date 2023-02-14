@@ -88,7 +88,6 @@ export default class Player extends Particle {
       this.projectiles--;
       this.projectileController.shoot(this.x, this.y, this.angle, this.layer, PROJECTILE.SPEED, PROJECTILE.DAMAGE);
     }
-    console.log('this.projectiles', this.projectiles);
   }
 
   damage(points) {
@@ -101,11 +100,8 @@ export default class Player extends Particle {
   }
 
   givePerk(type) {
-    // console.log('type', type);
     if (type === 0) this.health.restore(20);
-    // console.log('this.projectiles', this.projectiles);
     if (type === 1) this.projectiles += 2;
-    // console.log('this.projectiles', this.projectiles);
   }
 
   resetPos(x, y) {
@@ -201,7 +197,6 @@ export default class Player extends Particle {
     }
 
 
-    // console.log('this.projectiles.length', this.projectiles.length);
     for (let i = 0; i < this.projectiles; i++) {
       ctx.beginPath();
       ctx.fillStyle = 'red';

@@ -26,19 +26,6 @@ export default class Particle {
   updateLayer() {
     let prevLayer = this.layer;
     let sp = MAP.BORDER_WIDTH;
-    // outer if checks x location; inner width checks y location
-    // console.log('------------');
-    // console.log('this.x', this.x);
-    // console.log('> MAP.PLATFORM_POS[0][0]', MAP.PLATFORM_POS[0][0]);
-    // console.log('< MAP.PLATFORM_POS[0][0] + MAP.PLATFORM_WIDTH', MAP.PLATFORM_POS[0][0] + MAP.PLATFORM_WIDTH);
-    // console.log('---');
-    // console.log('this.y', this.y);
-    // console.log('> MAP.PLATFORM_POS[0][1]', MAP.PLATFORM_POS[0][1]);
-    // console.log('< MAP.PLATFORM_POS[0][1] + MAP.PLATFORM_HEIGHT', MAP.PLATFORM_POS[0][1] + MAP.PLATFORM_HEIGHT);
-    // console.log('else');
-    // console.log('> MAP.PLATFORM_POS[1][1]', MAP.PLATFORM_POS[1][1]);
-    // console.log('< MAP.PLATFORM_POS[1][1] + MAP.PLATFORM_HEIGHT', MAP.PLATFORM_POS[1][1] + MAP.PLATFORM_HEIGHT);
-
 
     if (this.x > MAP.PLATFORM_POS[0][0] && this.x < MAP.PLATFORM_POS[0][0] + MAP.PLATFORM_WIDTH - sp) {
       if (this.y > MAP.PLATFORM_POS[0][1] && this.y < MAP.PLATFORM_POS[0][1] + MAP.PLATFORM_HEIGHT) {
@@ -62,15 +49,14 @@ export default class Particle {
       this.layer = 0;
     }
 
-    // PROOF - Delete, for debugging
-    if (this.layer !== prevLayer) {
-      console.log(`${this.constructor.name} ${this.idx}'s layer changed from ${prevLayer} to ${this.layer}`);
-    }
+    // For debugging
+    // if (this.layer !== prevLayer) {
+    //   console.log(`${this.constructor.name} ${this.idx}'s layer changed from ${prevLayer} to ${this.layer}`);
+    // }
   }
 
   // Future Update: Make non-static
   static inbound(x, y, radius, alive) {
-    // console.log('pre-inbound', x, y);
     if (!alive) return [x, y];
 
     let space = 1;

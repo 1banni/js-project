@@ -20,7 +20,6 @@ export const Util = {
   infreqLog(str = '', obj, freq = 0) {
     if (duke++ % dukeMod === 0) {
       duke += freq;
-      console.log(str, obj, typeof obj);
       dukeMod = Math.floor(dukeMod * (1 + dukeModDelta/100));
     }
   },

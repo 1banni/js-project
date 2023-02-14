@@ -19,8 +19,6 @@ export default class KeyHandler {
   }
 
   keyPressed(e) {
-    console.log('keyPressed', );
-
       if (e.key === ' ' || e.key === 'ArrowLeft' || e.key === 'ArrowRight' ||
           e.key === 'ArrowDown' || e.key === 'ArrowUp')
       {

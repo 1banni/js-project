@@ -36,10 +36,6 @@ export default class Game {
         this.edgeController,
         this.projectileController);
       });
-      // console.log('this.players', this.players);
-
-      // this.obs;tacles = Array.from(Array(numObstacles), () => new Obstacle());
-      // this.perks = Array.from(Array(numPerks), () => new Perk());
 
     // Kickstart
     this.updateRound();
@@ -55,7 +51,6 @@ export default class Game {
       let isLast = !(this.round < this.rounds);
       let pointer = Math.min(this.round, this.rounds);
       this.perkController = new PerkController(PERK.ROUNDS[pointer - isLast]);
-      console.log('this.round', this.round);
     }
 
     this.time = new Date().getTime();
