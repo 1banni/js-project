@@ -1,3 +1,76 @@
+/* html {
+  background: url(.../assets/background-1.png) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+} */
+
+html {
+  --ff: sohne,
+      "Helvetica Neue",
+      Helvetica,
+      Arial,
+      sans-serif;
+  --header-margin: clamp(100px, 15vw, 300px);
+}
+
+body {
+  background: url(../assets/background-1.png) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  margin-bottom: 100px;
+}
+
+
+canvas {
+  /* image-rendering: optimizeQuality; */
+}
+
+
+button {
+  cursor: pointer;
+  font-size: 20px;
+  font-kerning: normal;
+  font-weight: 200;
+  font-family: sohne,
+    'Helvetica Neue',
+    Helvetica,
+    Arial,
+    sans-serif;
+  letter-spacing: .25px;
+  line-height: normal;
+  transition-duration: 0.3s;
+  overflow: visible;
+  margin: 0 auto;
+  /* background-color: #fff; */
+  box-sizing: border-box;
+  color: #fff;
+  background-color: transparent;
+  position: center;
+  justify-self: center;
+  justify-content: center;
+  align-self: center;
+  text-align: center;
+  display: block;
+  border: 2px solid white;
+  border-radius: 30px;
+  height: 48px;
+  width: 200px;
+  transition: 100ms box-shadow ease;
+  box-shadow: 0 0 13px white;
+}
+
+button:hover {
+  /* cursor: pointer; */
+  border: 3px solid white;
+  /* box-shadow: 0 0 10px white; */
+  box-shadow: none;
+  /* border-width: 20px; */
+}
+
 /* * {
   box-sizing: border-box;
 } */
@@ -6,20 +79,79 @@
   display: none !important;
 }
 
-html {
-  background: url(.../assets/background-1.png) no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+.container {
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 100px;
 }
+
+.main-menu {
+
+}
+
+.header-w {
+  color: white;
+  /* height: 25%; */
+  margin-top: 20px;
+  margin-bottom : 20px;
+  font-family: var(--ff);
+  font-size: 20px;
+  border: 2px solid rgb(250, 22, 158);
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgb(250, 22, 158);
+  /* margin-bottom: 200px; */
+}
+
+.header {
+  margin: 8px;
+  margin-left: var(--header-margin);
+  margin-right: var(--header-margin);
+  color: rgb(227, 229, 255);
+  font-family: 'Zen Dots', cursive;
+  font-weight: 100px;
+  letter-spacing: 3px;
+  text-shadow: 0 0 1px white;
+}
+
 
 #game-window {
-  padding-left: 100px;
-  padding-right: 0;
-  display: block;
+  /* m-left: 100px; */
+  /* padding-right: 0; */
+  /* display: block; */
+  width: 80vw;
+  /* height: 4vh; */
+  /* height: 5vh; */
+  display: flex;
+  align-items: center;
+  margin-bottom: 40px;
+  /* width: 1500px; */
 }
 
+.game-canvas {
+  width: 60vw;
+  height: 640px;
+  height: 85vh;
+  display: block;
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  margin-bottom: 100px;
+  /* width: 800px; */
+}
+
+
+.start-game {
+
+}
+
+.game-window {
+  margin-bottom: 50px;
+}
 
 /*
 #container {
@@ -75,7 +207,7 @@ h1 {
 
 
 body {
-  
+
   height: 50%;
   width: 1200px;
   max-height: 1400px;

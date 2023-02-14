@@ -20,18 +20,31 @@
 </head>
 
 <body>
-  <div id="container" width="1300" height="900;">
-    <div>
-      <h1>Hover Duel</h1>
+  <div id="container" class="container" width="1300" height="900">
+    <div class="header-w">
+      <h1 class="header">Hover Duel</h1>
     </div>
 
-    <div class="hidden" id="game-window">
+    <div id="game-window" class="hidden" >
       <!-- <h1>Hover Duel</h1> -->
-      <canvas id="game-canvas" width="1200" height="800"></canvas>
+      <div class="instructions">
+        <p>Two Player Game Similar to Mario Kart Battle Mode</p>
+        <p>Player One Controlls:</p>
+        <div class="controls">
+
+        </div>
+      </div>
+      <canvas id="game-canvas" class="game-canvas" width="1200" height="800"></canvas>
+      <!-- <canvas id="game-canvas" class="game-canvas" ></canvas> -->
     </div>
 
-    <div id="main-menu" style="display:block">
-      <button id="start-game" onclick="{() => startGame()}">Start Game</button>
+    <div id="main-menu" class="main-menu" style="display:block">
+      <button id="start-game" class="start-game" onclick="{() => startGame()}">
+        Start Game
+      </button>
+      <!-- <button id="instructions" class="instructions" onclick="{() => showInstructions()}">
+        Instructions
+      </button> -->
     </div>
 
   </div>
