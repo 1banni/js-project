@@ -9,6 +9,22 @@ import Game from "./scripts/game.js";
     startGameButton.addEventListener('click', startGame);
     restartGameButton.addEventListener('click', startGame);
 
+    // const link = document.querySelector("link[rel~='icon']");
+    // if (!link) {
+    //   link = document.createElement('link');
+    //   link.rel = 'icon';
+    //   document.head.appendChild(link);
+    // }
+    // link.href = 'https://stackoverflow.com/favicon.ico';
+    // function setFavicons(favImg){
+    //   let headTitle = document.querySelector('head');
+    //   let setFavicon = document.createElement('link');
+    //   setFavicon.setAttribute('rel','shortcut icon');
+    //   setFavicon.setAttribute('href',favImg);
+    //   headTitle.appendChild(setFavicon);
+    // }
+    // setFavicons('https://spemer.com/img/favicon/favicon.png');
+
     function startGame() {
       const gameWindow = document.getElementById('game-window');
       gameWindow.classList.remove("hidden");

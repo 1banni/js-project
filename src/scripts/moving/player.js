@@ -3,6 +3,7 @@
 // Key Handler & Util
 import KeyHandler from '../key-handler.js';
 import { Util } from '../still/util.js';
+import _ from 'lodash';
 
 // Constant Parameters
 import { MAP, PLAYER, PROJECTILE, HEALTH_BAR } from '../game-params.js';
@@ -13,32 +14,24 @@ import PlayerHealth from './player-health.js';
 
 export default class Player extends Particle {
   constructor(idx, pos, angle, color, edgeController, projectileController) {
-    // params: passed in
     super(pos[0], pos[1], PLAYER.RADIUS);
     this.idx = idx;
+    this.acceleration = PLAYER.ACCELERATION;
+    this.alive = true;
     this.angle = angle;
-    this.speed = 0;
+    this.blasters = true;
     this.color = color;
     this.edgeController = edgeController;
-    this.projectileController = projectileController;
+    this.health = new PlayerHealth(PLAYER.MAX_HEALTH, this.color, this.idx);
     this.keyHandler = new KeyHandler();
-
     document.addEventListener('keydown', (e) => this.keyHandler.keyPressed(e));
     document.addEventListener('keyup', (e) => this.keyHandler.keyReleased(e));;
-
-    // params: default
-    this.alive = true;
     this.layer = 0;
-
-    // params: set by constant
-    this.blasters = true;
-    this.health = new PlayerHealth(PLAYER.MAX_HEALTH, this.color, this.idx);
     this.max_speed = PLAYER.MAX_SPEED;
-    this.acceleration = PLAYER.ACCELERATION;
-    this.projectiles = PLAYER.PROJECTILES;
     this.nitrous = PLAYER.MAX_NOS;
-
-
+    this.projectileController = projectileController;
+    this.projectiles = PLAYER.PROJECTILES;
+    this.speed = 0;
   }
 
   update () {
@@ -49,8 +42,6 @@ export default class Player extends Particle {
   }
 
   handleIntersect (x, y, edgeX, edgeY) {
-    // if (edgeX) this.resetX(edgeX);
-    // if (edgeY) this.resetY(edgeY);
     edgeX ? this.resetPos(edgeX, this.y) : this.resetPos(this.x, edgeY);
     this.reverseDir(x, y * -0.7);
   }
@@ -101,7 +92,7 @@ export default class Player extends Particle {
 
   givePerk(type) {
     if (type === 0) this.health.restore(20);
-    if (type === 1) this.projectiles += 2;
+    if (type === 1) this.projectiles = Math.min(20, this.projectiles + 2);
   }
 
   resetPos(x, y) {

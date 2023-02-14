@@ -17,7 +17,6 @@ export default class Perk {
     this.startTime;
     this.time;
     this.alive = true;
-
   }
 
   collideWith(player) {
