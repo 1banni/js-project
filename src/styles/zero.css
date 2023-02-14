@@ -71,6 +71,13 @@ button:hover {
   /* border-width: 20px; */
 }
 
+
+.restart-game {
+  margin-top: 20px;
+  height: 36px;
+  width: 150px;
+  box-shadow: none;
+}
 /* * {
   box-sizing: border-box;
 } */
@@ -153,6 +160,55 @@ button:hover {
   margin-bottom: 50px;
 }
 
+.pair {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.control-wrapper {
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.control-border {
+  border: 2px solid white;
+  border-radius: 12px;
+  margin-top: 10px;
+  min-width: 20px;
+}
+
+.header-border {
+  border: 2px solid rgb(250, 22, 158);
+  border-radius: 12px;
+  margin-top: 10px;
+  min-width: 20px;
+}
+
+.control {
+  margin: 8px;
+  min-width: 20px;
+  align-items: center;
+  text-align: center;
+}
+
+.label {
+  height: 100%;
+  /* text-align: center; */
+  text-justify: center;
+  width: 100px;
+  margin-top: 20px;
+  margin-left: 8px;
+}
+
+.instructions {
+  color: white;
+  font-family: var(--ff);
+  align-self: flex-start;
+  margin-top: 100px;
+}
 /*
 #container {
   border: 2px solid red;

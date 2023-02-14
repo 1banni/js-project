@@ -26,15 +26,44 @@
     </div>
 
     <div id="game-window" class="hidden" >
+      <canvas id="game-canvas" class="game-canvas" width="1200" height="800"></canvas>
       <!-- <h1>Hover Duel</h1> -->
       <div class="instructions">
-        <p>Two Player Game Similar to Mario Kart Battle Mode</p>
-        <p>Player One Controlls:</p>
-        <div class="controls">
-
+        <div class="pair">
+          <div class="label"> </div>
+          <div class="control-wrapper"><div class="header-border"><div class="control">Player 1</div></div></div>
+          <div class="control-wrapper"><div class="header-border"><div class="control">Player 2</div></div></div>
+        </div>
+        <div class="pair">
+          <div class="label">Gas</div>
+          <div class="control-wrapper"><div class="control-border"><div class="control">W</div></div></div>
+          <div class="control-wrapper"><div class="control-border"><div class="control">I</div></div></div>
+        </div>
+        <div class="pair">
+          <div class="label">Brake / Reverse</div>
+          <div class="control-wrapper"><div class="control-border"><div class="control">S</div></div></div>
+          <div class="control-wrapper"><div class="control-border"><div class="control">K</div></div></div>
+        </div>
+        <div class="pair">
+          <div class="label">Turn Left</div>
+          <div class="control-wrapper"><div class="control-border"><div class="control">A</div></div></div>
+          <div class="control-wrapper"><div class="control-border"><div class="control">J</div></div></div>
+        </div>
+        <div class="pair">
+          <div class="label">Turn Right</div>
+          <div class="control-wrapper"><div class="control-border"><div class="control">D</div></div></div>
+          <div class="control-wrapper"><div class="control-border"><div class="control">L</div></div></div>
+        </div>
+        <div class="pair">
+          <div class="label">Shoot</div>
+          <div class="control-wrapper"><div class="control-border"><div class="control">Spacebar</div></div></div>
+          <div class="control-wrapper"><div class="control-border"><div class="control">;</div></div></div>
+        </div>
+        <div class="buttons">
+          <button id="restart-game" class="restart-game" onclick="{() => startGame()}">Restart Game</button>
         </div>
       </div>
-      <canvas id="game-canvas" class="game-canvas" width="1200" height="800"></canvas>
+
       <!-- <canvas id="game-canvas" class="game-canvas" ></canvas> -->
     </div>
 

@@ -35,11 +35,11 @@ export default class KeyHandler {
     if (e.key.toLowerCase() === ' ') this.actions[0].blast = true;
 
     // Player 2
-    if (e.key === 'ArrowUp') this.actions[1].throttle = true;
-    if (e.key === 'ArrowLeft') this.actions[1].left = true;
-    if (e.key === 'ArrowDown') this.actions[1].brake = true;
-    if (e.key === 'ArrowRight') this.actions[1].right = true;
-    if (e.key === '0') this.actions[1].blast = true;
+    if (e.key.toLowerCase() === 'i') this.actions[1].throttle = true;
+    if (e.key.toLowerCase() === 'j') this.actions[1].left = true;
+    if (e.key.toLowerCase() === 'k') this.actions[1].brake = true;
+    if (e.key.toLowerCase() === 'l') this.actions[1].right = true;
+    if (e.key.toLowerCase() === ';') this.actions[1].blast = true;
   }
 
   keyReleased(e) {
@@ -53,11 +53,11 @@ export default class KeyHandler {
     if (e.key === ' ') this.actions[0].blast = false;
 
     // Player 2
-    if (e.key === 'ArrowUp') this.actions[1].throttle = false;
-    if (e.key === 'ArrowLeft') this.actions[1].left = false;
-    if (e.key === 'ArrowDown') this.actions[1].brake = false;
-    if (e.key === 'ArrowRight') this.actions[1].right = false;
-    if (e.key === '0') this.actions[1].blast = false;
+    if (e.key.toLowerCase() === 'i') this.actions[1].throttle = false;
+    if (e.key.toLowerCase() === 'j') this.actions[1].left = false;
+    if (e.key.toLowerCase() === 'k') this.actions[1].brake = false;
+    if (e.key.toLowerCase() === 'l') this.actions[1].right = false;
+    if (e.key.toLowerCase() === ';') this.actions[1].blast = false;
   }
 
   activeActions() {
