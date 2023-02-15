@@ -39,10 +39,10 @@ export default class Projectile extends Particle{
       0, 2 * Math.PI, false);
     ctx.fill();
     ctx.closePath();
-    this.drawCount++;
-    if (this.drawCount > 3) {
-      this.active = true;
-    }
+
+    if (this.drawCount < 3) this.drawCount++;
+    if (this.drawCount > 3) this.active = true;
+
     this.update();
   }
 

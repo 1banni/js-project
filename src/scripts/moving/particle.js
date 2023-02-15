@@ -76,7 +76,7 @@ export default class Particle {
     } else if (y > y1 + radius - 1) { // NOTE: NEGATIVE ONE IS NECESSARY TO PREVENT FLICKERING
       y = y0;
     }
-    // console.log('post-inbound', x, y);
+
     return [x, y];
   }
 }
