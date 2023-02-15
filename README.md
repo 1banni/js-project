@@ -268,12 +268,11 @@ export default class Game {
 
   ...
   animate () {
-    this.checkIntersections(); // PROOF - UPDATE FOR LAYERS?
-    this.checkCollisions(); // PROOF - UPDATE FOR LAYERS?
+    this.checkIntersections();
+    this.checkCollisions();
     this.draw(this.ctx);
     this.update();
     if (!this.players.every(player => player.isAlive())) {
-      console.log('ending game');
       return this.endGame(this.players.filter(player => player.isAlive()));
     }
     requestAnimationFrame(this.animate.bind(this));
