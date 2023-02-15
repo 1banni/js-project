@@ -8,17 +8,15 @@ The user’s perspective will be a fixed aerial view of the map. While appearing
 ## Functionality & MVPs
 This game includes the following features:
 - Drive around the map in go carts with WASD (Player 1) and IJKL (Player 2)
-  - Driving physics (turn radius impacted by speed)
+  - Physics: acceleration/decleration, turn radius impacted by speed, etc.
 - Players shoot projectiles that bounce off of walls / expire over time
 - Rounds of spawning perks (ammo + health) that players can drive over to acquire
 - Collision detection (projectiles colliding with go carts, walls, and other map objects)
 - Meters that represent players' remaining health and ammunition
 
 
-
-
-## WireFrame
-![Screenshot](Homepage.png)
+## Screenshot
+![Screenshot](hover-duel-screenshot-1.png)
 
 
 ## Implementation Timeline
@@ -28,18 +26,14 @@ This game includes the following features:
 
 - Monday: Resume work on collision detection/response. Create projectiles class - have them spawn on the map and be added to a player's inventory upon contact. allow player to shoot and let projectiles bounce wall to wall, expiring after a certain time. Have projectiles (1) damage player and (2) disappear upon contact with players
 
-- Tuesday: Create all view objects that aren't the game canvas (loading screen, navigation menu, game option selection, (optional) sound button and music)
+- Tuesday: Create all view objects that aren't the game canvas (start/restart buttons, navigation menu)
 
 - Wednesday: Build perks in (similar to projectiles). Finish any gaiting items, and  tweak/improve functionality where appropriate.
 
 - Thursday: Deploy to GitHub pages. Convert proposal README to production README if time allows.
 
 
-## Bonus Features
-- More potential perks and map obstacles (i.e. land mines, health packs, turbo, etc.)
-- CPU/AI opponents
-- Animate the go carts: angle carts on turns, make the tires appear to spin, show player health with hearts or balloons
-- Allow player to input name and choose car color
+
 
 
 
