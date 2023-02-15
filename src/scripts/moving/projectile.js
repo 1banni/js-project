@@ -8,8 +8,9 @@ export default class Projectile extends Particle{
   // Establish other relevant variables
   constructor(playerX, playerY, angle, layer, speed, damage) {
     let dir = Util.directionFrom(angle);
-    let [incrX, incrY] = Util.scale(dir, PLAYER.RADIUS + PROJECTILE.RADIUS);
+    // let [incrX, incrY] = Util.scale(dir, PLAYER.RADIUS + PROJECTILE.RADIUS);
     // let [incrX, incrY] = Util.scale(dir, PLAYER.RADIUS);
+    let [incrX, incrY] = [0, 0]
     let x = playerX + incrX + PROJECTILE.CUSHION;
     let y = playerY + incrY + PROJECTILE.CUSHION;
     let radius = PROJECTILE.RADIUS;
@@ -18,6 +19,8 @@ export default class Projectile extends Particle{
 
     this.layer = layer; // PROOF - MOVE TO SUPER
     this.damage = damage;
+    this.active = false;
+    this.drawCount = 0;
     [this.dx, this.dy] = Util.scale(dir, speed);
 
 
@@ -42,6 +45,11 @@ export default class Projectile extends Particle{
       0, 2 * Math.PI, false);
     ctx.fill();
     ctx.closePath();
+    this.drawCount++;
+    if (this.drawCount > 3) {
+      console.log('bullet active');
+      this.active = true;
+    }
     this.update();
   }
 
@@ -49,9 +57,16 @@ export default class Projectile extends Particle{
     [this.x, this.y] = Particle.inbound(this.x + this.dx, this.y + this.dy, this.radius, true);
   }
 
-  handleIntersect(x, y) {
+  handleIntersect(x, y, edgeX, edgeY) {
     // if (x === -1) this.reverseDX();
     // if (y === -1) this.reverseDY();
+    if (edgeX > 0) {
+      console.log('updating edgeX');
+      this.x = edgeX;
+    } else if (edgeY > 0) {
+      console.log('updating edgeY');
+      this.y = edgeY;
+    }
     this.reverseDir(x, y);
     this.decrBounces();
   }

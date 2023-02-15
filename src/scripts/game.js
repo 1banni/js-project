@@ -126,14 +126,6 @@ export default class Game {
 
   }
   // draw canvas -> grid, projectiles, players lvl 1, then lvl 2 ->
-  // draw map, projectiles, players lvl 1, then lvl 2 ->
-  // Draw map -> projectiles -< players (order sensitive)
-  // Draw layer 0 :
-  // Draw players layer 0
-  // Draw map layer 1
-  // Draw players layer 1
-  // Copy Pacman - tunnels on side of screen
-  // // Layer 0
 
 
 

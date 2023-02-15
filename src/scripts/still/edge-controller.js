@@ -51,14 +51,18 @@ export default class EdgeController {
     this.createVertBorder();
     // Bridges open
     for (let i = 200; i < 1200; i += 750) {
-      this.edges.push(new Edge(i, 150, // x1, y1
-      i, 350, // x2, y2
-        [0, 1], (MAP.COLORS.PLATFORMS) // layer, color
+      this.edges.push(new Edge(
+        i, 150, // x1, y1
+        i, 350, // x2, y2
+        [0, 1], // layers
+        (MAP.COLORS.PLATFORMS) // color
       ));
 
-      this.edges.push(new Edge(i, 450, // x1, y1
-      i, 650, // x2, y2
-      [0, 1], (MAP.COLORS.PLATFORMS) // layer, color
+      this.edges.push(new Edge(
+        i, 450, // x1, y1
+        i, 650, // x2, y2
+        [0, 1], // layers
+        (MAP.COLORS.PLATFORMS) // color
       ));
     }
     // Platform
@@ -73,13 +77,17 @@ export default class EdgeController {
       ));
 
       // Platforms intersecting
-      this.edges.push(new Edge(i, 150, // x1, y1
-      i, 195, // x2, y2
-      [1], Util.lightenColor(MAP.COLORS.PLATFORMS) // layer, color
+      this.edges.push(new Edge(
+        i, 150, // x1, y1
+        i, 195, // x2, y2
+        [1], // layers
+        Util.lightenColor(MAP.COLORS.PLATFORMS) // color
       ));
-      this.edges.push(new Edge(i, 450, // x1, y1
-      i, 520, // x2, y2
-      [1], MAP.COLORS.PLATFORMS // layer, color
+      this.edges.push(new Edge(
+        i, 450, // x1, y1
+        i, 520, // x2, y2
+        [1], // layers
+        MAP.COLORS.PLATFORMS // color
       ));
     }
 
@@ -87,13 +95,17 @@ export default class EdgeController {
     for (let i = 275, j = 775; i < 400; i += 100, j += 100) {
       let y1 = 300;
       let y2 = 500;
-      this.edges.push(new Edge(i, y1, // x1, y1
+      this.edges.push(new Edge(
+        i, y1, // x1, y1
         i, y2, // x2, y2
-        [1], MAP.COLORS.BRIDGES // layer, color
+        [1], // layers
+        MAP.COLORS.BRIDGES // color
       ));
-      this.edges.push(new Edge(j, y1, // x1, y1
+      this.edges.push(new Edge(
+        j, y1, // x1, y1
         j, y2, // x2, y2
-        [1], MAP.COLORS.BRIDGES // layer, color
+        [1], // layers
+        MAP.COLORS.BRIDGES // color
       ));
     }
   }
@@ -102,15 +114,19 @@ export default class EdgeController {
     let wallPad = MAP.BORDER_WIDTH;
 
     // Game Border Left
-    this.edges.push(new Edge(wallPad, 0, // x1, y1
+    this.edges.push(new Edge(
+      wallPad, 0, // x1, y1
       wallPad, MAP.DIM_Y, // x2, y2
-      [0, 1], MAP.COLORS.EDGES // layer, color
+      [0, 1], // layers
+      MAP.COLORS.EDGES // color
     ));
 
     // Game Border Right
-    this.edges.push(new Edge(MAP.DIM_X - wallPad - 1, 0, // x1, y1
+    this.edges.push(new Edge(
+      MAP.DIM_X - wallPad - 1, 0, // x1, y1
       MAP.DIM_X - wallPad, MAP.DIM_Y, // x2, y2
-      [0, 1], MAP.COLORS.EDGES // layer, color
+      [0, 1], // layers
+      MAP.COLORS.EDGES // color
     ));
   }
 
@@ -121,45 +137,57 @@ export default class EdgeController {
     let platH = MAP.PLATFORM_HEIGHT;
 
     // Platform 1 Top
-    this.edges.push(new Edge(275, 150,
+    this.edges.push(new Edge(
+      275, 150,
       275 + platW - 125, 150,
-      [0,1], MAP.COLORS.PLATFORMS));
+      [0,1],
+      MAP.COLORS.PLATFORMS
+    ));
 
     // Platform 2 Top
-    this.edges.push(new Edge(700, 150,
+    this.edges.push(new Edge(
+      700, 150,
       775 + platW - 200, 150,
-      [0,1], MAP.COLORS.PLATFORMS));
+      [0,1],
+      MAP.COLORS.PLATFORMS
+    ));
 
     // Platform 3 Bottom
-    this.edges.push(new Edge(275, 650,
+    this.edges.push(new Edge(
+      275, 650,
       275 + platW - 125 + 5, 650,
-      [0,1], MAP.COLORS.PLATFORMS));
+      [0,1],
+      MAP.COLORS.PLATFORMS
+    ));
 
     // Platform 4 Bottom
-    this.edges.push(new Edge(700 - 5, 650,
+    this.edges.push(new Edge(
+      700 - 5, 650,
       775 + platW - 200, 650,
-      [0,1], MAP.COLORS.PLATFORMS));
+      [0,1],
+      MAP.COLORS.PLATFORMS
+    ));
 
-      // smthn
-      let arr = [200 - 5, 375, 700+5, 875]
-      arr.forEach( (el, idx) => {
-        // intersecting platform borders full
-        if (idx % 2 === 0) {
-          for (let j = 350 - 5; j < 500; j += 100 + 5) {
-            this.edges.push(new Edge(el, j, // x1, y1
-            el + 250, j, // x2, y2
-            [0], MAP.COLORS.PLATFORMS // layer, color
-            ));
-          }
-        }
-        // intersecting platform borders partial
+    // smthn
+    let arr = [200 - 5, 375, 700+5, 875]
+    arr.forEach( (el, idx) => {
+      // intersecting platform borders full
+      if (idx % 2 === 0) {
         for (let j = 350 - 5; j < 500; j += 100 + 5) {
           this.edges.push(new Edge(el, j, // x1, y1
-          el + 75, j, // x2, y2
-          [1], MAP.COLORS.PLATFORMS // layer, color
+          el + 250, j, // x2, y2
+          [0], MAP.COLORS.PLATFORMS // layer, color
           ));
         }
-      });
+      }
+      // intersecting platform borders partial
+      for (let j = 350 - 5; j < 500; j += 100 + 5) {
+        this.edges.push(new Edge(el, j, // x1, y1
+        el + 75, j, // x2, y2
+        [1], MAP.COLORS.PLATFORMS // layer, color
+        ));
+      }
+    });
 
     // Bridges
     for (let i = 200, j = 275; i < 600; i += 325, j += 325) {

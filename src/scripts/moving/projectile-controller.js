@@ -38,8 +38,13 @@ export default class ProjectileController {
   collideWith(player) {
     this.projectiles = _.reject(this.projectiles, (projectile) => {
       if (projectile.collideWith(player)) {
-        player.damage(projectile.damage);
-        return true;
+        if (projectile.active) {
+          player.damage(projectile.damage);
+          return true;
+        } else {
+          console.log('projectile not yet active');
+          return false;
+        }
       } else {
         return false;
       }
