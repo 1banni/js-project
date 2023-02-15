@@ -19,11 +19,16 @@ export default class KeyHandler {
   }
 
   keyPressed(e) {
-      if (e.key === ' ' || e.key === 'ArrowLeft' || e.key === 'ArrowRight' ||
-          e.key === 'ArrowDown' || e.key === 'ArrowUp')
-      {
-          e.returnValue = false;
-      }
+    e.stopPropagation();
+
+    // Prevent spacebar and accidental keypresses from shifting window / scrolling
+    if (
+      e.key === ' ' ||
+      e.key === 'ArrowLeft' ||
+      e.key === 'ArrowRight' ||
+      e.key === 'ArrowDown'  ||
+      e.key === 'ArrowUp'
+    ) e.returnValue = false;
 
     // Player 1
     if (e.key.toLowerCase() === 'w') this.actions[0].throttle = true;
@@ -62,3 +67,5 @@ export default class KeyHandler {
     return this.actions;
   }
 }
+
+

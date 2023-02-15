@@ -25,7 +25,6 @@ export default class Edge {
 
   intersects (particle) {
     if (!this.layers.includes(particle.layer)) return false; // Optimization - check layer first
-
     let radi = particle.radius;
     let edgeX = 0;
     let edgeY = 0;

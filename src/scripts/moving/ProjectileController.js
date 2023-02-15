@@ -1,14 +1,11 @@
-import Projectile from "./projectile.js";
+import Projectile from "./Projectile.js";
 import _ from "lodash";
 
 export default class ProjectileController {
-  projectiles =  [];
-  timeBetweenProjectiles = 0;
-  delay = 3;
-
   constructor(ctx, edgeController) {
     this.ctx = ctx;
     this.edgeController = edgeController;
+    this.projectiles =  [];
   }
 
   update() {

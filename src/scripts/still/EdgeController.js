@@ -1,9 +1,8 @@
-import { MAP } from "../game-params";
-import Edge from "./edge";
+import { MAP } from "../GameParams";
+import Edge from "./Edge";
 import { Util } from "./util";
 
 export default class EdgeController {
-
   edges = [];
 
   constructor(ctx) {
@@ -19,7 +18,6 @@ export default class EdgeController {
 
     ctx.fillStyle = MAP.COLORS.GROUND;
     ctx.fillRect(wp, 0, MAP.DIM_X - 2 * wp, MAP.DIM_Y);
-    // edges.forEach(edge => EdgeController.addEdge(edge));
   }
 
   drawLayer(ctx, layer) {

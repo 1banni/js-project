@@ -1,20 +1,18 @@
 /** @type {HTMLCanvasElement} */
 
-// Key Handler & Util
-import KeyHandler from '../key-handler.js';
+// Constants / Parameters
+import { MAP, PLAYER, PROJECTILE, HEALTH_BAR } from '../GameParams.js';
+// Util & Libraries
 import { Util } from '../still/util.js';
 import _ from 'lodash';
-
-// Constant Parameters
-import { MAP, PLAYER, PROJECTILE, HEALTH_BAR } from '../game-params.js';
-
 // Classes
-import Particle from './particle.js';
-import PlayerHealth from './player-health.js';
+import KeyHandler from '../KeyHandler.js';
+import Particle from './Particle.js';
+import PlayerHealth from './PlayerHealth.js';
 
 export default class Player extends Particle {
   constructor(idx, pos, angle, color, edgeController, projectileController) {
-    super(pos[0], pos[1], PLAYER.RADIUS);
+    super(pos[0], pos[1], PLAYER.RADIUS, 0);
     this.idx = idx;
     this.acceleration = PLAYER.ACCELERATION;
     this.alive = true;
@@ -23,15 +21,15 @@ export default class Player extends Particle {
     this.color = color;
     this.edgeController = edgeController;
     this.health = new PlayerHealth(PLAYER.MAX_HEALTH, this.color, this.idx);
-    this.keyHandler = new KeyHandler();
-    document.addEventListener('keydown', (e) => this.keyHandler.keyPressed(e));
-    document.addEventListener('keyup', (e) => this.keyHandler.keyReleased(e));;
-    this.layer = 0;
     this.max_speed = PLAYER.MAX_SPEED;
     this.nitrous = PLAYER.MAX_NOS;
     this.projectileController = projectileController;
     this.projectiles = PLAYER.PROJECTILES;
     this.speed = 0;
+
+    this.keyHandler = new KeyHandler();
+    document.addEventListener('keydown', (e) => this.keyHandler.keyPressed(e));
+    document.addEventListener('keyup', (e) => this.keyHandler.keyReleased(e));;
   }
 
   update () {
@@ -77,7 +75,11 @@ export default class Player extends Particle {
   shoot() {
     if (this.alive && this.projectiles > 0) {
       this.projectiles--;
-      this.projectileController.shoot(this.x, this.y, this.angle, this.layer, PROJECTILE.SPEED, PROJECTILE.DAMAGE);
+      this.projectileController.shoot(
+        this.x, this.y,
+        this.angle, this.layer,
+        PROJECTILE.SPEED, PROJECTILE.DAMAGE
+      );
     }
   }
 

@@ -1,37 +1,35 @@
-import Perk from "./perk";
-import { MAP, PERK } from "../game-params";
+import Perk from "./Perk";
+import { MAP, PERK } from "../GameParams";
 import { Util } from "../still/util";
 
 export default class PerkController {
   perks = [];
 
-  // PROOF - fix this to be an option hash
   constructor(option) {
-    // this.ctx = ctx;
     this.numMedpaks = option.MEDPAKS;
     this.numProjectiles = option.AMMO;
     this.numNos = option.NOS;
-    // let [numMedpaks, numProjectiles] = option;
+
     this.heartImg = new Image();
     this.heartImg.src = './assets/heart.png';
     this.projImg = new Image();
     this.projImg.src = './assets/greenbars.png';
-    // this.addHeart.
+
     this.generatePerks();
   }
 
   generatePerks () {
     let params = [this.numMedpaks, this.numProjectiles, this.numNos];
     params.forEach( (param, idx) => {
-      let tik = 0;
-      while (tik++ < param) {
+      let tick = 0;
+      while (tick++ < param) {
         this.addPerk(idx);
       }
     });
   }
 
   update() {
-    this.perks = this.perks.filter((perk) => perk.decrFrames() > 0);
+    this.perks = this.perks.filter((perk) => perk.isActive());
   }
 
   delete (perk) {
@@ -51,7 +49,6 @@ export default class PerkController {
         return false;
       }
     });
-
   }
 
   addPerk(type) {
@@ -66,12 +63,19 @@ export default class PerkController {
         : PERK.NOS.SIZE)
     );
 
-    let [x,y] = Util.randomCoords(x1, y1, width, height, spacing);;
+    let [x,y] = Util.randomCoords(x1, y1, width, height, spacing);
 
-    while (((x >= 200 - spacing && x <= 400 + spacing) || (x >= 700 - spacing && x <= 900 + spacing))
-      && ((y >= 150 - spacing && y <= 350) || (y >= 450 - spacing && y <= 650)))
+    while ((
+        (x >= 200 - spacing && x <= 400 + spacing)
+        ||
+        (x >= 700 - spacing && x <= 900 + spacing)
+    ) && (
+        (y >= 150 - spacing && y <= 350)
+        ||
+        (y >= 450 - spacing && y <= 650)
+    ))
     {
-      Util.randomCoords(x1, y1, width, height, spacing);
+      [x, y] = Util.randomCoords(x1, y1, width, height, spacing);
     }
 
     this.perks.push(new Perk(x, y, type));

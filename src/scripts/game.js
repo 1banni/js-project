@@ -1,9 +1,9 @@
 /** @type {HTMLCanvasElement} */
 import Player from './moving/player.js';
-import EdgeController from './still/edge-controller.js';
-import ProjectileController from './moving/projectile-controller.js';
-import PerkController from './moving/perk-controller.js';
-import { MAP, PLAYER, PERK } from "./game-params";
+import EdgeController from './still/EdgeController.js';
+import ProjectileController from './moving/ProjectileController.js';
+import PerkController from './moving/PerkController.js';
+import { MAP, PLAYER, PERK } from "./GameParams";
 
 
 
@@ -42,7 +42,6 @@ export default class Game {
     this.draw(this.ctx);
     this.animate();
   }
-
 
   updateRound () {
     if (this.startNextRound) {

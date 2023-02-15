@@ -1,4 +1,4 @@
-import { MAP, HEALTH_BAR } from "../game-params";
+import { MAP, HEALTH_BAR } from "../GameParams";
 
 export default class PlayerHealth {
   constructor(health, color, playerIndex) {
