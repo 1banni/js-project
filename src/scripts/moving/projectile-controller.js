@@ -42,7 +42,6 @@ export default class ProjectileController {
           player.damage(projectile.damage);
           return true;
         } else {
-          console.log('projectile not yet active');
           return false;
         }
       } else {

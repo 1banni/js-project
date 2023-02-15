@@ -23,12 +23,6 @@ export default class Projectile extends Particle{
     this.drawCount = 0;
     [this.dx, this.dy] = Util.scale(dir, speed);
 
-
-    console.log('playerX, playerY, incrX, incrY, PROJECTILE.CUSHION');
-    console.log(playerX, playerY, incrX, incrY, PROJECTILE.CUSHION);
-    console.log('this.x, this.y, this.dx, this.dy');
-    console.log(this.x, this.y, this.dx, this.dy);
-
     this.color = PROJECTILE.COLOR;
     this.bounces = PROJECTILE.BOUNCES;
   }
@@ -47,7 +41,6 @@ export default class Projectile extends Particle{
     ctx.closePath();
     this.drawCount++;
     if (this.drawCount > 3) {
-      console.log('bullet active');
       this.active = true;
     }
     this.update();
@@ -61,10 +54,8 @@ export default class Projectile extends Particle{
     // if (x === -1) this.reverseDX();
     // if (y === -1) this.reverseDY();
     if (edgeX > 0) {
-      console.log('updating edgeX');
       this.x = edgeX;
     } else if (edgeY > 0) {
-      console.log('updating edgeY');
       this.y = edgeY;
     }
     this.reverseDir(x, y);

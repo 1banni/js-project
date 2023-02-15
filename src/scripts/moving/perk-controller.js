@@ -17,17 +17,14 @@ export default class PerkController {
     this.projImg = new Image();
     this.projImg.src = './assets/greenbars.png';
     // this.addHeart.
-    console.log('in constructor');
     this.generatePerks();
   }
 
   generatePerks () {
-    console.log('generating perks');
     let params = [this.numMedpaks, this.numProjectiles, this.numNos];
     params.forEach( (param, idx) => {
       let tik = 0;
       while (tik++ < param) {
-        console.log(`adding perk ${idx}`);
         this.addPerk(idx);
       }
     });
@@ -46,22 +43,15 @@ export default class PerkController {
   }
 
   collideWith(player) {
-    // return this.perks.some( (perk, idx) => {
-    // console.log('this.perks - before');
-    // console.log(this.perks);
     this.perks = _.reject(this.perks, (perk) => {
       if (perk.collideWith(player)) {
         player.givePerk(perk.type);
-        // this.deleteAtIndex(perk, idx);
         return true;
       } else {
-        console.log('inside of false');
         return false;
       }
     });
 
-    // console.log('this.perks - after');
-    // console.log(this.perks);
   }
 
   addPerk(type) {
