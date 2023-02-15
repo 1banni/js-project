@@ -45,7 +45,7 @@ export const BRIDGES = {
   HORIZONTAL_HEIGHT: 75,
 }
 
-const CUSHION = MAP.BORDER_WIDTH + 25;
+const CUSHION = MAP.BORDER_WIDTH + 50;
 
 export const PLAYER = {
   NUMBER: 2,
@@ -83,18 +83,18 @@ export const PERK = {
     TYPE: 2,
     SIZE: 40,
   },
-  SECONDS_APPEARING: 5,
-  ROUND_LENGTH: 6,
+  SECONDS_APPEARING: 10,
+  ROUND_LENGTH: 12,
   ROUNDS: {
-    0: {MEDPAKS: 0, AMMO: 2, NOS: 4},
+    0: {MEDPAKS: 0, AMMO: 0, NOS: 4},
     1: {MEDPAKS: 1, AMMO: 4, NOS: 4},
     2: {MEDPAKS: 2, AMMO: 6, NOS: 4},
     3: {MEDPAKS: 1, AMMO: 5, NOS: 4},
     4: {MEDPAKS: 1, AMMO: 2, NOS: 4},
     5: {MEDPAKS: 2, AMMO: 10, NOS: 4},
-    6: {MEDPAKS: 3, AMMO: 15, NOS: 4},
-    7: {MEDPAKS: 8, AMMO: 40, NOS: 4},
-    8: {MEDPAKS: 2, AMMO: 20, NOS: 4}
+    6: {MEDPAKS: 3, AMMO: 12, NOS: 4},
+    7: {MEDPAKS: 8, AMMO: 10, NOS: 4},
+    8: {MEDPAKS: 2, AMMO: 8, NOS: 4}
   }
 }
 

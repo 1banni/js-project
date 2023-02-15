@@ -64,7 +64,6 @@ export default class Game {
   }
 
   endGame (survivingPlayers) {
-    // this.ctx.stroke
     this.ctx.fillStyle = 'white';
     this.ctx.strokeStyle = 'white';
     this.ctx.font = '48px arial';

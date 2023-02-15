@@ -1,22 +1,21 @@
 # Hover Duel
 
-The goal is to pop/destroy your opponents’ balloons (lives) before your own balloons are popped; the game is similar to Mario Kart’s Battle Mode ([https://www.mariowiki.com/Battle_Mode](https://www.mariowiki.com/Battle_Mode)). The user can drive around the grid with WASD, fire projectiles at opponents and perform other moves with other keys. Players will lose health when hit by projectiles. Initially, the game will be 2-player with no CPUs.
+Hover Duel is an arena demolition game where the goal is to pop/destroy your opponents’ balloons (lives) before your own balloons are popped. The game is similar to Mario Kart’s Battle Mode ([https://www.mariowiki.com/Battle_Mode](https://www.mariowiki.com/Battle_Mode)). The user can drive around the grid with WASD, fire projectiles at opponents and perform other moves with other keys. Players will lose health when hit by projectiles. Currently, the game is 2-player with no CPUs.
 
-The user’s perspective will be a fixed aerial view of the map. While appearing 2D, the map will have ramps and/or bridges and sections that are higher, lower, or seperated from others. The mouse will not be utilized outside of menu navigation.
+The user’s perspective will be a fixed aerial view of the map. While appearing 2D, the map will have ramps and/or bridges and sections that are higher, lower, or seperated from others. The mouse is not be utilized outside of menu navigation.
 
 
 ## Functionality & MVPs
-This game will include the following features:
-- Drive around the map in go carts with WASD or other keys
-- Launch projectiles at opponent(s)
-- Players drive over randomly appearing projectiles to acquire
-- Collision detection (projectiles colliding with go carts)
+This game includes the following features:
+- Drive around the map in go carts with WASD (Player 1) and IJKL (Player 2)
+  - Driving physics (turn radius impacted by speed)
+- Players shoot projectiles that bounce off of walls / expire over time
+- Rounds of spawning perks (ammo + health) that players can drive over to acquire
+- Collision detection (projectiles colliding with go carts, walls, and other map objects)
+- Meters that represent players' remaining health and ammunition
 
-Other functionality
-- This project will include instructions and a README.
-- Navigate the game menu, select settings, and start game
-- See meters or graphics that represent players' remaining health/lives
-- Player's ability to make sharp turns will vary with speed
+
+
 
 ## WireFrame
 ![Screenshot](Homepage.png)
