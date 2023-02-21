@@ -124,24 +124,26 @@ export default class Player extends Particle {
   }
 
   drawPlayer(ctx) {
-    ctx.fillStyle = this.color;
-    ctx.strokeStyle = 'white';
+    ctx.fillStyle = 'black';
     ctx.shadowColor = this.color;
-    ctx.shadowBlur = 30;
-    ctx.lineWidth = 7;
+    ctx.strokeStyle = this.color;
+
+    ctx.shadowBlur = 40 * (0.7 - this.speed / this.max_speed);
     ctx.beginPath();
+    ctx.lineWidth = 5;
     ctx.arc(this.x, this.y, this.radius,
       0, 2 * Math.PI, false);
     ctx.fill();
+    ctx.stroke();
     ctx.closePath();
     ctx.shadowBlur = 0;
   }
 
   drawLine(ctx) {
     let [dx, dy] = Util.scale(Util.directionFrom(this.angle), PLAYER.RADIUS);
-    ctx.strokeStyle = '#ffffff';
+    ctx.strokeStyle = this.color;
     ctx.fillStyle = this.color;
-    ctx.lineWidth = 10;
+    ctx.lineWidth = 5;
     ctx.beginPath();
     ctx.moveTo(this.x, this.y);
     ctx.lineTo(this.x + dx, this.y + dy);
@@ -182,22 +184,25 @@ export default class Player extends Particle {
   drawAmmo(ctx) {
     let x;
     let y1 = MAP.BORDER_HEIGHT + HEALTH_BAR.HEIGHT - 10;
-    let dy = 10;
+    let dy = 7;
     let gap;
     let rightAdj = 0;
     if (this.idx === 0) {
       x = (this.idx === 0 ? MAP.BORDER_WIDTH * 3 / 6 : MAP.DIM_X - MAP.BORDER_WIDTH * 3 / 6 - HEALTH_BAR.WIDTH);
       gap = 3;
     } else {
-      x = (this.idx === 0 ? MAP.BORDER_WIDTH * 3 / 6 : MAP.DIM_X - MAP.BORDER_WIDTH * 3 / 6 - HEALTH_BAR.WIDTH);
+      x = (this.idx === 0 ? MAP.BORDER_WIDTH * 3 / 6 : MAP.DIM_X - MAP.BORDER_WIDTH * 3.5 / 6 - HEALTH_BAR.WIDTH);
       gap = 3;
     }
 
 
     for (let i = 0; i < this.projectiles; i++) {
       ctx.beginPath();
-      ctx.fillStyle = 'red';
+      ctx.fillStyle = '#ff5c00'
+      // ctx.strokeStyle = '#FF5c00';
+      // ctx.lineWidth = 3;
       ctx.roundRect(x + gap - rightAdj, y1, 30 - gap, dy);
+      // ctx.stroke();
       ctx.fill();
       ctx.closePath();
       y1 -= 15;

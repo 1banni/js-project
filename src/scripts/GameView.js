@@ -5,10 +5,6 @@ export default class GameView {
     this.ctx = ctx;
     this.game = new Game(ctx);
   }
-
-  start() {
-
-  }
 }
 // PROOF - consider adding below methods to the constructor later
 // this.dimensions = {width: canvas.width, height: canvas.height};

@@ -73,7 +73,5 @@ export default class Projectile extends Particle{
   reverseDY() {
     this.dy *= -1;
   }
-
-
 }
 
