@@ -100,7 +100,7 @@ export const PERK = {
 
 
 export const PROJECTILE = {
-  COLOR: '#dd0000',
+  COLOR: '#ff5c00',
   RADIUS: 15,
   DELAY: 7,
   DAMAGE: 40,

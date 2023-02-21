@@ -13,11 +13,9 @@ export default class EdgeController {
   drawCanvas(ctx) {
     let wp = MAP.BORDER_WIDTH;
 
+    // Map Background Color
     ctx.fillStyle = MAP.COLORS.BORDER;
     ctx.fillRect(0, 0, MAP.DIM_X, MAP.DIM_Y);
-
-    ctx.fillStyle = MAP.COLORS.GROUND;
-    ctx.fillRect(wp, 0, MAP.DIM_X - 2 * wp, MAP.DIM_Y);
   }
 
   drawLayer(ctx, layer) {
@@ -26,7 +24,7 @@ export default class EdgeController {
       if (Math.max(...edge.layers) === layer) edge.draw(ctx);
     });
 
-    // only draw shade on layer 0 (not included in edges due to lack of
+    // draw bridge's road
     // ... intersects / collision functionality)
     if (layer === 1) {
       this.drawShade(ctx, 275, 375, 300, 500, 500, 0, 'rgba(150, 150, 150, 0.7)');
@@ -47,15 +45,19 @@ export default class EdgeController {
 
   createVert () {
     this.createVertBorder();
-    // Bridges open
+
     for (let i = 200; i < 1200; i += 750) {
+      //   // top left /
+      // Top Platform Full Side Edges
       this.edges.push(new Edge(
         i, 150, // x1, y1
         i, 350, // x2, y2
         [0, 1], // layers
         (MAP.COLORS.PLATFORMS) // color
-      ));
+        ));
+        // }
 
+      // Bottom Platform Full Side Edges
       this.edges.push(new Edge(
         i, 450, // x1, y1
         i, 650, // x2, y2
@@ -63,11 +65,12 @@ export default class EdgeController {
         (MAP.COLORS.PLATFORMS) // color
       ));
     }
+
     // Platform
     for (let i = 450; i < 750; i += 250) {
       this.edges.push(new Edge(i, 150 - 5, // x1, y1
       i, 350, // x2, y2
-      [0], Util.lightenColor(MAP.COLORS.PLATFORMS) // layer, color
+      [0], MAP.COLORS.PLATFORMS // layer, color
       ));
       this.edges.push(new Edge(i, 450 - 5, // x1, y1
       i, 650, // x2, y2
@@ -81,9 +84,23 @@ export default class EdgeController {
         [1], // layers
         Util.lightenColor(MAP.COLORS.PLATFORMS) // color
       ));
+
+      this.edges.push(new Edge(
+        i, 270, // x1, y1
+        i, 350, // x2, y2
+        [1], // layers
+        MAP.COLORS.PLATFORMS // color
+      ));
+
       this.edges.push(new Edge(
         i, 450, // x1, y1
         i, 520, // x2, y2
+        [1], // layers
+        MAP.COLORS.PLATFORMS // color
+      ));
+      this.edges.push(new Edge(
+        i, 605, // x1, y1
+        i, 650, // x2, y2
         [1], // layers
         MAP.COLORS.PLATFORMS // color
       ));
@@ -166,10 +183,10 @@ export default class EdgeController {
       MAP.COLORS.PLATFORMS
     ));
 
-    // smthn
+    // Platform borders with bridges
     let arr = [200 - 5, 375, 700+5, 875]
     arr.forEach( (el, idx) => {
-      // intersecting platform borders full
+      // intersecting platform borders full (layer 0)
       if (idx % 2 === 0) {
         for (let j = 350 - 5; j < 500; j += 100 + 5) {
           this.edges.push(new Edge(el, j, // x1, y1
@@ -178,7 +195,7 @@ export default class EdgeController {
           ));
         }
       }
-      // intersecting platform borders partial
+      // intersecting platform borders partial (layer 1)
       for (let j = 350 - 5; j < 500; j += 100 + 5) {
         this.edges.push(new Edge(el, j, // x1, y1
         el + 75, j, // x2, y2
@@ -187,7 +204,7 @@ export default class EdgeController {
       }
     });
 
-    // Bridges
+    // Horizontal Bridges
     for (let i = 200, j = 275; i < 600; i += 325, j += 325) {
       let x1 = 425;
       let x2 = 725;
@@ -205,31 +222,37 @@ export default class EdgeController {
   createHoriBorder () {
     let wallPad = MAP.BORDER_WIDTH;
     let ceilPad = MAP.BORDER_WIDTH / 2;
+
     /***** Top *****/
-    // Game Border Left
-    this.edges.push(new Edge(wallPad, ceilPad + 5, // x1, y1
+    // Game Border Top Left
+    this.edges.push(new Edge(
+      wallPad, ceilPad + 5, // x1, y1
       250, ceilPad + 5, // x2, y2
       [0, 1], MAP.COLORS.EDGES // layer, color
     ));
-    // Game Border Middle
-    this.edges.push(new Edge(MAP.DIM_X / 2 * 0.8, ceilPad + 5, // x1, y1
+
+    // Game Border Top Middle
+    this.edges.push(new Edge(
+      MAP.DIM_X / 2 * 0.8, ceilPad + 5, // x1, y1
       MAP.DIM_X / 2 * 1.2, ceilPad + 5, // x2, y2
       [0, 1], MAP.COLORS.EDGES // layer, color
     ));
-    // Game Border Right
-    this.edges.push(new Edge(950, ceilPad + 5, // x1, y1
+
+    // Game Border Top Right
+    this.edges.push(new Edge(
+      950, ceilPad + 5, // x1, y1
       MAP.DIM_X - wallPad, ceilPad + 5, // x2, y2
       [0, 1], MAP.COLORS.EDGES // layer, color
     ));
 
 
-    /***** Middle *****/
-    // Game Border Left
+    /***** Bottom *****/
+    // Game Border Bottom Left
     this.edges.push(new Edge(wallPad, MAP.DIM_Y - (ceilPad + 5), // x1, y1
       250, MAP.DIM_Y - (ceilPad + 5), // x2, y2
       [0, 1], MAP.COLORS.EDGES // layer, color
     ));
-    // Game Border Middle
+    // Game Border Bottom Middle
     this.edges.push(new Edge(MAP.DIM_X / 2 * 0.8, MAP.DIM_Y - (ceilPad + 5), // x1, y1
       MAP.DIM_X / 2 * 1.2, MAP.DIM_Y - (ceilPad + 5), // x2, y2
       [0, 1], MAP.COLORS.EDGES // layer, color
@@ -240,7 +263,7 @@ export default class EdgeController {
       [0, 1], MAP.COLORS.EDGES // layer, color
     ));
 
-    // Game Border Right
+    // Game Border Bottom Right
     this.edges.push(new Edge(MAP.DIM_X - wallPad, 0, // x1, y1
       MAP.DIM_X - wallPad, MAP.DIM_Y, // x2, y2
       [0, 1], MAP.COLORS.EDGES // layer, color
