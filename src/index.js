@@ -6,8 +6,10 @@ import Game from "./scripts/Game.js";
 document.addEventListener("DOMContentLoaded", () => {
   const startGameButton = document.getElementById('start-game');
   const restartGameButton = document.getElementById('restart-game');
+  const instructionsButton = document.getElementById('instructions-btn');
   startGameButton.addEventListener('click', startGame);
   restartGameButton.addEventListener('click', startGame);
+  instructionsButton.addEventListener('click', showInstructions);
 
   function startGame() {
     const gameWindow = document.getElementById('game-window');
@@ -21,5 +23,18 @@ document.addEventListener("DOMContentLoaded", () => {
     let CANVAS_HEIGHT = canvas.height = 800;
     let gameView = new GameView(ctx);
     const menu = document.getElementById('menu');
+  }
+
+  function showInstructions() {
+    console.log('showing em');
+    const instructions = document.getElementById('instructions');
+    console.log('instructions.classList');
+    if (Array.from(instructions.classList).includes('hidden')) {
+      instructions.classList.remove("hidden")
+
+    } else {
+      instructions.classList.add("hidden")
+
+    }
   }
 });

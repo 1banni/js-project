@@ -29,12 +29,12 @@
     <div id="game-window" class="hidden" >
       <div class="canvas-wrapper">
         <canvas id="game-canvas" class="game-canvas" width="1200" height="800"></canvas>
-        <div id="end-screen-wrapper">
+        <!-- <div id="end-screen-wrapper">
           <div id="end-screen">
             <h2>
               <div id="replay-button">Play Again</div>
           </div>
-        </div>
+        </div> -->
       </div>
       <!-- <h1>Hover Duel</h1> -->
       <div class="instructions">
@@ -70,6 +70,7 @@
         </div>
         <div class="buttons">
           <button id="restart-game" class="restart-game" onclick="{() => startGame()}">Restart Game</button>
+          <button id="main-menu" class="restart-game" onclick="{() => startGame()}">Restart Game</button>
         </div>
           <div>
             <div class='external-links'>
@@ -100,9 +101,15 @@
       <button id="start-game" class="start-game" onclick="{() => startGame()}">
         Start Game
       </button>
-      <!-- <button id="instructions" class="instructions" onclick="{() => showInstructions()}">
+      <button id="instructions-btn" class="instructions-btn" onclick="{() => showInstructions()}">
         Instructions
-      </button> -->
+      </button>
+      <div id="instructions" class="hidden">
+        <p>Hover duel is a 2-player demolition game where you drive around, pick up ammo (orange bars) and health (hearts), and launch projectiles at your opponent. Last player standing wins.</p>
+        <p>Driving controls work like a car, with gas, brake/reverse, and turning. The map has two levels; the upper level can be accessed by entering any of the 4 platforms. These platforms are connected by bridges which can be driven over/under.</p>
+        <p>Hover Duel is intended to be reminiscent of Mario Kart Battle Mode, where you pop balloons of opponents to win. </p>
+        <p>Find a friend to play with you! It's no fun alone.</p>
+      </div>
     </div>
 
   </div>

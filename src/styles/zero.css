@@ -143,8 +143,8 @@ button:hover {
 
 .game-canvas {
   width: 60vw;
-  height: 640px;
-  height: 85vh;
+  /* height: 640px; */
+  /* height: 85vh; */
   display: block;
   padding-left: 0;
   padding-right: 0;
@@ -257,6 +257,19 @@ button:hover {
   margin-left: 25px;
   background-color: transparent;
 }
+
+#instructions {
+  width: 600px;
+  text-align: center;
+  color: white;
+  font-family: var(--ff);
+}
+
+#instructions p {
+  margin-top: 10px;
+  line-height: 1.3;
+}
+
 /*
 #container {
   border: 2px solid red;
