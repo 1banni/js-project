@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
     gameWindow.classList.remove("hidden");
     const mainMenu = document.getElementById('main-menu');
     mainMenu.classList.add("hidden");
+    startGameButton.classList.add("hidden")
 
     const canvas = document.getElementById('game-canvas');
     const ctx = canvas.getContext("2d");

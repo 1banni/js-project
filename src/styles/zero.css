@@ -95,9 +95,6 @@ button:hover {
   margin-bottom: 100px;
 }
 
-.main-menu {
-
-}
 
 .header-w {
   color: white;
@@ -138,11 +135,14 @@ button:hover {
 }
 
 .canvas-wrapper {
+  margin-top: 20px;
   position: relative;
+  height: 650px;
 }
 
 .game-canvas {
   width: 60vw;
+  height: 650px;
   /* height: 640px; */
   /* height: 85vh; */
   display: block;
@@ -162,12 +162,12 @@ button:hover {
   z-index: 15;
   position: relative;
   width: 1200;
-  height: 800;
+  /* height: 800; */
   display: block;
 }
 
 .start-game {
-
+  /* DO NOT USE */
 }
 
 .game-window {
@@ -263,6 +263,7 @@ button:hover {
   text-align: center;
   color: white;
   font-family: var(--ff);
+  margin-bottom: 30px;
 }
 
 #instructions p {
