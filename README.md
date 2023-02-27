@@ -1,8 +1,10 @@
 # Hover Duel
 
-Hover Duel is an arena demolition game where the goal is to pop/destroy your opponents’ balloons (lives) before your own balloons are popped. The game is similar to Mario Kart’s Battle Mode ([https://www.mariowiki.com/Battle_Mode](https://www.mariowiki.com/Battle_Mode)). The user can drive around the grid with WASD, fire projectiles at opponents and perform other moves with other keys. Players will lose health when hit by projectiles. Currently, the game is 2-player with no CPUs.
+Hover Duel is a multiplayer battle game set in space where you launch bouncing projectiles at your opponent's craft to destroy it. The map has multiple levels/floors and the game evolves through a series of rounds. Players can pick up health and ammo and drive across platform bridges. 
 
-The user’s perspective will be a fixed aerial view of the map. While appearing 2D, the map will have ramps and/or bridges and sections that are higher, lower, or seperated from others. The mouse is not be utilized outside of menu navigation.
+The game is similar to Mario Kart’s Battle Mode ([https://www.mariowiki.com/Battle_Mode](https://www.mariowiki.com/Battle_Mode)). The user can drive around the grid with WASD, fire projectiles at opponents and fire projectiles with other keys. Players will lose health when hit by projectiles. Currently, the game is 2-player with no CPUs.
+
+The user’s perspective will be a fixed aerial view of the map. While appearing 2D, the map has platforms and aerial bridges. The mouse is not be utilized outside of menu navigation.
 
 
 ## Functionality & MVPs
