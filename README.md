@@ -4,6 +4,11 @@ Hover Duel is an arena demolition game where the goal is to pop/destroy your opp
 
 The user’s perspective will be a fixed aerial view of the map. While appearing 2D, the map will have ramps and/or bridges and sections that are higher, lower, or seperated from others. The mouse is not be utilized outside of menu navigation.
 
+<p>Live link: <a href="https://1banni.github.io/js-project/" target="_blank" rel="noopener noreferrer">Hover Dual</a></p>
+
+## Screenshot
+![Screenshot](hover-duel-screenshot-1.png)
+
 
 ## Functionality & MVPs
 This game includes the following features:
@@ -15,8 +20,6 @@ This game includes the following features:
 - Meters that represent players' remaining health and ammunition
 
 
-## Screenshot
-![Screenshot](hover-duel-screenshot-1.png)
 
 ## Features / Components
 ### Particle Class
