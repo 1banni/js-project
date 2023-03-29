@@ -1,15 +1,7 @@
-/*
-Note: several methods (norm, scale, dir, dist) in this module are based on code from
-the App Academy project below.
-https://open.appacademy.io/learn/ch---oct-2022-sf-cohort/javascript/asteroids
-*/
 import _ from "lodash";
 import { MAP } from '../GameParams';
 
-
-
 export const Util = {
-
   // Generate random coordinates
   randomCoords(x1, y1, width, height, spacing) {
     let sp = spacing; // (i.e., for preventing map/perk overlap)

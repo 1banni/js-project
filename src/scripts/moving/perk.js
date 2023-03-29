@@ -1,9 +1,5 @@
 import { PERK } from "../GameParams";
 
-// ALL PERKS WILL HAVE: POSITION, taken (status, turns to true in player inventory),
-// ALL PERK SUBCLASSES MUST HAVE A METHOD TO ADD THEMSELVES TO PLAYER INVENTORY / REMOVE FROM MAP
-// UPON COLLISION
-
 export default class Perk {
   constructor(x, y, type) {
     this.x = x;
@@ -18,7 +14,7 @@ export default class Perk {
     // Perks only exist on layer 0
     if (player.layer > 0) return false;
 
-    // Is player close enough to the perk?
+    // Is player close enough to the perk to collide?
     let dist = Math.sqrt((this.x - player.x) ** 2 + (this.y - player.y) ** 2);
     if (dist < player.radius * 3) {
       return true;

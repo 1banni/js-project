@@ -11,7 +11,6 @@ export default class PerkController {
     this.numNos = option.NOS;
 
     this.heartImg = new Image();
-    // this.heartImg.src = './assets/fuel-pickup.png';
     this.heartImg.src = './assets/heart.png';
     this.projImg = new Image();
     this.projImg.src = './assets/ammo.png';
@@ -93,19 +92,13 @@ export default class PerkController {
   }
 
   draw(ctx) {
-    // let projCt = 0;
-    // let maxProj = 3;
-
     this.perks.forEach( (perk) => {
       if (perk.type === 0) { // medpak / heart
         ctx.drawImage.bind(ctx)(this.heartImg, perk.x, perk.y, PERK.HEART.SIZE, PERK.HEART.SIZE);
       }
       else if (perk.type === 1) { // reload
-        // if (projCt++ < maxProj)
         ctx.drawImage.bind(ctx)(this.projImg, perk.x, perk.y, PERK.PROJ.SIZE, PERK.PROJ.SIZE);
       }
     });
-
   }
-
 }

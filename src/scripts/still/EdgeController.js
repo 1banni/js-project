@@ -24,13 +24,11 @@ export default class EdgeController {
       if (Math.max(...edge.layers) === layer) edge.draw(ctx);
     });
 
-    // draw bridge's road
-    // ... intersects / collision functionality)
+    // draw bridge's road/platform
+    // excludes from edges due to lack of collision functionality
     if (layer === 1) {
       this.drawShade(ctx, 275, 375, 300, 500, 500, 0, 'rgba(150, 150, 150, 0.7)');
       this.drawShade(ctx, 425, 725, 200, 275, 0, 325, 'rgba(150, 150, 150, 0.7)');
-      // this.drawShade(ctx, 275, 375, 300, 500, 500, 0, 'rgba(150, 255, 255, 0.7)');
-      // this.drawShade(ctx, 425, 725, 200, 275, 0, 325, 'rgba(150, 255, 255, 0.7)');
     }
   }
 
@@ -47,7 +45,6 @@ export default class EdgeController {
     this.createVertBorder();
 
     for (let i = 200; i < 1200; i += 750) {
-      //   // top left /
       // Top Platform Full Side Edges
       this.edges.push(new Edge(
         i, 150, // x1, y1
@@ -55,7 +52,6 @@ export default class EdgeController {
         [0, 1], // layers
         (MAP.COLORS.PLATFORMS) // color
         ));
-        // }
 
       // Bottom Platform Full Side Edges
       this.edges.push(new Edge(
@@ -195,6 +191,7 @@ export default class EdgeController {
           ));
         }
       }
+
       // intersecting platform borders partial (layer 1)
       for (let j = 350 - 5; j < 500; j += 100 + 5) {
         this.edges.push(new Edge(el, j, // x1, y1
@@ -252,11 +249,13 @@ export default class EdgeController {
       250, MAP.DIM_Y - (ceilPad + 5), // x2, y2
       [0, 1], MAP.COLORS.EDGES // layer, color
     ));
+
     // Game Border Bottom Middle
     this.edges.push(new Edge(MAP.DIM_X / 2 * 0.8, MAP.DIM_Y - (ceilPad + 5), // x1, y1
       MAP.DIM_X / 2 * 1.2, MAP.DIM_Y - (ceilPad + 5), // x2, y2
       [0, 1], MAP.COLORS.EDGES // layer, color
     ));
+    
     // Game Border Right
     this.edges.push(new Edge(950, MAP.DIM_Y - (ceilPad + 5), // x1, y1
       MAP.DIM_X - wallPad, MAP.DIM_Y - (ceilPad + 5), // x2, y2

@@ -83,24 +83,9 @@ export default class Game {
   checkIntersections() {
     this.players.forEach(player => this.edgeController.intersects(player)); // Map
     this.projectileController.checkIntersections(); // Projectiles
-    // Other Players
-    // for (let i = 0; i < this.players.length; i++) {
-    //   for (let j = i+1; j < this.players.length; j++) {
-    //     // console.log('this.players[i].collideWith(this.players[j])', this.players[i].collideWith(this.players[j]));
-          // IF DIST OF THIS IS LESS THAN 2X RADIUS, PLAYER ARE COLLIDING
-          // GET THE VECTOR (SUBTRACT P2 FROM P1), THEN SCALE THAT VECTOR TO BE LENGTH R
-          // let p1 = this.players[i];
-    //       let p2 = this.players[j];
-    //
-    //       // PROOF - TBU
-
-    //     }
-    //   }
-    // }
   }
 
   checkCollisions () { // Checks each player for collision with projectile.
-    // projectile.collideWith method calls damagePlayer()
     this.players.forEach( player => this.projectileController.collideWith(player) );
     this.players.forEach( player => this.perkController.collideWith(player) );
   }
@@ -108,28 +93,22 @@ export default class Game {
   draw (ctx) {
     ctx.clearRect(0, 0, MAP.DIM_X, MAP.DIM_Y);
     this.edgeController.drawCanvas(ctx);
+
     let layer = 0;
     this.edgeController.drawLayer(ctx, layer);
     this.projectileController.drawLayer(ctx, layer);
     this.players.forEach(player => player.drawLayer(ctx, layer));
     this.perkController.draw(ctx);
 
-    // // // Layer 1
     layer = 1;
     this.edgeController.drawLayer(ctx, layer);
     this.projectileController.drawLayer(ctx, layer);
     this.players.forEach(player => player.drawLayer(ctx, layer));
-
-    // Top Layer (perks)
-
   }
-  // draw canvas -> grid, projectiles, players lvl 1, then lvl 2 ->
-
-
 
   animate () {
-    this.checkIntersections(); // PROOF - UPDATE FOR LAYERS?
-    this.checkCollisions(); // PROOF - UPDATE FOR LAYERS?
+    this.checkIntersections();
+    this.checkCollisions(); 
     this.draw(this.ctx);
     this.update();
     if (!this.players.every(player => player.isAlive())) {

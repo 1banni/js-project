@@ -10,8 +10,6 @@ export default class PlayerHealth {
     this.y = MAP.BORDER_HEIGHT; //MAP.DIM_Y / 2;
 
     let incrX = playerIndex * (HEALTH_BAR.WIDTH + HEALTH_BAR.PADDING/2);
-    // this.x = Math.floor(MAP.DIM_X - HEALTH_BAR.WIDTH - HEALTH_BAR.PADDING - incrX - 50);
-    // this.y = Math.floor(MAP.DIM_Y * 1 / 160);
   }
 
   damage(points) {
@@ -21,7 +19,5 @@ export default class PlayerHealth {
   restore(points) {
     this.health = Math.min(this.maxHealth, this.health + points);
   }
-
-
 }
 

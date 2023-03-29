@@ -26,33 +26,34 @@ export default class Particle {
 
   onPlatform () {
     let sp = MAP.BORDER_WIDTH;
+
     // Checks if both x (i) and y (o) coordinates of particle are on a platform
-    let i = false;
-    let o = false;
+    let x_on_platform = false;
+    let y_on_platform = false;
 
     if (this.x > MAP.PLATFORM_POS[0][0]
      && this.x < MAP.PLATFORM_POS[0][0] + MAP.PLATFORM_WIDTH - sp)
     {
-      i = true;
+      x_on_platform = true;
     }
     else if (this.x > MAP.PLATFORM_POS[2][0]
           && this.x < MAP.PLATFORM_POS[2][0] + MAP.PLATFORM_WIDTH)
     {
-      i = true;
+      x_on_platform = true;
     }
 
     if (this.y > MAP.PLATFORM_POS[0][1]
      && this.y < MAP.PLATFORM_POS[0][1] + MAP.PLATFORM_HEIGHT)
     {
-      o = true;
+      y_on_platform = true;
     }
     else if (this.y > MAP.PLATFORM_POS[1][1]
       && this.y < MAP.PLATFORM_POS[1][1] + MAP.PLATFORM_HEIGHT)
     {
-      o = true;
+      y_on_platform = true;
     }
 
-    return i && o;
+    return x_on_platform && y_on_platform;
   }
 
   beyondPlatform() {
@@ -68,11 +69,12 @@ export default class Particle {
 
     // if below or above top/bottom of platforms, set layer to 0
     if (this.beyondPlatform()) this.layer = 0;
-  }
-    // For debugging
+
+    // See layer changes in console
     // if (this.layer !== prevLayer) {
     //   console.log(`${this.constructor.name} ${this.idx}'s layer changed from ${prevLayer} to ${this.layer}`);
     // }
+  }
 
   // Future Update: Make non-static
   static inbound(x, y, radius, alive) {
@@ -84,16 +86,11 @@ export default class Particle {
     let x1 = MAP.DIM_X - MAP.BORDER_WIDTH;
     let y1 = MAP.DIM_Y - MAP.BORDER_HEIGHT + space;
 
-    // if (x < x0 + radius) {
-    //   x = x0 + radius + space*2;
-    // } else if (x > x1 - radius) {
-    //   x = x1 - radius - space*2;
-    // }
-
     if (y < y0 - radius) {
-      y = y1;
-    } else if (y > y1 + radius - 1) { // NOTE: NEGATIVE ONE IS NECESSARY TO PREVENT FLICKERING
-      y = y0;
+        y = y1;
+    } else if (y > y1 + radius - 1) {
+        // NOTE: NEGATIVE ONE IS NECESSARY TO PREVENT FLICKERING
+        y = y0;
     }
 
     return [x, y];

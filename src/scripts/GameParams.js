@@ -1,5 +1,3 @@
-
-
 export const MAP = {
   DIM_X: 1200,
   DIM_Y: 800,
@@ -98,14 +96,12 @@ export const PERK = {
   }
 }
 
-
 export const PROJECTILE = {
   COLOR: '#ff5c00',
   RADIUS: 15,
   DELAY: 7,
   DAMAGE: 40,
   SPEED: 8,
-  // CUSHION: -10,
   CUSHION: 0,
   BOUNCES: 6
 }

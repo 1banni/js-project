@@ -50,7 +50,6 @@ export default class Player extends Particle {
     if (pressedKeys.left) this.angle = (this.angle + 1 / PLAYER.TURN_RADIUS) % 360;
     if (pressedKeys.right) this.angle = (this.angle - 1 / PLAYER.TURN_RADIUS) % 360;
     if (pressedKeys.blast) {
-      // if statement prevents multiple fires on one key press
       if (this.blasters) {
         this.blasters = false;
         this.shoot();
@@ -109,7 +108,6 @@ export default class Player extends Particle {
   reverseDir(dxMult, dyMult) { // this.angle = Util.getAngle(this.dx, this.dy);
     this.dx = this.dx * dxMult;
     this.dy = this.dy * dyMult;
-
   }
 
   drawLayer(ctx, layer) {
@@ -131,8 +129,7 @@ export default class Player extends Particle {
     ctx.shadowBlur = 40 * (0.7 - this.speed / this.max_speed);
     ctx.beginPath();
     ctx.lineWidth = 5;
-    ctx.arc(this.x, this.y, this.radius,
-      0, 2 * Math.PI, false);
+    ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, false);
     ctx.fill();
     ctx.stroke();
     ctx.closePath();
@@ -155,25 +152,20 @@ export default class Player extends Particle {
     ctx.shadowBlur = 0;
     ctx.strokeStyle = '#ffffff';
     ctx.lineWidth = 3;
-    // ctx.fillStyle = null;
-    // ctx.fillStyle = '#000000';
     ctx.strokeRect(this.health.x, this.health.y, HEALTH_BAR.WIDTH, HEALTH_BAR.HEIGHT, 5);
 
     // Draw Player Color Bar
     let gap = 3;
-    // let healthWidth = Math.floor((this.health.health / this.health.maxHealth) * HEALTH_BAR.WIDTH);
     let healthHeight = Math.floor((this.health.health / this.health.maxHealth) * HEALTH_BAR.HEIGHT);
     ctx.fillStyle = '#33ff33';
     ctx.fillRect(this.health.x + gap, HEALTH_BAR.HEIGHT - Math.max(0, healthHeight) + this.health.y + gap, HEALTH_BAR.WIDTH - gap * 2, healthHeight - gap * 2);
 
-    // ctx.fillStyle = playerColor;
     // Draw 'Player #{playerIndex} Health'
     ctx.font = "bold 17pt arial";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
     ctx.fillStyle = this.health.color;
     if (this.idx === 0) {
-      // ctx.fillRect(this.health.x + (HEALTH_BAR.WIDTH / 2) + 12, this.health.y - 15, 10, 5);
       ctx.fillText(`Player ${this.idx + 1}`, this.health.x + (HEALTH_BAR.WIDTH / 2) + 18, this.health.y - 25);
     } else {
       ctx.fillText(`Player ${this.idx + 1}`, this.health.x + (HEALTH_BAR.WIDTH / 2) - 18, this.health.y - 25);
@@ -199,28 +191,10 @@ export default class Player extends Particle {
     for (let i = 0; i < this.projectiles; i++) {
       ctx.beginPath();
       ctx.fillStyle = '#ff5c00'
-      // ctx.strokeStyle = '#FF5c00';
-      // ctx.lineWidth = 3;
       ctx.roundRect(x + gap - rightAdj, y1, 30 - gap, dy);
-      // ctx.stroke();
       ctx.fill();
       ctx.closePath();
       y1 -= 15;
     }
-
-    // ctx.beginPath();
-    // ctx.fillStyle = 'red';
-    // if (this.idx === 0) {
-    //   x = (this.idx === 0 ? MAP.BORDER_WIDTH * 3 / 6 : MAP.DIM_X - MAP.BORDER_WIDTH * 3 / 6 - HEALTH_BAR.WIDTH);
-    //   gap = 3;
-    //   ctx.roundRect(x+gap, MAP.BORDER_HEIGHT + HEALTH_BAR.HEIGHT - 10, 30 - gap, 10);
-    // } else {
-    //   x = (this.idx === 0 ? MAP.BORDER_WIDTH * 3 / 6 : MAP.DIM_X - MAP.BORDER_WIDTH * 3 / 6 - HEALTH_BAR.WIDTH);
-    //   gap = 3;
-    //   ctx.roundRect(x-10, MAP.BORDER_HEIGHT + HEALTH_BAR.HEIGHT - 10, 30 - gap, 10);
-    // }
-    // ctx.fill();
-    // ctx.stroke();
   }
-
 }
